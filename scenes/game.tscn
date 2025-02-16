@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=10 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="PackedScene" uid="uid://byktwux5rrnxo" path="res://scenes/player.tscn" id="1_uhufi"]
 [ext_resource type="Script" path="res://script/problem_manager.gd" id="2_qbmpg"]
+[ext_resource type="PackedScene" uid="uid://c5uda31jw6q3l" path="res://scenes/date.tscn" id="3_ea4ev"]
+[ext_resource type="PackedScene" uid="uid://cfbf3xry8lspc" path="res://scenes/owner.tscn" id="4_tkdp3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mp2s3"]
 size = Vector2(1866, 35)
@@ -16,7 +18,7 @@ size = Vector2(56, 807)
 size = Vector2(1866, 35)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yv04x"]
-size = Vector2(159, 253)
+size = Vector2(73, 92)
 
 [node name="Game" type="Node2D"]
 
@@ -75,20 +77,26 @@ offset_bottom = 19.0
 [node name="TableArea" type="Area2D" parent="Rooms/DiningRoom"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/DiningRoom/TableArea"]
-position = Vector2(3.5, -116.5)
+position = Vector2(0.5, -44)
 shape = SubResource("RectangleShape2D_yv04x")
 
 [node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/TableArea"]
-offset_left = -74.0
-offset_top = -245.0
-offset_right = 81.0
-offset_bottom = 40.0
+offset_left = -36.0
+offset_top = -91.0
+offset_right = 38.0
+offset_bottom = 1.0
 color = Color(0.949283, 0.875069, 0.669471, 1)
 
 [node name="ProblemSpawnPoints" type="Node2D" parent="Rooms/DiningRoom"]
 
 [node name="SpawnPoint1" type="Marker2D" parent="Rooms/DiningRoom/ProblemSpawnPoints"]
-position = Vector2(-693, -103)
+position = Vector2(-637, -38)
 
 [node name="SpawnPoint2" type="Marker2D" parent="Rooms/DiningRoom/ProblemSpawnPoints"]
-position = Vector2(657, -89)
+position = Vector2(525, -49)
+
+[node name="date" parent="." instance=ExtResource("3_ea4ev")]
+position = Vector2(126, -14)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("4_tkdp3")]
+position = Vector2(-136, -16)

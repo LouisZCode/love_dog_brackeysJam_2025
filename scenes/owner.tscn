@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfbf3xry8lspc"]
+
+[ext_resource type="PackedScene" uid="uid://mugof8fim8k1" path="res://scenes/character.tscn" id="1_4cahr"]
+
+[node name="CharacterBody2D" instance=ExtResource("1_4cahr")]
+z_index = 1
+character_name = "owner"
+
+[node name="ColorRect" parent="." index="0"]
+color = Color(0.305882, 0.490196, 1, 1)
