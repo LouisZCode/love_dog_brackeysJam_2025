@@ -226,10 +226,10 @@ bbcode_enabled = true
 text = "Distractions: 0"
 
 [node name="TimerLabel" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 550.0
-offset_top = 20.0
-offset_right = 774.0
-offset_bottom = 100.0
+offset_left = 444.0
+offset_top = 22.0
+offset_right = 668.0
+offset_bottom = 102.0
 bbcode_enabled = true
 fit_content = true
 script = ExtResource("3_tvuu4")
@@ -243,6 +243,31 @@ script = ExtResource("2_qbmpg")
 [node name="DateManager" type="Node" parent="."]
 script = ExtResource("3_deeda")
 initial_love = 25.0
+
+[node name="ProblemSpawnPoints" type="Node2D" parent="."]
+
+[node name="DiningSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
+
+[node name="SpawnPoint1" type="Marker2D" parent="ProblemSpawnPoints/DiningSpawnPoints"]
+position = Vector2(-314, -51)
+
+[node name="SpawnPoint2" type="Marker2D" parent="ProblemSpawnPoints/DiningSpawnPoints"]
+position = Vector2(335, -54)
+
+[node name="KitchenSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
+
+[node name="SpawnPoint4" type="Marker2D" parent="ProblemSpawnPoints/KitchenSpawnPoints"]
+position = Vector2(-1131, -66)
+
+[node name="LivingSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
+
+[node name="SpawnPoint3" type="Marker2D" parent="ProblemSpawnPoints/LivingSpawnPoints"]
+position = Vector2(1125, -73)
+
+[node name="BasementSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
+
+[node name="SpawnPoint5" type="Marker2D" parent="ProblemSpawnPoints/BasementSpawnPoints"]
+position = Vector2(251, 380)
 
 [node name="Rooms" type="Node2D" parent="."]
 
@@ -389,14 +414,6 @@ offset_top = -91.0
 offset_right = 38.0
 offset_bottom = 1.0
 color = Color(0.949283, 0.875069, 0.669471, 1)
-
-[node name="ProblemSpawnPoints" type="Node2D" parent="Rooms/DiningRoom"]
-
-[node name="SpawnPoint1" type="Marker2D" parent="Rooms/DiningRoom/ProblemSpawnPoints"]
-position = Vector2(-314, -51)
-
-[node name="SpawnPoint2" type="Marker2D" parent="Rooms/DiningRoom/ProblemSpawnPoints"]
-position = Vector2(335, -54)
 
 [node name="date" parent="Rooms/DiningRoom" instance=ExtResource("3_ea4ev")]
 modulate = Color(0.990952, 0.535871, 1, 1)
