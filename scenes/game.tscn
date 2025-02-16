@@ -16,16 +16,16 @@ bg_color = Color(0, 0, 0, 1)
 size = Vector2(61, 141)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mp2s3"]
-size = Vector2(1866, 35)
+size = Vector2(1053, 35)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w2x6j"]
-size = Vector2(56, 807)
+size = Vector2(56, 833.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3to8f"]
-size = Vector2(56, 807)
+size = Vector2(56, 803)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hyov0"]
-size = Vector2(1866, 35)
+size = Vector2(1043, 35)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yv04x"]
 size = Vector2(73, 92)
@@ -107,43 +107,43 @@ scroll_active = false
 [node name="StaticBody2D" type="StaticBody2D" parent="Rooms/DiningRoom"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
-position = Vector2(-3, 20.5)
+position = Vector2(-9, 20.5)
 shape = SubResource("RectangleShape2D_mp2s3")
 
 [node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/StaticBody2D/CollisionShape2D"]
-offset_left = -922.0
+offset_left = -613.0
 offset_top = -19.0
-offset_right = 939.0
+offset_right = 630.0
 offset_bottom = -6.0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
-position = Vector2(-494, -368)
+position = Vector2(-637, -381.25)
 shape = SubResource("RectangleShape2D_w2x6j")
 
 [node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/StaticBody2D/CollisionShape2D2"]
-offset_left = 18.0
-offset_top = -429.0
+offset_left = 8.0
+offset_top = -420.0
 offset_right = 30.0
-offset_bottom = 406.0
+offset_bottom = 382.0
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
-position = Vector2(501, -368)
+position = Vector2(621, -393.5)
 shape = SubResource("RectangleShape2D_3to8f")
 
 [node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/StaticBody2D/CollisionShape2D3"]
 offset_left = -25.0
-offset_top = -429.0
+offset_top = -400.0
 offset_right = 1.0
-offset_bottom = 406.0
+offset_bottom = 394.0
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
-position = Vector2(4, -787)
+position = Vector2(3.5, -787)
 shape = SubResource("RectangleShape2D_hyov0")
 
 [node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/StaticBody2D/CollisionShape2D4"]
-offset_left = -922.0
+offset_left = -616.0
 offset_top = -19.0
-offset_right = 939.0
+offset_right = 608.0
 offset_bottom = 19.0
 
 [node name="TableArea" type="Area2D" parent="Rooms/DiningRoom"]
@@ -210,13 +210,13 @@ scroll_active = false
 [node name="StaticBody2D" type="StaticBody2D" parent="Rooms/Kitchen"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Kitchen/StaticBody2D"]
-position = Vector2(-3, 20.5)
+position = Vector2(5.5, 20.5)
 shape = SubResource("RectangleShape2D_mp2s3")
 
 [node name="ColorRect" type="ColorRect" parent="Rooms/Kitchen/StaticBody2D/CollisionShape2D"]
-offset_left = -922.0
+offset_left = -475.0
 offset_top = -19.0
-offset_right = 939.0
+offset_right = 483.0
 offset_bottom = -6.0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Rooms/Kitchen/StaticBody2D"]
@@ -240,22 +240,14 @@ offset_right = 1.0
 offset_bottom = 406.0
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Rooms/Kitchen/StaticBody2D"]
-position = Vector2(4, -787)
+position = Vector2(0.5, -787)
 shape = SubResource("RectangleShape2D_hyov0")
 
 [node name="ColorRect" type="ColorRect" parent="Rooms/Kitchen/StaticBody2D/CollisionShape2D4"]
-offset_left = -922.0
+offset_left = -472.0
 offset_top = -19.0
-offset_right = 939.0
+offset_right = 494.0
 offset_bottom = 19.0
-
-[node name="ProblemSpawnPoints" type="Node2D" parent="Rooms/Kitchen"]
-
-[node name="SpawnPoint1" type="Marker2D" parent="Rooms/Kitchen/ProblemSpawnPoints"]
-position = Vector2(-637, -38)
-
-[node name="SpawnPoint2" type="Marker2D" parent="Rooms/Kitchen/ProblemSpawnPoints"]
-position = Vector2(525, -49)
 
 [connection signal="love_level_changed" from="DateManager" to="Rooms/DiningRoom/date" method="_on_date_manager_love_level_changed"]
 [connection signal="love_level_changed" from="DateManager" to="Rooms/DiningRoom/owner" method="_on_date_manager_love_level_changed"]
