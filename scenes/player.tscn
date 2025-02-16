@@ -24,10 +24,3 @@ position = Vector2(0.5, -25.5)
 shape = SubResource("RectangleShape2D_0n0j6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.8, 0.8)
-limit_bottom = 500
-limit_smoothed = true
-position_smoothing_enabled = true
-rotation_smoothing_enabled = true

@@ -1,6 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=26 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
+[ext_resource type="Script" path="res://script/static_camera.gd" id="1_mye2x"]
 [ext_resource type="PackedScene" uid="uid://byktwux5rrnxo" path="res://scenes/player.tscn" id="1_uhufi"]
 [ext_resource type="Script" path="res://script/problem_manager.gd" id="2_qbmpg"]
 [ext_resource type="Script" path="res://script/DateManager.gd" id="3_deeda"]
@@ -191,6 +192,11 @@ func transition_to_room():
 size = Vector2(99, 76)
 
 [node name="Game" type="Node2D"]
+position = Vector2(-5, -2)
+
+[node name="StaticCamera" type="Camera2D" parent="."]
+zoom = Vector2(0.8, 0.8)
+script = ExtResource("1_mye2x")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("1_fp8jv")
@@ -223,7 +229,7 @@ bbcode_enabled = true
 text = "Distractions: 0"
 
 [node name="Player" parent="." instance=ExtResource("1_uhufi")]
-position = Vector2(0, -305)
+position = Vector2(2, -303)
 
 [node name="ProblemManager" type="Node2D" parent="."]
 script = ExtResource("2_qbmpg")
@@ -298,7 +304,7 @@ z_index = -1
 position = Vector2(494, -89)
 script = SubResource("GDScript_0d74o")
 target_room = NodePath("../../Basement")
-spawn_position = Vector2(0, 300)
+spawn_position = Vector2(0, 400)
 door_side = "Right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/DiningRoom/DoorToBasement"]
@@ -394,7 +400,6 @@ modulate = Color(0.195257, 0.704389, 0.813555, 1)
 position = Vector2(-136, -16)
 
 [node name="Kitchen" type="Node2D" parent="Rooms"]
-visible = false
 position = Vector2(-1131, -5)
 
 [node name="DoorToDinning" type="Area2D" parent="Rooms/Kitchen"]
@@ -469,7 +474,6 @@ offset_right = 494.0
 offset_bottom = 19.0
 
 [node name="LivingRoom" type="Node2D" parent="Rooms"]
-visible = false
 position = Vector2(1098, 5)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Rooms/LivingRoom"]
@@ -544,7 +548,6 @@ fit_content = true
 scroll_active = false
 
 [node name="Basement" type="Node2D" parent="Rooms"]
-visible = false
 position = Vector2(-4, 819)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Rooms/Basement"]
