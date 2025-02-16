@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://deuh8ah1ptcib"]
+
+[ext_resource type="Script" path="res://script/problem.gd" id="1_dhuld"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mvjxg"]
+size = Vector2(110, 114)
+
+[node name="Problem" type="Area2D"]
+script = ExtResource("1_dhuld")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mvjxg")
+
+[node name="ColorRect" type="ColorRect" parent="CollisionShape2D"]
+offset_left = -27.0
+offset_top = -29.0
+offset_right = 26.0
+offset_bottom = 28.0
+color = Color(0.864633, 0.221863, 0.373209, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -33.0
+offset_top = -92.0
+offset_right = 51.0
+offset_bottom = -52.0
+text = "Press E"

@@ -1,21 +1,24 @@
-extends Node2D
+extends Node
 
-var active_problems = []
-@export var problem_scenes: Array[PackedScene]
-@export var min_spawn_time: float = 5.0
-@export var max_spawn_time: float = 15.0
+var problem_scene = preload("res://scenes/problem.tscn")  # Adjust path as needed
+@onready var spawn_points = $"../Rooms/DiningRoom/ProblemSpawnPoints".get_children()
 
 func _ready():
-	start_problem_timer()
-
-func start_problem_timer():
-	var timer = get_tree().create_timer(randf_range(min_spawn_time, max_spawn_time))
-	timer.timeout.connect(spawn_problem)
+	# Spawn initial problems
+	spawn_problem()
+	spawn_problem()
 
 func spawn_problem():
-	# Implementation for spawning new problems
-	pass
-
-func resolve_problem(problem_id: int):
-	# Implementation for fixing problems
-	pass
+	# Get a random available spawn point
+	var available_points = spawn_points.filter(func(point): 
+		return point.get_child_count() == 0
+	)
+	
+	if available_points.is_empty():
+		return
+		
+	var spawn_point = available_points[randi() % available_points.size()]
+	
+	# Create and add the problem
+	var problem = problem_scene.instantiate()
+	spawn_point.add_child(problem)
