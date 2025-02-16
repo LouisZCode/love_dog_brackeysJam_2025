@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bl7ujwqrcvjne"]
+
+[ext_resource type="Script" path="res://script/direction_arrow.gd" id="1_3cvvx"]
+[ext_resource type="Texture2D" uid="uid://coonayja1yw3v" path="res://assets/sprites/yellow_arrow.png" id="2_5yna2"]
+
+[node name="DirectionArrow" type="Node2D"]
+script = ExtResource("1_3cvvx")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_5yna2")
