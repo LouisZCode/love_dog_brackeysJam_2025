@@ -9,14 +9,8 @@ size = Vector2(110, 114)
 script = ExtResource("1_dhuld")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
 shape = SubResource("RectangleShape2D_mvjxg")
-
-[node name="ColorRect" type="ColorRect" parent="CollisionShape2D"]
-offset_left = -27.0
-offset_top = -29.0
-offset_right = 26.0
-offset_bottom = 28.0
-color = Color(0.864633, 0.221863, 0.373209, 1)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 offset_left = -33.0
@@ -24,3 +18,13 @@ offset_top = -92.0
 offset_right = 51.0
 offset_bottom = -52.0
 text = "Press E"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -27.0
+offset_top = -29.0
+offset_right = 26.0
+offset_bottom = 28.0
+color = Color(0.864633, 0.221863, 0.373209, 1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
