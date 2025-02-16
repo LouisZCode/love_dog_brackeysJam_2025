@@ -1,10 +1,11 @@
 extends Area2D
 
-@export var target_room: NodePath = "../Kitchen"  # Relative path from DoorToKitchen to Kitchen
+@export var target_room: NodePath  # Relative path from DoorToKitchen to Kitchen
 @export var spawn_position: Vector2
 @export_enum("Left", "Right") var door_side: String
 
 @onready var prompt_label = $RichTextLabel
+@onready var rooms_node = get_node("/root/Game/Rooms")
 
 func _ready():
 	prompt_label.text = "[center]Press E[/center]"
@@ -25,12 +26,15 @@ func _on_body_exited(body):
 func transition_to_room():
 	var target = get_node(target_room)
 	if target:
-		# Hide current room, show target room
-		get_parent().hide()  # DiningRoom
+		# Hide all rooms first
+		for room in rooms_node.get_children():
+			room.hide()
+		
+		# Show only the target room
 		target.show()
 		
 		# Move player to spawn position
 		var player = get_node("/root/Game/Player")
 		if player:
 			player.global_position = spawn_position
-		print("Transitioning to Kitchen at position: ", spawn_position)
+			print("Transitioning to ", target.name, " at position: ", spawn_position)
