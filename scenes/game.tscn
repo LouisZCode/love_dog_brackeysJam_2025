@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=3 uid="uid://bxgd8ckgfbbq8"]
+
+[ext_resource type="PackedScene" uid="uid://byktwux5rrnxo" path="res://scenes/player.tscn" id="1_uhufi"]
+[ext_resource type="Script" path="res://script/problem_manager.gd" id="2_qbmpg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mp2s3"]
+size = Vector2(1866, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2x6j"]
+size = Vector2(56, 807)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3to8f"]
+size = Vector2(56, 807)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hyov0"]
+size = Vector2(1866, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yv04x"]
+size = Vector2(159, 253)
+
+[node name="Game" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_uhufi")]
+
+[node name="ProblemManager" type="Node2D" parent="."]
+script = ExtResource("2_qbmpg")
+
+[node name="Rooms" type="Node2D" parent="."]
+
+[node name="DiningRoom" type="Node2D" parent="Rooms"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Rooms/DiningRoom"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
+position = Vector2(-3, 20.5)
+shape = SubResource("RectangleShape2D_mp2s3")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/StaticBody2D/CollisionShape2D"]
+offset_left = -922.0
+offset_top = -19.0
+offset_right = 939.0
+offset_bottom = 19.0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
+position = Vector2(-908, -365.5)
+shape = SubResource("RectangleShape2D_w2x6j")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/StaticBody2D/CollisionShape2D2"]
+offset_left = -25.0
+offset_top = -429.0
+offset_right = 30.0
+offset_bottom = 406.0
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
+position = Vector2(908, -368)
+shape = SubResource("RectangleShape2D_3to8f")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/StaticBody2D/CollisionShape2D3"]
+offset_left = -25.0
+offset_top = -429.0
+offset_right = 30.0
+offset_bottom = 406.0
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
+position = Vector2(4, -787)
+shape = SubResource("RectangleShape2D_hyov0")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/StaticBody2D/CollisionShape2D4"]
+offset_left = -922.0
+offset_top = -19.0
+offset_right = 939.0
+offset_bottom = 19.0
+
+[node name="TableArea" type="Area2D" parent="Rooms/DiningRoom"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/DiningRoom/TableArea"]
+position = Vector2(3.5, -116.5)
+shape = SubResource("RectangleShape2D_yv04x")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/TableArea"]
+offset_left = -74.0
+offset_top = -245.0
+offset_right = 81.0
+offset_bottom = 40.0
+color = Color(0.949283, 0.875069, 0.669471, 1)
+
+[node name="ProblemSpawnPoints" type="Node2D" parent="Rooms/DiningRoom"]
+
+[node name="SpawnPoint1" type="Marker2D" parent="Rooms/DiningRoom/ProblemSpawnPoints"]
+position = Vector2(-693, -103)
+
+[node name="SpawnPoint2" type="Marker2D" parent="Rooms/DiningRoom/ProblemSpawnPoints"]
+position = Vector2(657, -89)
