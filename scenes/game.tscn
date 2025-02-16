@@ -192,6 +192,9 @@ size = Vector2(99, 76)
 [node name="Game" type="Node2D"]
 position = Vector2(-5, -2)
 
+[node name="BGs" type="Sprite2D" parent="."]
+position = Vector2(20, -344)
+
 [node name="StaticCamera" type="Camera2D" parent="."]
 zoom = Vector2(0.8, 0.8)
 script = ExtResource("1_mye2x")
