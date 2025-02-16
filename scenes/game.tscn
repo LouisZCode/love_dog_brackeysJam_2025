@@ -6,13 +6,11 @@
 [ext_resource type="Script" path="res://script/problem_manager.gd" id="2_qbmpg"]
 [ext_resource type="Script" path="res://script/DateManager.gd" id="3_deeda"]
 [ext_resource type="PackedScene" uid="uid://c5uda31jw6q3l" path="res://scenes/date.tscn" id="3_ea4ev"]
+[ext_resource type="Script" path="res://script/game_timer.gd" id="3_tvuu4"]
 [ext_resource type="PackedScene" uid="uid://cfbf3xry8lspc" path="res://scenes/owner.tscn" id="4_tkdp3"]
 [ext_resource type="Script" path="res://script/door_to_kitchen.gd" id="5_w7c7w"]
 [ext_resource type="Script" path="res://script/door_to_livingroom.gd" id="6_fx0nu"]
 [ext_resource type="Script" path="res://script/door_to_dinning.gd" id="6_iy431"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ks20p"]
-bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_38tdj"]
 size = Vector2(56, 125)
@@ -206,8 +204,7 @@ offset_left = 20.0
 offset_top = 20.0
 offset_right = 170.0
 offset_bottom = 50.0
-theme_override_styles/background = SubResource("StyleBoxFlat_ks20p")
-value = 50.0
+value = 20.0
 show_percentage = false
 
 [node name="LoveLabel" type="RichTextLabel" parent="CanvasLayer/LoveBar"]
@@ -228,6 +225,15 @@ offset_bottom = 90.0
 bbcode_enabled = true
 text = "Distractions: 0"
 
+[node name="TimerLabel" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 550.0
+offset_top = 20.0
+offset_right = 774.0
+offset_bottom = 100.0
+bbcode_enabled = true
+fit_content = true
+script = ExtResource("3_tvuu4")
+
 [node name="Player" parent="." instance=ExtResource("1_uhufi")]
 position = Vector2(2, -303)
 
@@ -236,6 +242,7 @@ script = ExtResource("2_qbmpg")
 
 [node name="DateManager" type="Node" parent="."]
 script = ExtResource("3_deeda")
+initial_love = 25.0
 
 [node name="Rooms" type="Node2D" parent="."]
 
