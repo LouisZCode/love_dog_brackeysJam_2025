@@ -1,40 +1,46 @@
 extends Node2D
 
-enum CharacterState { SITTING, TALKING, REACTING }
+enum CharacterState { SITTING, TALKING, DISTRACTED }
 var current_state: CharacterState = CharacterState.SITTING
 
 @export var character_name: String = "Character"
 @export var is_date: bool = false  # false for owner, true for date
-
-# Mood ranges from 0 (unhappy) to 100 (very happy)
-var current_mood: float = 50.0
+@onready var sprite = $ColorRect  # or your Sprite2D
 
 func _ready():
-	# Initialize character in sitting position
+	# Get DateManager and connect signals
+	var date_manager = get_node("/root/Game/DateManager")
+	if date_manager:
+		date_manager.distraction_level_changed.connect(_on_distraction_level_changed)
+		date_manager.love_level_changed.connect(_on_love_level_changed)
+	
 	current_state = CharacterState.SITTING
 
-func update_mood(change: float):
-	current_mood = clamp(current_mood + change, 0.0, 100.0)
-	
-	if current_mood <= 20.0:
-		# Character is very unhappy
-		react_to_mood("unhappy")
-	elif current_mood >= 80.0:
-		# Character is very happy
-		react_to_mood("happy")
+func _on_distraction_level_changed(distraction_count: int):
+	if distraction_count > 0:
+		react_to_distraction()
+	else:
+		return_to_normal()
 
-func react_to_mood(mood_type: String):
-	current_state = CharacterState.REACTING
-	# Here we'll add animations later
-	print(character_name, " is ", mood_type)
+func _on_love_level_changed(new_love: float):
+	# Could change character's expression based on how well the date is going
+	if new_love > 75:
+		sprite.color = Color(0.2, 1, 0.2)  # Happy green
+	elif new_love < 25:
+		sprite.color = Color(1, 0.2, 0.2)  # Unhappy red
+	else:
+		sprite.color = Color(1, 1, 1)  # Neutral white
 
-# Called when problems occur nearby
-func react_to_noise(noise_level: float):
-	if noise_level > 70.0:
-		update_mood(-1.0)  # High noise decreases mood
-		print(character_name, " noticed loud noise!")
+func react_to_distraction():
+	current_state = CharacterState.DISTRACTED
+	# For now, just change color to show distraction
+	if is_date:
+		sprite.color = Color(1, 0.5, 0.5)  # Light red for date
+	else:
+		sprite.color = Color(0.5, 0.5, 1)  # Light blue for owner
+	print(character_name + " is distracted!")
 
-# Called when the other character is talking
-func listen_to_conversation():
-	current_state = CharacterState.TALKING
-	update_mood(0.5)  # Small positive mood boost from good conversation
+func return_to_normal():
+	current_state = CharacterState.SITTING
+	sprite.color = Color(1, 1, 1)  # Return to normal color
+	print(character_name + " returned to normal")

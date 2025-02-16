@@ -1,10 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=13 format=3 uid="uid://bxgd8ckgfbbq8"]
 
+[ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
 [ext_resource type="PackedScene" uid="uid://byktwux5rrnxo" path="res://scenes/player.tscn" id="1_uhufi"]
 [ext_resource type="Script" path="res://script/problem_manager.gd" id="2_qbmpg"]
 [ext_resource type="Script" path="res://script/DateManager.gd" id="3_deeda"]
 [ext_resource type="PackedScene" uid="uid://c5uda31jw6q3l" path="res://scenes/date.tscn" id="3_ea4ev"]
 [ext_resource type="PackedScene" uid="uid://cfbf3xry8lspc" path="res://scenes/owner.tscn" id="4_tkdp3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ks20p"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mp2s3"]
 size = Vector2(1866, 35)
@@ -22,6 +26,36 @@ size = Vector2(1866, 35)
 size = Vector2(73, 92)
 
 [node name="Game" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_fp8jv")
+
+[node name="LoveBar" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 170.0
+offset_bottom = 50.0
+theme_override_styles/background = SubResource("StyleBoxFlat_ks20p")
+value = 50.0
+show_percentage = false
+
+[node name="LoveLabel" type="RichTextLabel" parent="CanvasLayer/LoveBar"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 5.0
+offset_right = 121.0
+offset_bottom = 45.0
+bbcode_enabled = true
+text = "[center]Love: 50%[/center]"
+fit_content = true
+
+[node name="DistractionLabel" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 20.0
+offset_top = 60.0
+offset_right = 220.0
+offset_bottom = 90.0
+bbcode_enabled = true
+text = "Distractions: 0"
 
 [node name="Player" parent="." instance=ExtResource("1_uhufi")]
 position = Vector2(0, -305)
@@ -100,7 +134,12 @@ position = Vector2(-637, -38)
 position = Vector2(525, -49)
 
 [node name="date" parent="." instance=ExtResource("3_ea4ev")]
+modulate = Color(0.990952, 0.535871, 1, 1)
 position = Vector2(126, -14)
 
 [node name="owner" parent="." instance=ExtResource("4_tkdp3")]
+modulate = Color(0.195257, 0.704389, 0.813555, 1)
 position = Vector2(-136, -16)
+
+[connection signal="love_level_changed" from="DateManager" to="date" method="_on_date_manager_love_level_changed"]
+[connection signal="love_level_changed" from="DateManager" to="owner" method="_on_date_manager_love_level_changed"]
