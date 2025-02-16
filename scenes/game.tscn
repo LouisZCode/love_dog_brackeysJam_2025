@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=25 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
 [ext_resource type="PackedScene" uid="uid://byktwux5rrnxo" path="res://scenes/player.tscn" id="1_uhufi"]
@@ -14,19 +14,80 @@
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_38tdj"]
-size = Vector2(61, 141)
+size = Vector2(56, 125)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0iuj"]
-size = Vector2(62, 127)
+size = Vector2(64, 123)
+
+[sub_resource type="GDScript" id="GDScript_0d74o"]
+script/source = "extends Area2D
+
+@export var target_room: NodePath
+@export var spawn_position: Vector2
+@export_enum(\"Left\", \"Right\") var door_side: String
+
+@onready var prompt_label = $RichTextLabel
+@onready var rooms_node = get_node(\"/root/Game/Rooms\")
+
+# Static variable shared between all doors
+static var is_transitioning := false
+
+func _ready():
+	prompt_label.text = \"[center]Press E[/center]\"
+	prompt_label.hide()
+
+func _process(_delta):
+	# Only process if we're in the visible room
+	if not get_parent().visible:
+		return
+		
+	if not is_transitioning and overlaps_body(get_node(\"/root/Game/Player\")) and Input.is_action_just_pressed(\"interact\"):
+		transition_to_room()
+
+func _on_body_entered(body):
+	if body.is_in_group(\"player\") and get_parent().visible:
+		prompt_label.show()
+
+func _on_body_exited(body):
+	if body.is_in_group(\"player\"):
+		prompt_label.hide()
+
+func transition_to_room():
+	var target = get_node(target_room)
+	if target and not is_transitioning:
+		is_transitioning = true
+		
+		# Hide all rooms first
+		for room in rooms_node.get_children():
+			room.hide()
+		
+		# Show only the target room
+		target.show()
+		
+		# Move player to spawn position
+		var player = get_node(\"/root/Game/Player\")
+		if player:
+			# Stop player movement
+			player.velocity = Vector2.ZERO
+			player.global_position = spawn_position
+			print(\"Transitioning to \", target.name, \" at position: \", spawn_position)
+		
+		# Reset transition lock after a short delay
+		await get_tree().create_timer(0.5).timeout
+		is_transitioning = false
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ccio6"]
+size = Vector2(66, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mp2s3"]
-size = Vector2(1053, 35)
+size = Vector2(1129.75, 35)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w2x6j"]
-size = Vector2(56, 833.5)
+size = Vector2(56, 800)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3to8f"]
-size = Vector2(56, 803)
+size = Vector2(56, 814)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hyov0"]
 size = Vector2(1043, 35)
@@ -76,6 +137,58 @@ func transition_to_room():
 			player.global_position = spawn_position
 			print(\"Transitioning to \", target.name, \" at position: \", spawn_position)
 "
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hegm4"]
+size = Vector2(56, 419.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g1mrb"]
+size = Vector2(56, 396.5)
+
+[sub_resource type="GDScript" id="GDScript_my01t"]
+script/source = "extends Area2D
+
+@export var target_room: NodePath  # Relative path from DoorToKitchen to Kitchen
+@export var spawn_position: Vector2
+@export_enum(\"Left\", \"Right\") var door_side: String
+
+@onready var prompt_label = $RichTextLabel
+@onready var rooms_node = get_node(\"/root/Game/Rooms\")
+
+func _ready():
+	prompt_label.text = \"[center]Press E[/center]\"
+	prompt_label.hide()
+
+func _process(_delta):
+	if overlaps_body(get_node(\"/root/Game/Player\")) and Input.is_action_just_pressed(\"interact\"):
+		transition_to_room()
+
+func _on_body_entered(body):
+	if body.is_in_group(\"player\"):
+		prompt_label.show()
+
+func _on_body_exited(body):
+	if body.is_in_group(\"player\"):
+		prompt_label.hide()
+
+func transition_to_room():
+	var target = get_node(target_room)
+	if target:
+		# Hide all rooms first
+		for room in rooms_node.get_children():
+			room.hide()
+		
+		# Show only the target room
+		target.show()
+		
+		# Move player to spawn position
+		var player = get_node(\"/root/Game/Player\")
+		if player:
+			player.global_position = spawn_position
+			print(\"Transitioning to \", target.name, \" at position: \", spawn_position)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gbjc0"]
+size = Vector2(99, 76)
 
 [node name="Game" type="Node2D"]
 
@@ -131,7 +244,7 @@ spawn_position = Vector2(-700, 0)
 door_side = "Right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/DiningRoom/DoorToKitchen"]
-position = Vector2(18.5, 26.5)
+position = Vector2(17, 24.5)
 shape = SubResource("RectangleShape2D_38tdj")
 
 [node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/DoorToKitchen"]
@@ -161,7 +274,7 @@ door_side = "Left"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/DiningRoom/DoorToLivingroom"]
 z_index = -1
-position = Vector2(37, 23.5)
+position = Vector2(36, 20.5)
 shape = SubResource("RectangleShape2D_r0iuj")
 
 [node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/DoorToLivingroom"]
@@ -180,10 +293,39 @@ bbcode_enabled = true
 text = "Press E"
 fit_content = true
 
+[node name="DoorToBasement" type="Area2D" parent="Rooms/DiningRoom"]
+z_index = -1
+position = Vector2(494, -89)
+script = SubResource("GDScript_0d74o")
+target_room = NodePath("../../Basement")
+spawn_position = Vector2(0, 300)
+door_side = "Right"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/DiningRoom/DoorToBasement"]
+z_index = -1
+position = Vector2(35, 71)
+shape = SubResource("RectangleShape2D_ccio6")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/DoorToBasement"]
+z_index = -1
+offset_top = 55.0
+offset_right = 70.0
+offset_bottom = 88.0
+color = Color(0.509804, 0.509804, 0.509804, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Rooms/DiningRoom/DoorToBasement"]
+offset_left = 1.0
+offset_top = 24.0
+offset_right = 79.0
+offset_bottom = 64.0
+bbcode_enabled = true
+text = "Press E"
+fit_content = true
+
 [node name="StaticBody2D" type="StaticBody2D" parent="Rooms/DiningRoom"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
-position = Vector2(-9, 20.5)
+position = Vector2(-10.25, 20.5)
 shape = SubResource("RectangleShape2D_mp2s3")
 
 [node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/StaticBody2D/CollisionShape2D"]
@@ -252,6 +394,7 @@ modulate = Color(0.195257, 0.704389, 0.813555, 1)
 position = Vector2(-136, -16)
 
 [node name="Kitchen" type="Node2D" parent="Rooms"]
+visible = false
 position = Vector2(-1131, -5)
 
 [node name="DoorToDinning" type="Area2D" parent="Rooms/Kitchen"]
@@ -306,7 +449,7 @@ offset_right = 30.0
 offset_bottom = 406.0
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Rooms/Kitchen/StaticBody2D"]
-position = Vector2(501, -368)
+position = Vector2(501, -385)
 shape = SubResource("RectangleShape2D_3to8f")
 
 [node name="ColorRect" type="ColorRect" parent="Rooms/Kitchen/StaticBody2D/CollisionShape2D3"]
@@ -326,6 +469,7 @@ offset_right = 494.0
 offset_bottom = 19.0
 
 [node name="LivingRoom" type="Node2D" parent="Rooms"]
+visible = false
 position = Vector2(1098, 5)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Rooms/LivingRoom"]
@@ -341,7 +485,7 @@ offset_right = 483.0
 offset_bottom = -6.0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Rooms/LivingRoom/StaticBody2D"]
-position = Vector2(-494, -368)
+position = Vector2(-494, -397)
 shape = SubResource("RectangleShape2D_w2x6j")
 
 [node name="ColorRect" type="ColorRect" parent="Rooms/LivingRoom/StaticBody2D/CollisionShape2D2"]
@@ -399,13 +543,92 @@ text = "Press E"
 fit_content = true
 scroll_active = false
 
+[node name="Basement" type="Node2D" parent="Rooms"]
+visible = false
+position = Vector2(-4, 819)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Rooms/Basement"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Basement/StaticBody2D"]
+position = Vector2(-23.125, -367)
+shape = SubResource("RectangleShape2D_mp2s3")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/Basement/StaticBody2D/CollisionShape2D"]
+offset_left = -475.0
+offset_top = -19.0
+offset_right = 523.0
+offset_bottom = -6.0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Rooms/Basement/StaticBody2D"]
+position = Vector2(-494, -574.875)
+shape = SubResource("RectangleShape2D_hegm4")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/Basement/StaticBody2D/CollisionShape2D2"]
+offset_left = 15.0
+offset_top = -222.0
+offset_right = 30.0
+offset_bottom = 193.0
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Rooms/Basement/StaticBody2D"]
+position = Vector2(501, -571.25)
+shape = SubResource("RectangleShape2D_g1mrb")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/Basement/StaticBody2D/CollisionShape2D3"]
+offset_left = -25.0
+offset_top = -236.0
+offset_right = 1.0
+offset_bottom = 185.0
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Rooms/Basement/StaticBody2D"]
+position = Vector2(0.5, -787)
+shape = SubResource("RectangleShape2D_hyov0")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/Basement/StaticBody2D/CollisionShape2D4"]
+offset_left = -472.0
+offset_top = -19.0
+offset_right = 494.0
+offset_bottom = 19.0
+
+[node name="DoorToDinning" type="Area2D" parent="Rooms/Basement"]
+z_index = -1
+position = Vector2(7, -484)
+script = SubResource("GDScript_my01t")
+target_room = NodePath("../../DiningRoom")
+spawn_position = Vector2(500, 0)
+door_side = "Left"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Basement/DoorToDinning"]
+position = Vector2(4.5, 59)
+shape = SubResource("RectangleShape2D_gbjc0")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/Basement/DoorToDinning"]
+offset_left = -47.0
+offset_top = 18.0
+offset_right = 59.0
+offset_bottom = 102.0
+color = Color(0.510075, 0.510075, 0.510075, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Rooms/Basement/DoorToDinning"]
+offset_left = -28.0
+offset_top = -15.0
+offset_right = 51.0
+offset_bottom = 17.0
+bbcode_enabled = true
+text = "Press E"
+fit_content = true
+scroll_active = false
+
 [connection signal="love_level_changed" from="DateManager" to="Rooms/DiningRoom/date" method="_on_date_manager_love_level_changed"]
 [connection signal="love_level_changed" from="DateManager" to="Rooms/DiningRoom/owner" method="_on_date_manager_love_level_changed"]
 [connection signal="body_entered" from="Rooms/DiningRoom/DoorToKitchen" to="Rooms/DiningRoom/DoorToKitchen" method="_on_body_entered"]
 [connection signal="body_exited" from="Rooms/DiningRoom/DoorToKitchen" to="Rooms/DiningRoom/DoorToKitchen" method="_on_body_exited"]
 [connection signal="body_entered" from="Rooms/DiningRoom/DoorToLivingroom" to="Rooms/DiningRoom/DoorToLivingroom" method="_on_body_entered"]
 [connection signal="body_exited" from="Rooms/DiningRoom/DoorToLivingroom" to="Rooms/DiningRoom/DoorToLivingroom" method="_on_body_exited"]
+[connection signal="body_entered" from="Rooms/DiningRoom/DoorToBasement" to="Rooms/DiningRoom/DoorToBasement" method="_on_body_entered"]
+[connection signal="body_exited" from="Rooms/DiningRoom/DoorToBasement" to="Rooms/DiningRoom/DoorToBasement" method="_on_body_exited"]
 [connection signal="body_entered" from="Rooms/Kitchen/DoorToDinning" to="Rooms/Kitchen/DoorToDinning" method="_on_body_entered"]
 [connection signal="body_exited" from="Rooms/Kitchen/DoorToDinning" to="Rooms/Kitchen/DoorToDinning" method="_on_body_exited"]
 [connection signal="body_entered" from="Rooms/LivingRoom/DoorToDinning" to="Rooms/LivingRoom/DoorToDinning" method="_on_body_entered"]
 [connection signal="body_exited" from="Rooms/LivingRoom/DoorToDinning" to="Rooms/LivingRoom/DoorToDinning" method="_on_body_exited"]
+[connection signal="body_entered" from="Rooms/Basement/DoorToDinning" to="Rooms/Basement/DoorToDinning" method="_on_body_entered"]
+[connection signal="body_exited" from="Rooms/Basement/DoorToDinning" to="Rooms/Basement/DoorToDinning" method="_on_body_exited"]
