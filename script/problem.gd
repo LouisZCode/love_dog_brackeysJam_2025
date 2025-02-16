@@ -1,37 +1,52 @@
 extends Area2D
 
-@onready var prompt_label: RichTextLabel = $RichTextLabel
-
+@export var date_manager_path: NodePath
+@onready var prompt_label = $RichTextLabel
+@onready var date_manager = get_node("/root/Game/DateManager")
 
 var can_interact := false
+var is_active := false
 
 func _ready():
-	# Make sure label exists
 	if not prompt_label:
-		push_error("Label node not found in Problem scene")
+		push_error("RichTextLabel node not found in Problem scene")
 		return
-	prompt_label.text = "Press E"
+		
+	if not date_manager:
+		push_error("DateManager not found! Make sure to set the path in the inspector")
+		return
+		
+	prompt_label.text = "[center]Press E[/center]"
 	prompt_label.hide()
-	# Debug print to confirm script is running
-	print("Problem initialized")
+	
+	# Register this distraction
+	activate_distraction()
 
 func _process(_delta):
 	if can_interact and Input.is_action_just_pressed("interact"):
 		solve_problem()
 
 func _on_body_entered(body):
-	print("Body entered:", body.name)  # Debug print
 	if body.is_in_group("player"):
 		can_interact = true
 		prompt_label.show()
-		print("Player detected, showing prompt")  # Debug print
+		print("Player can interact with problem")  # Debug print
 
 func _on_body_exited(body):
-	print("Body exited:", body.name)  # Debug print
 	if body.is_in_group("player"):
 		can_interact = false
 		prompt_label.hide()
 
+func activate_distraction():
+	if date_manager:
+		is_active = true
+		date_manager.add_distraction()
+		print("Distraction activated")  # Debug print
+	else:
+		push_error("Cannot activate distraction - DateManager not found")
+
 func solve_problem():
-	print("Problem solved!")  # Debug print
+	if is_active and date_manager:
+		date_manager.remove_distraction()
+		print("Problem solved!")  # Debug print
 	queue_free()

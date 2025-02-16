@@ -1,5 +1,6 @@
 extends Node
 
+
 var problem_scene = preload("res://scenes/problem.tscn")  # Adjust path as needed
 @onready var spawn_points = $"../Rooms/DiningRoom/ProblemSpawnPoints".get_children()
 

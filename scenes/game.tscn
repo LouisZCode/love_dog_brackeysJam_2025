@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=11 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="PackedScene" uid="uid://byktwux5rrnxo" path="res://scenes/player.tscn" id="1_uhufi"]
 [ext_resource type="Script" path="res://script/problem_manager.gd" id="2_qbmpg"]
+[ext_resource type="Script" path="res://script/DateManager.gd" id="3_deeda"]
 [ext_resource type="PackedScene" uid="uid://c5uda31jw6q3l" path="res://scenes/date.tscn" id="3_ea4ev"]
 [ext_resource type="PackedScene" uid="uid://cfbf3xry8lspc" path="res://scenes/owner.tscn" id="4_tkdp3"]
 
@@ -27,6 +28,9 @@ position = Vector2(0, -305)
 
 [node name="ProblemManager" type="Node2D" parent="."]
 script = ExtResource("2_qbmpg")
+
+[node name="DateManager" type="Node" parent="."]
+script = ExtResource("3_deeda")
 
 [node name="Rooms" type="Node2D" parent="."]
 
@@ -98,5 +102,5 @@ position = Vector2(525, -49)
 [node name="date" parent="." instance=ExtResource("3_ea4ev")]
 position = Vector2(126, -14)
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("4_tkdp3")]
+[node name="owner" parent="." instance=ExtResource("4_tkdp3")]
 position = Vector2(-136, -16)

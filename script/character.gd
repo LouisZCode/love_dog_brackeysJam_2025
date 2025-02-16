@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Node2D
 
 enum CharacterState { SITTING, TALKING, REACTING }
 var current_state: CharacterState = CharacterState.SITTING
