@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=16 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
 [ext_resource type="PackedScene" uid="uid://byktwux5rrnxo" path="res://scenes/player.tscn" id="1_uhufi"]
@@ -6,9 +6,14 @@
 [ext_resource type="Script" path="res://script/DateManager.gd" id="3_deeda"]
 [ext_resource type="PackedScene" uid="uid://c5uda31jw6q3l" path="res://scenes/date.tscn" id="3_ea4ev"]
 [ext_resource type="PackedScene" uid="uid://cfbf3xry8lspc" path="res://scenes/owner.tscn" id="4_tkdp3"]
+[ext_resource type="Script" path="res://script/door_to_kitchen.gd" id="5_w7c7w"]
+[ext_resource type="Script" path="res://script/door_to_dinning.gd" id="6_iy431"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ks20p"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_38tdj"]
+size = Vector2(61, 141)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mp2s3"]
 size = Vector2(1866, 35)
@@ -69,6 +74,33 @@ script = ExtResource("3_deeda")
 [node name="Rooms" type="Node2D" parent="."]
 
 [node name="DiningRoom" type="Node2D" parent="Rooms"]
+
+[node name="DoorToKitchen" type="Area2D" parent="Rooms/DiningRoom"]
+position = Vector2(-451, -94)
+script = ExtResource("5_w7c7w")
+target_room = NodePath("../../Kitchen")
+door_side = "Right"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/DiningRoom/DoorToKitchen"]
+position = Vector2(18.5, 26.5)
+shape = SubResource("RectangleShape2D_38tdj")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/DoorToKitchen"]
+offset_left = -11.0
+offset_top = -44.0
+offset_right = 49.0
+offset_bottom = 94.0
+color = Color(0.600222, 0.436197, 0.148246, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Rooms/DiningRoom/DoorToKitchen"]
+offset_left = -24.0
+offset_top = -79.0
+offset_right = 62.0
+offset_bottom = -39.0
+bbcode_enabled = true
+text = "Press E"
+fit_content = true
+scroll_active = false
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Rooms/DiningRoom"]
 
@@ -133,6 +165,86 @@ position = Vector2(-637, -38)
 [node name="SpawnPoint2" type="Marker2D" parent="Rooms/DiningRoom/ProblemSpawnPoints"]
 position = Vector2(525, -49)
 
+[node name="Kitchen" type="Node2D" parent="Rooms"]
+visible = false
+
+[node name="DoorToDinning" type="Area2D" parent="Rooms/Kitchen"]
+position = Vector2(501, -92)
+script = ExtResource("6_iy431")
+target_room = NodePath("../../DiningRoom")
+door_side = "Left"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Kitchen/DoorToDinning"]
+position = Vector2(18.5, 26.5)
+shape = SubResource("RectangleShape2D_38tdj")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/Kitchen/DoorToDinning"]
+offset_left = -11.0
+offset_top = -44.0
+offset_right = 49.0
+offset_bottom = 94.0
+color = Color(0.600222, 0.436197, 0.148246, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Rooms/Kitchen/DoorToDinning"]
+offset_left = -24.0
+offset_top = -79.0
+offset_right = 62.0
+offset_bottom = -39.0
+bbcode_enabled = true
+text = "Press E"
+fit_content = true
+scroll_active = false
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Rooms/Kitchen"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Kitchen/StaticBody2D"]
+position = Vector2(-3, 20.5)
+shape = SubResource("RectangleShape2D_mp2s3")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/Kitchen/StaticBody2D/CollisionShape2D"]
+offset_left = -922.0
+offset_top = -19.0
+offset_right = 939.0
+offset_bottom = 19.0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Rooms/Kitchen/StaticBody2D"]
+position = Vector2(-908, -365.5)
+shape = SubResource("RectangleShape2D_w2x6j")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/Kitchen/StaticBody2D/CollisionShape2D2"]
+offset_left = -25.0
+offset_top = -429.0
+offset_right = 30.0
+offset_bottom = 406.0
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Rooms/Kitchen/StaticBody2D"]
+position = Vector2(908, -368)
+shape = SubResource("RectangleShape2D_3to8f")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/Kitchen/StaticBody2D/CollisionShape2D3"]
+offset_left = -25.0
+offset_top = -429.0
+offset_right = 30.0
+offset_bottom = 406.0
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Rooms/Kitchen/StaticBody2D"]
+position = Vector2(4, -787)
+shape = SubResource("RectangleShape2D_hyov0")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/Kitchen/StaticBody2D/CollisionShape2D4"]
+offset_left = -922.0
+offset_top = -19.0
+offset_right = 939.0
+offset_bottom = 19.0
+
+[node name="ProblemSpawnPoints" type="Node2D" parent="Rooms/Kitchen"]
+
+[node name="SpawnPoint1" type="Marker2D" parent="Rooms/Kitchen/ProblemSpawnPoints"]
+position = Vector2(-637, -38)
+
+[node name="SpawnPoint2" type="Marker2D" parent="Rooms/Kitchen/ProblemSpawnPoints"]
+position = Vector2(525, -49)
+
 [node name="date" parent="." instance=ExtResource("3_ea4ev")]
 modulate = Color(0.990952, 0.535871, 1, 1)
 position = Vector2(126, -14)
@@ -143,3 +255,7 @@ position = Vector2(-136, -16)
 
 [connection signal="love_level_changed" from="DateManager" to="date" method="_on_date_manager_love_level_changed"]
 [connection signal="love_level_changed" from="DateManager" to="owner" method="_on_date_manager_love_level_changed"]
+[connection signal="body_entered" from="Rooms/DiningRoom/DoorToKitchen" to="Rooms/DiningRoom/DoorToKitchen" method="_on_body_entered"]
+[connection signal="body_exited" from="Rooms/DiningRoom/DoorToKitchen" to="Rooms/DiningRoom/DoorToKitchen" method="_on_body_exited"]
+[connection signal="body_entered" from="Rooms/Kitchen/DoorToDinning" to="Rooms/Kitchen/DoorToDinning" method="_on_body_entered"]
+[connection signal="body_exited" from="Rooms/Kitchen/DoorToDinning" to="Rooms/Kitchen/DoorToDinning" method="_on_body_exited"]

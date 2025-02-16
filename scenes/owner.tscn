@@ -5,6 +5,3 @@
 [node name="CharacterBody2D" instance=ExtResource("1_4cahr")]
 z_index = 1
 character_name = "owner"
-
-[node name="ColorRect" parent="." index="0"]
-color = Color(0.305882, 0.490196, 1, 1)

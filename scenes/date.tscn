@@ -9,6 +9,3 @@ is_date = true
 [node name="ColorRect" parent="." index="0"]
 z_index = 1
 color = Color(0.825061, 0.505834, 0.570074, 1)
-
-[node name="CollisionShape2D" parent="." index="1"]
-z_index = 1
