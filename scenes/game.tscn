@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=36 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
 [ext_resource type="Script" path="res://script/static_camera.gd" id="1_mye2x"]
@@ -88,6 +88,18 @@ size = Vector2(56, 800)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3to8f"]
 size = Vector2(56, 814)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3kh8g"]
+size = Vector2(317, 12.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u28v5"]
+size = Vector2(315.5, 13.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jrg84"]
+size = Vector2(315.5, 11.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m3g2a"]
+size = Vector2(130, 12.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yv04x"]
 size = Vector2(73, 92)
@@ -202,6 +214,49 @@ size = Vector2(56, 396.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkmay"]
 size = Vector2(1269, 35)
 
+[sub_resource type="GDScript" id="GDScript_kc35o"]
+script/source = "extends Area2D
+
+@export var target_room: NodePath  # Relative path from DoorToKitchen to Kitchen
+@export var spawn_position: Vector2
+@export_enum(\"Left\", \"Right\") var door_side: String
+
+@onready var prompt_label = $RichTextLabel
+@onready var rooms_node = get_node(\"/root/Game/Rooms\")
+
+func _ready():
+	prompt_label.text = \"[center]Press E[/center]\"
+	prompt_label.hide()
+
+func _process(_delta):
+	if overlaps_body(get_node(\"/root/Game/Player\")) and Input.is_action_just_pressed(\"interact\"):
+		transition_to_room()
+
+func _on_body_entered(body):
+	if body.is_in_group(\"player\"):
+		prompt_label.show()
+
+func _on_body_exited(body):
+	if body.is_in_group(\"player\"):
+		prompt_label.hide()
+
+func transition_to_room():
+	var target = get_node(target_room)
+	if target:
+		# Hide all rooms first
+		for room in rooms_node.get_children():
+			room.hide()
+		
+		# Show only the target room
+		target.show()
+		
+		# Move player to spawn position
+		var player = get_node(\"/root/Game/Player\")
+		if player:
+			player.global_position = spawn_position
+			print(\"Transitioning to \", target.name, \" at position: \", spawn_position)
+"
+
 [node name="Game" type="Node2D"]
 position = Vector2(-5, -2)
 
@@ -284,6 +339,11 @@ position = Vector2(1125, -73)
 
 [node name="SpawnPoint5" type="Marker2D" parent="ProblemSpawnPoints/BasementSpawnPoints"]
 position = Vector2(251, 380)
+
+[node name="AtticSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
+
+[node name="SpawnPoint5" type="Marker2D" parent="ProblemSpawnPoints/AtticSpawnPoints"]
+position = Vector2(207, -734)
 
 [node name="Rooms" type="Node2D" parent="."]
 
@@ -378,7 +438,7 @@ fit_content = true
 
 [node name="DoorToAttic" type="Area2D" parent="Rooms/DiningRoom"]
 z_index = -1
-position = Vector2(-567, -86)
+position = Vector2(-194, -499)
 script = ExtResource("9_bg0qy")
 target_room = NodePath("../../Attic")
 spawn_position = Vector2(0, -700)
@@ -435,6 +495,50 @@ offset_left = -25.0
 offset_top = -400.0
 offset_right = 1.0
 offset_bottom = 394.0
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
+position = Vector2(-38, -403.25)
+shape = SubResource("RectangleShape2D_3kh8g")
+one_way_collision = true
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/StaticBody2D/CollisionShape2D4"]
+offset_left = -156.0
+offset_top = -7.75
+offset_right = 171.0
+offset_bottom = 5.25
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
+position = Vector2(-475, -345.75)
+shape = SubResource("RectangleShape2D_u28v5")
+one_way_collision = true
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/StaticBody2D/CollisionShape2D5"]
+offset_left = -157.0
+offset_top = -7.0
+offset_right = 154.0
+offset_bottom = 6.0
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
+position = Vector2(-246, -220.75)
+shape = SubResource("RectangleShape2D_jrg84")
+one_way_collision = true
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/StaticBody2D/CollisionShape2D6"]
+offset_left = -159.0
+offset_top = -8.0
+offset_right = 168.0
+offset_bottom = 5.0
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
+position = Vector2(-551, -101)
+shape = SubResource("RectangleShape2D_m3g2a")
+one_way_collision = true
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/StaticBody2D/CollisionShape2D7"]
+offset_left = -88.0
+offset_top = -7.0
+offset_right = 63.0
+offset_bottom = 6.0
 
 [node name="TableArea" type="Area2D" parent="Rooms/DiningRoom"]
 
@@ -727,10 +831,9 @@ offset_bottom = 19.0
 [node name="DoorToDinning" type="Area2D" parent="Rooms/Attic"]
 z_index = -1
 position = Vector2(7, -484)
-script = SubResource("GDScript_my01t")
+script = SubResource("GDScript_kc35o")
 target_room = NodePath("../../DiningRoom")
-spawn_position = Vector2(500, 0)
-door_side = "Left"
+spawn_position = Vector2(0, -500)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Attic/DoorToDinning"]
 position = Vector2(4.5, 59)

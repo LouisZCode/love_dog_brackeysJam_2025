@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var friction := 1000.0
 
 # Jump variables
-@export var jump_force := -400.0
+@export var jump_force := -600.0
 @export var jump_cut_height := 0.4
 @export var max_fall_speed := 500.0
 @export var fall_acceleration := 1800.0
