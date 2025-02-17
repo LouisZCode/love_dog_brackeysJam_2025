@@ -5,7 +5,7 @@ var room_positions = {
 	"Kitchen": Vector2(-700, -100),
 	"LivingRoom": Vector2(1100, -300),
 	"Basement": Vector2(0, 250),
-	"Attic": Vector2(0, -650)
+	"Attic": Vector2(0, -350)
 }
 
 @onready var rooms_node = get_node("../Rooms")
