@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var walk_speed := 100.0
-@export var run_speed := 300.0
+@export var run_speed := 200.0
 @export var acceleration := 1500.0
 @export var friction := 1000.0
 
@@ -80,14 +80,28 @@ func handle_jump(delta):
 
 func handle_horizontal_movement(delta):
 	var direction = Input.get_axis("ui_left", "ui_right")
-	var is_running = Input.is_action_pressed("run")  # This is space
+	var is_running = Input.is_action_pressed("run")
 	var target_speed = run_speed if is_running else walk_speed
 	
-	if direction != 0:
-		velocity.x = move_toward(velocity.x, direction * target_speed, acceleration * delta)
-		facing_right = direction > 0
+	# Different handling for ground vs air
+	if is_on_floor():
+		# Normal ground movement
+		if direction != 0:
+			velocity.x = move_toward(velocity.x, direction * target_speed, acceleration * delta)
+		else:
+			velocity.x = move_toward(velocity.x, 0, friction * delta)
 	else:
-		velocity.x = move_toward(velocity.x, 0, friction * delta)
+		# Air movement
+		if direction != 0:
+			# Less control in air but still some
+			var air_acceleration = acceleration * 0.4  # Reduced air control
+			velocity.x = move_toward(velocity.x, direction * target_speed, air_acceleration * delta)
+		else:
+			# Very little deceleration in air
+			var air_friction = friction * 0.05  # Much less friction in air
+			velocity.x = move_toward(velocity.x, 0, air_friction * delta)
+	
+	facing_right = velocity.x > 0 if velocity.x != 0 else facing_right
 
 func update_state():
 	if is_on_floor():

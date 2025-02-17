@@ -178,8 +178,9 @@ animations = [{
 "speed": 26.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0n0j6"]
-size = Vector2(49, 51)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nyse4"]
+radius = 19.9989
+height = 73.3314
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 1
@@ -192,9 +193,7 @@ script = ExtResource("1_ev1qf")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-8, -34)
 sprite_frames = SubResource("SpriteFrames_0s1wv")
-animation = &"run"
-autoplay = "idle"
-frame_progress = 0.851705
+animation = &"idle"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
@@ -206,7 +205,8 @@ offset_right = 26.0
 offset_bottom = -1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -25.5)
-shape = SubResource("RectangleShape2D_0n0j6")
+position = Vector2(-2.48353e-08, -20)
+rotation = 1.57814
+shape = SubResource("CapsuleShape2D_nyse4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
