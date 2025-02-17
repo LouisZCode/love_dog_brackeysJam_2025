@@ -2599,7 +2599,7 @@ size = Vector2(29.5, 30)
 size = Vector2(545, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w2x6j"]
-size = Vector2(10, 166.375)
+size = Vector2(10, 160.375)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3to8f"]
 size = Vector2(6, 152.75)
@@ -12556,30 +12556,30 @@ initial_love = 25.0
 [node name="DiningSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint1" type="Marker2D" parent="ProblemSpawnPoints/DiningSpawnPoints"]
-position = Vector2(-190, -107)
+position = Vector2(-187, -99)
 
 [node name="SpawnPoint2" type="Marker2D" parent="ProblemSpawnPoints/DiningSpawnPoints"]
-position = Vector2(75, -31)
+position = Vector2(88, -23)
 
 [node name="KitchenSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint4" type="Marker2D" parent="ProblemSpawnPoints/KitchenSpawnPoints"]
-position = Vector2(-737, -23)
+position = Vector2(-561, -25)
 
 [node name="LivingSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint3" type="Marker2D" parent="ProblemSpawnPoints/LivingSpawnPoints"]
-position = Vector2(662, -12)
+position = Vector2(622, -16)
 
 [node name="BasementSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint5" type="Marker2D" parent="ProblemSpawnPoints/BasementSpawnPoints"]
-position = Vector2(132, 205)
+position = Vector2(259, 99)
 
 [node name="AtticSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint5" type="Marker2D" parent="ProblemSpawnPoints/AtticSpawnPoints"]
-position = Vector2(212, -236)
+position = Vector2(135, -203)
 
 [node name="Rooms" type="Node2D" parent="."]
 
@@ -12603,7 +12603,7 @@ z_index = -1
 position = Vector2(-354, -94)
 script = ExtResource("5_w7c7w")
 target_room = NodePath("../../Kitchen")
-spawn_position = Vector2(-450, 0)
+spawn_position = Vector2(-280, 0)
 door_side = "Right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/DiningRoom/DoorToKitchen"]
@@ -12626,7 +12626,7 @@ z_index = -1
 position = Vector2(395, -87)
 script = ExtResource("6_fx0nu")
 target_room = NodePath("../../LivingRoom")
-spawn_position = Vector2(450, -5)
+spawn_position = Vector2(430, -5)
 door_side = "Left"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/DiningRoom/DoorToLivingroom"]
@@ -12649,7 +12649,7 @@ z_index = -1
 position = Vector2(494, -89)
 script = SubResource("GDScript_0d74o")
 target_room = NodePath("../../Basement")
-spawn_position = Vector2(0, 230)
+spawn_position = Vector2(130, 125)
 door_side = "Right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/DiningRoom/DoorToBasement"]
@@ -12672,7 +12672,7 @@ z_index = -1
 position = Vector2(-194, -499)
 script = ExtResource("9_bg0qy")
 target_room = NodePath("../../Attic")
-spawn_position = Vector2(0, -200)
+spawn_position = Vector2(-30, -180)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/DiningRoom/DoorToAttic"]
 z_index = -1
@@ -12696,7 +12696,7 @@ position = Vector2(8.5, 4.5)
 shape = SubResource("RectangleShape2D_mp2s3")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
-position = Vector2(-240, -78.8125)
+position = Vector2(-240, -75.8125)
 shape = SubResource("RectangleShape2D_w2x6j")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
@@ -12737,7 +12737,7 @@ z_index = -2
 position = Vector2(-25, 1)
 
 [node name="Kitchen" type="Node2D" parent="Rooms"]
-position = Vector2(-892, -6)
+position = Vector2(-715, -7)
 
 [node name="TileMap_wall" type="TileMap" parent="Rooms/Kitchen"]
 z_index = -2
@@ -12815,7 +12815,7 @@ shape = SubResource("RectangleShape2D_mee6t")
 one_way_collision = true
 
 [node name="LivingRoom" type="Node2D" parent="Rooms"]
-position = Vector2(618, -26)
+position = Vector2(582, -28)
 
 [node name="TileMap_walls" type="TileMap" parent="Rooms/LivingRoom"]
 z_index = -2
@@ -12871,7 +12871,7 @@ fit_content = true
 scroll_active = false
 
 [node name="Basement" type="Node2D" parent="Rooms"]
-position = Vector2(-4, 819)
+position = Vector2(123, 711)
 
 [node name="TileMap_wall" type="TileMap" parent="Rooms/Basement"]
 z_index = -2
@@ -12937,7 +12937,7 @@ fit_content = true
 scroll_active = false
 
 [node name="Attic" type="Node2D" parent="Rooms"]
-position = Vector2(2, 176)
+position = Vector2(-73, 207)
 
 [node name="TileMap_walls" type="TileMap" parent="Rooms/Attic"]
 z_index = -2

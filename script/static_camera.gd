@@ -2,10 +2,10 @@ extends Camera2D
 
 var room_positions = {
 	"DiningRoom": Vector2(0, -220),
-	"Kitchen": Vector2(-700, -200),
+	"Kitchen": Vector2(-500, -200),
 	"LivingRoom": Vector2(500, -200),
 	"Basement": Vector2(0, 250),
-	"Attic": Vector2(0, -450)
+	"Attic": Vector2(0, -400)
 }
 
 @export var follow_range := 150.0  # How far the camera can move from room center
