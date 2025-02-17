@@ -78,10 +78,10 @@ func transition_to_dangerous():
 	growing_bar.hide()
 	danger_bar.show()
 	update_prompt_text()
-	# Now we add it as a distraction
+	# Add it as a dangerous distraction that affects love
 	if date_manager:
-		date_manager.add_distraction()
-		print("Problem became dangerous and is now distracting!")
+		date_manager.add_dangerous_distraction()
+		print("Problem became dangerous and now affects love!")
 
 func on_problem_timeout():
 	# This will be implemented later for game over
@@ -140,8 +140,8 @@ func update_prompt_text():
 func activate_distraction():
 	if date_manager:
 		is_active = true
-		# Don't add to distractions yet, we'll do that when it becomes dangerous
-		print("Problem created, but not distracting yet")
+		date_manager.add_distraction()  # This only affects the display count
+		print("Problem created and counted in display")
 	else:
 		push_error("Cannot activate distraction - DateManager not found")
 
@@ -153,7 +153,9 @@ func start_minigame():
 
 func solve_problem():
 	if is_active and date_manager:
-		date_manager.remove_distraction()
+		date_manager.remove_distraction()  # Remove from display count
+		if current_state == ProblemState.DANGEROUS:
+			date_manager.remove_dangerous_distraction()  # Remove dangerous effect if it was dangerous
 		emit_signal("problem_solved")
 		print("Problem solved, remaining distractions:", date_manager.active_distractions)
 	queue_free()

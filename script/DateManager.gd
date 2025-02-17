@@ -13,7 +13,8 @@ signal date_status_changed(is_going_well: bool)
 @onready var timer = get_node("../CanvasLayer/TimerLabel")
 
 var current_love := initial_love
-var active_distractions := 0
+var active_distractions := 0  # For display purposes
+var dangerous_distractions := 0  # For love bar effects
 
 func _ready():
 	current_love = initial_love
@@ -30,8 +31,9 @@ func update_love(delta):
 	var time_percentage = timer.get_time_percentage()
 	var difficulty = 1.0 + (1.0 - (time_percentage / 100.0))  # 1.0 to 2.0
 	
-	if active_distractions > 0:
-		var decrease = love_decrease_rate * delta * difficulty * active_distractions
+	# Only decrease love if there are DANGEROUS distractions
+	if dangerous_distractions > 0:
+		var decrease = love_decrease_rate * delta * difficulty * dangerous_distractions
 		decrease_love(decrease)
 	else:
 		increase_love(delta)
@@ -49,6 +51,13 @@ func decrease_love(amount: float) -> void:
 	current_love = max(current_love - amount, 0.0)
 	if current_love != previous_love:
 		emit_signal("love_level_changed", current_love)
+
+func add_dangerous_distraction():
+	dangerous_distractions += 1
+
+func remove_dangerous_distraction():
+	dangerous_distractions = max(0, dangerous_distractions - 1)
+
 
 func _on_time_up():
 	# Game over logic here
