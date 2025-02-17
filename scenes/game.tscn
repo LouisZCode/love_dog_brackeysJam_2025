@@ -12587,12 +12587,10 @@ shape = SubResource("RectangleShape2D_lpsjd")
 one_way_collision = true
 
 [node name="date" parent="Rooms/DiningRoom" instance=ExtResource("3_ea4ev")]
-modulate = Color(0.990952, 0.535871, 1, 1)
 z_index = -2
 position = Vector2(24, -2)
 
 [node name="owner" parent="Rooms/DiningRoom" instance=ExtResource("4_tkdp3")]
-modulate = Color(0.195257, 0.704389, 0.813555, 1)
 z_index = -2
 position = Vector2(-25, -3)
 
@@ -12640,7 +12638,7 @@ scroll_active = false
 [node name="StaticBody2D" type="StaticBody2D" parent="Rooms/Kitchen"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Kitchen/StaticBody2D"]
-position = Vector2(217, 9.75)
+position = Vector2(218, 11)
 shape = SubResource("RectangleShape2D_axtr0")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Rooms/Kitchen/StaticBody2D"]
@@ -12694,7 +12692,7 @@ layer_0/tile_data = PackedInt32Array(0, 1507328, 9, 65536, 1507328, 10, 1, 15728
 [node name="StaticBody2D" type="StaticBody2D" parent="Rooms/LivingRoom"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/LivingRoom/StaticBody2D"]
-position = Vector2(-48.5, 33.5)
+position = Vector2(-48, 36)
 shape = SubResource("RectangleShape2D_mp2s3")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Rooms/LivingRoom/StaticBody2D"]
@@ -12818,7 +12816,7 @@ layer_0/tile_data = PackedInt32Array(-1507343, 327680, 33, -1507341, 327680, 33,
 [node name="StaticBody2D" type="StaticBody2D" parent="Rooms/Attic"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Attic/StaticBody2D"]
-position = Vector2(-9.5, -367.125)
+position = Vector2(-9, -366)
 shape = SubResource("RectangleShape2D_wtdru")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Rooms/Attic/StaticBody2D"]
