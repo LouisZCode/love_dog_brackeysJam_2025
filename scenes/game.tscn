@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=76 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
 [ext_resource type="Script" path="res://script/static_camera.gd" id="1_mye2x"]
@@ -5034,6 +5034,12 @@ size = Vector2(12.5, 3)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_af8rw"]
 size = Vector2(156.25, 3.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_62sg2"]
+size = Vector2(107, 4.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mee6t"]
+size = Vector2(26, 5)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vh84t"]
 texture = ExtResource("7_cytv1")
 10:1/0 = 0
@@ -9854,6 +9860,12 @@ size = Vector2(5, 130.625)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pscmg"]
 size = Vector2(419, 6)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvbf1"]
+size = Vector2(46, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0m4nf"]
+size = Vector2(33, 4)
+
 [sub_resource type="GDScript" id="GDScript_my01t"]
 script/source = "extends Area2D
 
@@ -12402,30 +12414,30 @@ initial_love = 25.0
 [node name="DiningSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint1" type="Marker2D" parent="ProblemSpawnPoints/DiningSpawnPoints"]
-position = Vector2(-140, -44)
+position = Vector2(-190, -107)
 
 [node name="SpawnPoint2" type="Marker2D" parent="ProblemSpawnPoints/DiningSpawnPoints"]
-position = Vector2(335, -54)
+position = Vector2(75, -31)
 
 [node name="KitchenSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint4" type="Marker2D" parent="ProblemSpawnPoints/KitchenSpawnPoints"]
-position = Vector2(-1066, -49)
+position = Vector2(-737, -23)
 
 [node name="LivingSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint3" type="Marker2D" parent="ProblemSpawnPoints/LivingSpawnPoints"]
-position = Vector2(1125, -73)
+position = Vector2(849, 7)
 
 [node name="BasementSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint5" type="Marker2D" parent="ProblemSpawnPoints/BasementSpawnPoints"]
-position = Vector2(251, 380)
+position = Vector2(132, 205)
 
 [node name="AtticSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint5" type="Marker2D" parent="ProblemSpawnPoints/AtticSpawnPoints"]
-position = Vector2(207, -734)
+position = Vector2(212, -236)
 
 [node name="Rooms" type="Node2D" parent="."]
 
@@ -12585,7 +12597,6 @@ z_index = -2
 position = Vector2(-25, -3)
 
 [node name="Kitchen" type="Node2D" parent="Rooms"]
-visible = false
 position = Vector2(-892, -6)
 
 [node name="TileMap_wall" type="TileMap" parent="Rooms/Kitchen"]
@@ -12653,6 +12664,16 @@ position = Vector2(84.125, -4.75)
 shape = SubResource("RectangleShape2D_af8rw")
 one_way_collision = true
 
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Rooms/Kitchen/StaticBody2D"]
+position = Vector2(221.5, -37.25)
+shape = SubResource("RectangleShape2D_62sg2")
+one_way_collision = true
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Rooms/Kitchen/StaticBody2D"]
+position = Vector2(359, -25.5)
+shape = SubResource("RectangleShape2D_mee6t")
+one_way_collision = true
+
 [node name="LivingRoom" type="Node2D" parent="Rooms"]
 position = Vector2(800, -9)
 
@@ -12710,7 +12731,6 @@ fit_content = true
 scroll_active = false
 
 [node name="Basement" type="Node2D" parent="Rooms"]
-visible = false
 position = Vector2(-4, 819)
 
 [node name="TileMap_wall" type="TileMap" parent="Rooms/Basement"]
@@ -12743,6 +12763,16 @@ shape = SubResource("RectangleShape2D_5xhmk")
 position = Vector2(-0.5, -703)
 shape = SubResource("RectangleShape2D_pscmg")
 
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Rooms/Basement/StaticBody2D"]
+position = Vector2(88, -590)
+shape = SubResource("RectangleShape2D_hvbf1")
+one_way_collision = true
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="Rooms/Basement/StaticBody2D"]
+position = Vector2(135.5, -596)
+shape = SubResource("RectangleShape2D_0m4nf")
+one_way_collision = true
+
 [node name="DoorToDinning" type="Area2D" parent="Rooms/Basement"]
 z_index = -1
 position = Vector2(7, -484)
@@ -12767,7 +12797,6 @@ fit_content = true
 scroll_active = false
 
 [node name="Attic" type="Node2D" parent="Rooms"]
-visible = false
 position = Vector2(2, 176)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Rooms/Attic"]
