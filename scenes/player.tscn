@@ -192,7 +192,7 @@ position = Vector2(-8, -34)
 sprite_frames = SubResource("SpriteFrames_0s1wv")
 animation = &"run"
 autoplay = "idle"
-frame_progress = 0.877506
+frame_progress = 0.851705
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
