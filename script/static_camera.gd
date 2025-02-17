@@ -4,7 +4,7 @@ var room_positions = {
 	"DiningRoom": Vector2(0, -100),
 	"Kitchen": Vector2(-700, -100),
 	"LivingRoom": Vector2(1100, -300),
-	"Basement": Vector2(0, 250),
+	"Basement": Vector2(0, 150),
 	"Attic": Vector2(0, -350)
 }
 
