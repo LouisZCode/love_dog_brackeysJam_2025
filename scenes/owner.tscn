@@ -796,8 +796,8 @@ z_index = 1
 scale = Vector2(0.3, 0.3)
 character_name = "owner"
 
-[node name="AnimatedSprite2D" parent="." index="1"]
+[node name="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(0, -60)
 sprite_frames = SubResource("SpriteFrames_wiagp")
 animation = &"mood_a_idle"
-frame_progress = 0.0926289
+frame_progress = 0.594468

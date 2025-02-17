@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://coonayja1yw3v"
-path="res://.godot/imported/yellow_arrow.png-ccebbff0b6767dfaef09fd7cec43fe5d.ctex"
+uid="uid://djiq7bwcyd1p0"
+path="res://.godot/imported/world_tileset.png-68f1d620a29cfc876a5169db3138ffa5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/yellow_arrow.png"
-dest_files=["res://.godot/imported/yellow_arrow.png-ccebbff0b6767dfaef09fd7cec43fe5d.ctex"]
+source_file="res://assets/sprites/backgrounds/world_tileset.png"
+dest_files=["res://.godot/imported/world_tileset.png-68f1d620a29cfc876a5169db3138ffa5.ctex"]
 
 [params]
 
