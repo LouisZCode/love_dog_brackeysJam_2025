@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=31 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
 [ext_resource type="Script" path="res://script/static_camera.gd" id="1_mye2x"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://script/door_to_kitchen.gd" id="5_w7c7w"]
 [ext_resource type="Script" path="res://script/door_to_livingroom.gd" id="6_fx0nu"]
 [ext_resource type="Script" path="res://script/door_to_dinning.gd" id="6_iy431"]
+[ext_resource type="Script" path="res://script/door_to_attic.gd" id="9_bg0qy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_38tdj"]
 size = Vector2(56, 125)
@@ -88,11 +89,11 @@ size = Vector2(56, 800)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3to8f"]
 size = Vector2(56, 814)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hyov0"]
-size = Vector2(1043, 35)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yv04x"]
 size = Vector2(73, 92)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hyov0"]
+size = Vector2(1043, 35)
 
 [sub_resource type="GDScript" id="GDScript_k55ms"]
 script/source = "extends Area2D
@@ -188,6 +189,18 @@ func transition_to_room():
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gbjc0"]
 size = Vector2(99, 76)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wtdru"]
+size = Vector2(1260, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eoajc"]
+size = Vector2(56, 419.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ihl7m"]
+size = Vector2(56, 396.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fkmay"]
+size = Vector2(1269, 35)
 
 [node name="Game" type="Node2D"]
 position = Vector2(-5, -2)
@@ -363,6 +376,34 @@ bbcode_enabled = true
 text = "Press E"
 fit_content = true
 
+[node name="DoorToAttic" type="Area2D" parent="Rooms/DiningRoom"]
+z_index = -1
+position = Vector2(-567, -86)
+script = ExtResource("9_bg0qy")
+target_room = NodePath("../../Attic")
+spawn_position = Vector2(0, -700)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/DiningRoom/DoorToAttic"]
+z_index = -1
+position = Vector2(35, 71)
+shape = SubResource("RectangleShape2D_ccio6")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/DoorToAttic"]
+z_index = -1
+offset_top = 55.0
+offset_right = 70.0
+offset_bottom = 88.0
+color = Color(0.509804, 0.509804, 0.509804, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Rooms/DiningRoom/DoorToAttic"]
+offset_left = 1.0
+offset_top = 24.0
+offset_right = 79.0
+offset_bottom = 64.0
+bbcode_enabled = true
+text = "Press E"
+fit_content = true
+
 [node name="StaticBody2D" type="StaticBody2D" parent="Rooms/DiningRoom"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
@@ -394,16 +435,6 @@ offset_left = -25.0
 offset_top = -400.0
 offset_right = 1.0
 offset_bottom = 394.0
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Rooms/DiningRoom/StaticBody2D"]
-position = Vector2(3.5, -787)
-shape = SubResource("RectangleShape2D_hyov0")
-
-[node name="ColorRect" type="ColorRect" parent="Rooms/DiningRoom/StaticBody2D/CollisionShape2D4"]
-offset_left = -616.0
-offset_top = -19.0
-offset_right = 608.0
-offset_bottom = 19.0
 
 [node name="TableArea" type="Area2D" parent="Rooms/DiningRoom"]
 
@@ -648,6 +679,80 @@ text = "Press E"
 fit_content = true
 scroll_active = false
 
+[node name="Attic" type="Node2D" parent="Rooms"]
+position = Vector2(-2, -250)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Rooms/Attic"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Attic/StaticBody2D"]
+position = Vector2(-14, -367)
+shape = SubResource("RectangleShape2D_wtdru")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/Attic/StaticBody2D/CollisionShape2D"]
+offset_left = -631.0
+offset_top = -19.0
+offset_right = 643.0
+offset_bottom = -6.0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Rooms/Attic/StaticBody2D"]
+position = Vector2(-619, -580)
+shape = SubResource("RectangleShape2D_eoajc")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/Attic/StaticBody2D/CollisionShape2D2"]
+offset_left = 15.0
+offset_top = -222.0
+offset_right = 30.0
+offset_bottom = 193.0
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Rooms/Attic/StaticBody2D"]
+position = Vector2(609, -570)
+shape = SubResource("RectangleShape2D_ihl7m")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/Attic/StaticBody2D/CollisionShape2D3"]
+offset_left = -25.0
+offset_top = -236.0
+offset_right = 1.0
+offset_bottom = 185.0
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Rooms/Attic/StaticBody2D"]
+position = Vector2(-7.5, -787)
+shape = SubResource("RectangleShape2D_fkmay")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/Attic/StaticBody2D/CollisionShape2D4"]
+offset_left = -595.0
+offset_top = -19.0
+offset_right = 619.0
+offset_bottom = 19.0
+
+[node name="DoorToDinning" type="Area2D" parent="Rooms/Attic"]
+z_index = -1
+position = Vector2(7, -484)
+script = SubResource("GDScript_my01t")
+target_room = NodePath("../../DiningRoom")
+spawn_position = Vector2(500, 0)
+door_side = "Left"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Attic/DoorToDinning"]
+position = Vector2(4.5, 59)
+shape = SubResource("RectangleShape2D_gbjc0")
+
+[node name="ColorRect" type="ColorRect" parent="Rooms/Attic/DoorToDinning"]
+offset_left = -47.0
+offset_top = 18.0
+offset_right = 59.0
+offset_bottom = 102.0
+color = Color(0.510075, 0.510075, 0.510075, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Rooms/Attic/DoorToDinning"]
+offset_left = -28.0
+offset_top = -15.0
+offset_right = 51.0
+offset_bottom = 17.0
+bbcode_enabled = true
+text = "Press E"
+fit_content = true
+scroll_active = false
+
 [connection signal="love_level_changed" from="DateManager" to="Rooms/DiningRoom/date" method="_on_date_manager_love_level_changed"]
 [connection signal="love_level_changed" from="DateManager" to="Rooms/DiningRoom/owner" method="_on_date_manager_love_level_changed"]
 [connection signal="body_entered" from="Rooms/DiningRoom/DoorToKitchen" to="Rooms/DiningRoom/DoorToKitchen" method="_on_body_entered"]
@@ -656,9 +761,13 @@ scroll_active = false
 [connection signal="body_exited" from="Rooms/DiningRoom/DoorToLivingroom" to="Rooms/DiningRoom/DoorToLivingroom" method="_on_body_exited"]
 [connection signal="body_entered" from="Rooms/DiningRoom/DoorToBasement" to="Rooms/DiningRoom/DoorToBasement" method="_on_body_entered"]
 [connection signal="body_exited" from="Rooms/DiningRoom/DoorToBasement" to="Rooms/DiningRoom/DoorToBasement" method="_on_body_exited"]
+[connection signal="body_entered" from="Rooms/DiningRoom/DoorToAttic" to="Rooms/DiningRoom/DoorToAttic" method="_on_body_entered"]
+[connection signal="body_exited" from="Rooms/DiningRoom/DoorToAttic" to="Rooms/DiningRoom/DoorToAttic" method="_on_body_exited"]
 [connection signal="body_entered" from="Rooms/Kitchen/DoorToDinning" to="Rooms/Kitchen/DoorToDinning" method="_on_body_entered"]
 [connection signal="body_exited" from="Rooms/Kitchen/DoorToDinning" to="Rooms/Kitchen/DoorToDinning" method="_on_body_exited"]
 [connection signal="body_entered" from="Rooms/LivingRoom/DoorToDinning" to="Rooms/LivingRoom/DoorToDinning" method="_on_body_entered"]
 [connection signal="body_exited" from="Rooms/LivingRoom/DoorToDinning" to="Rooms/LivingRoom/DoorToDinning" method="_on_body_exited"]
 [connection signal="body_entered" from="Rooms/Basement/DoorToDinning" to="Rooms/Basement/DoorToDinning" method="_on_body_entered"]
 [connection signal="body_exited" from="Rooms/Basement/DoorToDinning" to="Rooms/Basement/DoorToDinning" method="_on_body_exited"]
+[connection signal="body_entered" from="Rooms/Attic/DoorToDinning" to="Rooms/Attic/DoorToDinning" method="_on_body_entered"]
+[connection signal="body_exited" from="Rooms/Attic/DoorToDinning" to="Rooms/Attic/DoorToDinning" method="_on_body_exited"]
