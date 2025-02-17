@@ -12592,7 +12592,7 @@ position = Vector2(24, -2)
 
 [node name="owner" parent="Rooms/DiningRoom" instance=ExtResource("4_tkdp3")]
 z_index = -2
-position = Vector2(-25, -3)
+position = Vector2(-25, 2)
 
 [node name="Kitchen" type="Node2D" parent="Rooms"]
 visible = false

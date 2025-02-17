@@ -11,8 +11,3 @@ is_date = true
 [node name="Sprite2D" type="Sprite2D" parent="." index="0"]
 position = Vector2(1, -56)
 texture = ExtResource("2_gurpo")
-
-[node name="ColorRect" parent="." index="1"]
-visible = false
-z_index = 1
-color = Color(0.825061, 0.505834, 0.570074, 1)
