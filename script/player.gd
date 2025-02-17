@@ -7,10 +7,12 @@ extends CharacterBody2D
 
 # Jump variables
 @export var jump_force := -400.0
-@export var jump_cut_height := 0.4  # Multiplier for jump height when releasing early
+@export var jump_cut_height := 0.4
 @export var max_fall_speed := 500.0
 @export var fall_acceleration := 1800.0
-@export var jump_acceleration := 1000.0  # Slower acceleration going up
+@export var jump_acceleration := 1000.0
+@export var coyote_time := 0.15  # Time in seconds you can jump after leaving platform
+@export var jump_buffer_time := 0.1  # Time in seconds to buffer jump input
 
 @onready var animated_sprite = $AnimatedSprite2D
 
@@ -20,13 +22,38 @@ var is_at_table := false
 var facing_right := true
 var current_noise := 0.0
 var was_jumping := false
+var coyote_timer := 0.0
+var jump_buffer_timer := 0.0
+var can_jump := true
+var wants_to_jump := false
 
 func _physics_process(delta):
+	update_timers(delta)
+	handle_jump_input()
 	handle_jump(delta)
 	handle_horizontal_movement(delta)
 	update_state()
 	move_and_slide()
 	update_animation_state()
+
+func update_timers(delta):
+	if is_on_floor():
+		can_jump = true
+		coyote_timer = coyote_time
+	else:
+		coyote_timer -= delta
+		if coyote_timer <= 0:
+			can_jump = false
+	
+	if jump_buffer_timer > 0:
+		jump_buffer_timer -= delta
+		if jump_buffer_timer <= 0:
+			wants_to_jump = false
+
+func handle_jump_input():
+	if Input.is_action_just_pressed("jump"):
+		wants_to_jump = true
+		jump_buffer_timer = jump_buffer_time
 
 func handle_jump(delta):
 	# Apply different gravity based on upward/downward movement
@@ -38,23 +65,22 @@ func handle_jump(delta):
 		if velocity.y > max_fall_speed:
 			velocity.y = max_fall_speed
 	
-	# Jump input
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	# Execute jump if buffered jump input exists and we can jump
+	if wants_to_jump and can_jump:
 		velocity.y = jump_force
 		was_jumping = true
+		can_jump = false
+		wants_to_jump = false
+		jump_buffer_timer = 0
 	
 	# Variable jump height when releasing jump button
 	if was_jumping and Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y *= jump_cut_height
 		was_jumping = false
-	
-	# Reset jump state when landing
-	if is_on_floor():
-		was_jumping = false
 
 func handle_horizontal_movement(delta):
 	var direction = Input.get_axis("ui_left", "ui_right")
-	var is_running = Input.is_action_pressed("run")
+	var is_running = Input.is_action_pressed("run")  # This is space
 	var target_speed = run_speed if is_running else walk_speed
 	
 	if direction != 0:
@@ -65,7 +91,7 @@ func handle_horizontal_movement(delta):
 
 func update_state():
 	if is_on_floor():
-		if abs(velocity.x) > 10:  # Small threshold to prevent flicker
+		if abs(velocity.x) > 10:
 			current_state = DogState.RUNNING if abs(velocity.x) > walk_speed else DogState.WALKING
 		else:
 			current_state = DogState.IDLE
