@@ -1,11 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://c5uda31jw6q3l"]
+[gd_scene load_steps=3 format=3 uid="uid://c5uda31jw6q3l"]
 
 [ext_resource type="PackedScene" uid="uid://mugof8fim8k1" path="res://scenes/character.tscn" id="1_gyvca"]
+[ext_resource type="Texture2D" uid="uid://b0eq3e3beg8rl" path="res://assets/sprites/date_proto.png" id="2_gurpo"]
 
 [node name="CharacterBody2D" instance=ExtResource("1_gyvca")]
+scale = Vector2(0.3, 0.3)
 character_name = "Date"
 is_date = true
 
-[node name="ColorRect" parent="." index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
+position = Vector2(1, -56)
+texture = ExtResource("2_gurpo")
+
+[node name="ColorRect" parent="." index="1"]
+visible = false
 z_index = 1
 color = Color(0.825061, 0.505834, 0.570074, 1)

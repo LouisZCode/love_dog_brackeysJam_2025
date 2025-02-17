@@ -1,7 +1,7 @@
 extends Camera2D
 
 var room_positions = {
-	"DiningRoom": Vector2(0, -300),
+	"DiningRoom": Vector2(0, -100),
 	"Kitchen": Vector2(-1100, -300),
 	"LivingRoom": Vector2(1100, -300),
 	"Basement": Vector2(0, 250),

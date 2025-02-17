@@ -1,12 +1,12 @@
 extends CharacterBody2D
 
-@export var walk_speed := 300.0
-@export var run_speed := 600.0
+@export var walk_speed := 100.0
+@export var run_speed := 300.0
 @export var acceleration := 1500.0
 @export var friction := 1000.0
 
 # Jump variables
-@export var jump_force := -600.0
+@export var jump_force := -300.0
 @export var jump_cut_height := 0.4
 @export var max_fall_speed := 500.0
 @export var fall_acceleration := 1800.0

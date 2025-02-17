@@ -1,0 +1,11 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cfpg0hvp634ax"]
+
+[ext_resource type="FontFile" uid="uid://bl2p1xlus6ku1" path="res://assets/fonts/PixelOperator8.ttf" id="1_boiyx"]
+
+[resource]
+RichTextLabel/constants/outline_size = 4
+RichTextLabel/constants/shadow_offset_x = 0
+RichTextLabel/constants/shadow_offset_y = 0
+RichTextLabel/constants/shadow_outline_size = 0
+RichTextLabel/font_sizes/normal_font_size = 7
+RichTextLabel/fonts/normal_font = ExtResource("1_boiyx")

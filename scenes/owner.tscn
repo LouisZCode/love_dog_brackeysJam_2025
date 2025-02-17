@@ -1,7 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://cfbf3xry8lspc"]
+[gd_scene load_steps=3 format=3 uid="uid://cfbf3xry8lspc"]
 
 [ext_resource type="PackedScene" uid="uid://mugof8fim8k1" path="res://scenes/character.tscn" id="1_4cahr"]
+[ext_resource type="Texture2D" uid="uid://bx6sma0cyl4tx" path="res://assets/sprites/owner_proto.png" id="2_70gjh"]
 
 [node name="CharacterBody2D" instance=ExtResource("1_4cahr")]
 z_index = 1
+scale = Vector2(0.3, 0.3)
 character_name = "owner"
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
+position = Vector2(0, -55)
+texture = ExtResource("2_70gjh")
+
+[node name="ColorRect" parent="." index="1"]
+visible = false
