@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b7ea3ye7sx6i0"]
+
+[node name="MinigameBase" type="CanvasLayer"]
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Timer" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="GameArea" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

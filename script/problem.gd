@@ -146,10 +146,9 @@ func activate_distraction():
 		push_error("Cannot activate distraction - DateManager not found")
 
 func start_minigame():
-	# This will be implemented later
-	print("Minigame would start here!")
-	# For now, just solve immediately
-	solve_problem()
+	var minigame_manager = get_node("/root/Game/MinigameManager")
+	if minigame_manager:
+		minigame_manager.start_minigame(minigame_name, self)
 
 func solve_problem():
 	if is_active and date_manager:
