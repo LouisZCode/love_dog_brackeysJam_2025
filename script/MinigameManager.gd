@@ -12,7 +12,7 @@ var is_minigame_active := false
 
 # Dictionary to map minigame names to their scene paths
 var minigame_scenes := {
-	"wire_fix": "res://scenes/minigames/wire_fix.tscn",
+	"wire_fix": "res://scenes/wire_minigame.tscn",
 	"quick_clean": "res://scenes/quick_clean_minigame.tscn",
 	"pattern_match": "res://scenes/minigames/pattern_match.tscn"
 }
