@@ -58,8 +58,10 @@ func spawn_problem():
 	
 	var problem = problem_scene.instantiate()
 	
-	# Randomly assign problem type using the proper enum
-	problem.set("problem_type", 0 if randi() % 2 == 0 else 1)  # 0 for BARK, 1 for MINIGAME
+	# Set the problem type based on spawn point configuration
+	problem.problem_type = spawn_point.problem_type
+	if problem.problem_type == problem.ProblemType.MINIGAME:
+		problem.minigame_name = spawn_point.minigame_name
 	
 	spawn_point.add_child(problem)
 	active_problems.append(problem)

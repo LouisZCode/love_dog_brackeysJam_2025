@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=80 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
 [ext_resource type="Script" path="res://script/static_camera.gd" id="1_mye2x"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://script/door_to_livingroom.gd" id="6_fx0nu"]
 [ext_resource type="Script" path="res://script/door_to_dinning.gd" id="6_iy431"]
 [ext_resource type="Texture2D" uid="uid://bhgqbw3vr16cu" path="res://assets/tilesets/tilemap_all.png" id="7_cytv1"]
+[ext_resource type="Script" path="res://script/SpawnPoint.gd" id="8_34kcm"]
 [ext_resource type="Script" path="res://script/door_to_attic.gd" id="9_bg0qy"]
 [ext_resource type="Theme" uid="uid://cfpg0hvp634ax" path="res://assets/themes/action_richLabel_theme.tres" id="9_lwirj"]
 [ext_resource type="Texture2D" uid="uid://lttowmorymml" path="res://assets/tilesets/kitchen.png" id="14_kix3f"]
@@ -12557,29 +12558,35 @@ initial_love = 25.0
 
 [node name="SpawnPoint1" type="Marker2D" parent="ProblemSpawnPoints/DiningSpawnPoints"]
 position = Vector2(-187, -99)
+script = ExtResource("8_34kcm")
 
 [node name="SpawnPoint2" type="Marker2D" parent="ProblemSpawnPoints/DiningSpawnPoints"]
 position = Vector2(88, -23)
+script = ExtResource("8_34kcm")
 
 [node name="KitchenSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint4" type="Marker2D" parent="ProblemSpawnPoints/KitchenSpawnPoints"]
 position = Vector2(-561, -25)
+script = ExtResource("8_34kcm")
 
 [node name="LivingSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint3" type="Marker2D" parent="ProblemSpawnPoints/LivingSpawnPoints"]
 position = Vector2(622, -16)
+script = ExtResource("8_34kcm")
 
 [node name="BasementSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint5" type="Marker2D" parent="ProblemSpawnPoints/BasementSpawnPoints"]
 position = Vector2(259, 99)
+script = ExtResource("8_34kcm")
 
 [node name="AtticSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint5" type="Marker2D" parent="ProblemSpawnPoints/AtticSpawnPoints"]
 position = Vector2(135, -203)
+script = ExtResource("8_34kcm")
 
 [node name="Rooms" type="Node2D" parent="."]
 

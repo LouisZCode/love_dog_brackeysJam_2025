@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://script/direction_arrow.gd" id="1_3cvvx"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_d410c"]
-load_path = "res://.godot/imported/yellow_arrow.png-ccebbff0b6767dfaef09fd7cec43fe5d.ctex"
 
 [node name="DirectionArrow" type="Node2D"]
 script = ExtResource("1_3cvvx")
