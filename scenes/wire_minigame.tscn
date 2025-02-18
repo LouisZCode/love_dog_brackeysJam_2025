@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b3gksyxxa2afo"]
+[gd_scene load_steps=9 format=3 uid="uid://b3gksyxxa2afo"]
 
 [ext_resource type="PackedScene" uid="uid://b7ea3ye7sx6i0" path="res://scenes/minigame_base.tscn" id="1_dfla7"]
 [ext_resource type="Script" path="res://script/WireMinigame.gd" id="2_jqh7a"]
+[ext_resource type="Theme" uid="uid://cfpg0hvp634ax" path="res://assets/themes/action_richLabel_theme.tres" id="3_5tk1h"]
 [ext_resource type="PackedScene" uid="uid://br5gfgs0wgkqb" path="res://scenes/wire_endpoint.tscn" id="3_qs36k"]
 [ext_resource type="Script" path="res://script/WirePaw.gd" id="4_dquyl"]
 [ext_resource type="Texture2D" uid="uid://c5nbxx4irnuhp" path="res://assets/sprites/clean_paw.png" id="4_gcoxg"]
@@ -16,8 +17,11 @@ size = Vector2(75, 83)
 script = ExtResource("2_jqh7a")
 
 [node name="InstructionLabel" type="RichTextLabel" parent="." index="0"]
-offset_right = 40.0
+offset_right = 532.0
 offset_bottom = 40.0
+theme = ExtResource("3_5tk1h")
+bbcode_enabled = true
+fit_content = true
 
 [node name="TopEndpoints" type="Node2D" parent="." index="1"]
 

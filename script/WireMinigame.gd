@@ -24,7 +24,7 @@ func setup_instruction_label():
 func setup_endpoints():
 	var y_top = 100
 	var y_bottom = 400
-	var positions = [Vector2(300, 0), Vector2(500, 0), Vector2(700, 0)]
+	var positions = [Vector2(400, 0), Vector2(600, 0), Vector2(800, 0)]
 	
 	# Randomize endpoint positions
 	positions.shuffle()

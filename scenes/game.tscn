@@ -12618,18 +12618,6 @@ script = ExtResource("8_x0tum")
 
 [node name="DiningSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
-[node name="SpawnPoint1" type="Marker2D" parent="ProblemSpawnPoints/DiningSpawnPoints"]
-position = Vector2(-138, -34)
-script = ExtResource("8_34kcm")
-problem_type = 1
-minigame_name = "wire_fix"
-
-[node name="SpawnPoint2" type="Marker2D" parent="ProblemSpawnPoints/DiningSpawnPoints"]
-position = Vector2(88, -23)
-script = ExtResource("8_34kcm")
-problem_type = 1
-minigame_name = "wire_fix"
-
 [node name="KitchenSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint4" type="Marker2D" parent="ProblemSpawnPoints/KitchenSpawnPoints"]

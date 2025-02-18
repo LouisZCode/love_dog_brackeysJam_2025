@@ -1,8 +1,14 @@
-[gd_scene load_steps=29 format=3 uid="uid://byktwux5rrnxo"]
+[gd_scene load_steps=33 format=3 uid="uid://byktwux5rrnxo"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_ev1qf"]
 [ext_resource type="Texture2D" uid="uid://cmr7vfe2m53wc" path="res://assets/sprite_shets/dog_idle_ss.png" id="2_o4sg1"]
+[ext_resource type="Texture2D" uid="uid://copiib46bmks4" path="res://assets/sprites/falling.png" id="2_wut56"]
 [ext_resource type="Texture2D" uid="uid://dlxi2vnemr5q0" path="res://assets/sprite_shets/dog_run_ss.png" id="3_l15qm"]
+[ext_resource type="Texture2D" uid="uid://bi6y6i5i2c7wv" path="res://assets/sprites/jumping.png" id="4_kwbdw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p85ts"]
+atlas = ExtResource("2_wut56")
+region = Rect2(0, 0, 180, 114)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_55s5j"]
 atlas = ExtResource("2_o4sg1")
@@ -43,6 +49,10 @@ region = Rect2(540, 114, 180, 114)
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6sd4"]
 atlas = ExtResource("2_o4sg1")
 region = Rect2(720, 114, 180, 114)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfrlr"]
+atlas = ExtResource("4_kwbdw")
+region = Rect2(0, 0, 180, 114)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fnl5u"]
 atlas = ExtResource("3_l15qm")
@@ -100,6 +110,14 @@ region = Rect2(360, 228, 180, 114)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_p85ts")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_55s5j")
 }, {
 "duration": 1.0,
@@ -132,6 +150,14 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 26.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfrlr")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -193,10 +219,7 @@ script = ExtResource("1_ev1qf")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-8, -34)
 sprite_frames = SubResource("SpriteFrames_0s1wv")
-animation = &"idle"
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
+animation = &"fall"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2.48353e-08, -20)
