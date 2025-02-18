@@ -198,12 +198,6 @@ animation = &"idle"
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="Sprite2D"]
-offset_left = -24.0
-offset_top = -51.0
-offset_right = 26.0
-offset_bottom = -1.0
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2.48353e-08, -20)
 rotation = 1.57814

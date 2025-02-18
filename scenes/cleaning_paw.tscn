@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b1o0hcne6e2g1"]
 
 [ext_resource type="Script" path="res://script/CleaningPaw.gd" id="1_wn7tx"]
-[ext_resource type="Texture2D" uid="uid://bhvbls3vl8i1d" path="res://assets/sprites/temp paw.jpg" id="2_5wc4q"]
+[ext_resource type="Texture2D" uid="uid://c5nbxx4irnuhp" path="res://assets/sprites/clean_paw.png" id="2_pjpxk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_odp1n"]
 size = Vector2(57, 76)
@@ -14,7 +14,7 @@ script = ExtResource("1_wn7tx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.074, 0.086)
-texture = ExtResource("2_5wc4q")
+texture = ExtResource("2_pjpxk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -1)

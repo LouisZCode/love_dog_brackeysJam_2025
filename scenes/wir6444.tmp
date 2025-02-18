@@ -46,10 +46,6 @@ wire_color = Color(0, 0, 1, 1)
 
 [node name="WireContainer" type="Node2D" parent="." index="3"]
 
-[node name="GameArea" parent="." index="5"]
-offset_right = 1003.0
-offset_bottom = 592.0
-
 [node name="WirePaw" type="CharacterBody2D" parent="." index="6"]
 script = ExtResource("4_dquyl")
 

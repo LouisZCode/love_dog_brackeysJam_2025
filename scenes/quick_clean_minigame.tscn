@@ -7,7 +7,7 @@
 script = ExtResource("2_v1h5m")
 spots_to_clean = 5
 
-[node name="InstructionLabel" type="RichTextLabel" parent="." index="3"]
+[node name="InstructionLabel" type="RichTextLabel" parent="." index="2"]
 offset_right = 40.0
 offset_bottom = 40.0
 bbcode_enabled = true

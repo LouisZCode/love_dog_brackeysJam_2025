@@ -1,19 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://b3gksyxxa2afo"]
+[gd_scene load_steps=4 format=3 uid="uid://b3gksyxxa2afo"]
 
 [ext_resource type="PackedScene" uid="uid://b7ea3ye7sx6i0" path="res://scenes/minigame_base.tscn" id="1_dfla7"]
 [ext_resource type="Script" path="res://script/WireMinigame.gd" id="2_jqh7a"]
 [ext_resource type="PackedScene" uid="uid://br5gfgs0wgkqb" path="res://scenes/wire_endpoint.tscn" id="3_qs36k"]
-[ext_resource type="Script" path="res://script/WirePaw.gd" id="4_dquyl"]
-[ext_resource type="Texture2D" uid="uid://c5nbxx4irnuhp" path="res://assets/sprites/clean_paw.png" id="4_gcoxg"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uxpp0"]
-size = Vector2(57, 72)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xx61c"]
-size = Vector2(75, 83)
 
 [node name="WireMinigame" instance=ExtResource("1_dfla7")]
 script = ExtResource("2_jqh7a")
+time_limit = null
+debug_mode = null
 
 [node name="InstructionLabel" type="RichTextLabel" parent="." index="0"]
 offset_right = 40.0
@@ -45,28 +39,3 @@ wire_color = Color(0, 1, 0, 1)
 wire_color = Color(0, 0, 1, 1)
 
 [node name="WireContainer" type="Node2D" parent="." index="3"]
-
-[node name="GameArea" parent="." index="5"]
-offset_right = 1003.0
-offset_bottom = 592.0
-
-[node name="WirePaw" type="CharacterBody2D" parent="." index="6"]
-script = ExtResource("4_dquyl")
-
-[node name="Sprite2D" type="Sprite2D" parent="WirePaw" index="0"]
-position = Vector2(5, -17)
-scale = Vector2(0.077, 0.08)
-texture = ExtResource("4_gcoxg")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WirePaw" index="1"]
-position = Vector2(7.5, -14)
-shape = SubResource("RectangleShape2D_uxpp0")
-
-[node name="DetectionArea" type="Area2D" parent="WirePaw" index="2"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WirePaw/DetectionArea" index="0"]
-position = Vector2(8.5, -14.5)
-shape = SubResource("RectangleShape2D_xx61c")
-
-[connection signal="area_entered" from="WirePaw/DetectionArea" to="WirePaw" method="_on_detection_area_entered"]
-[connection signal="area_exited" from="WirePaw/DetectionArea" to="WirePaw" method="_on_detection_area_exited"]
