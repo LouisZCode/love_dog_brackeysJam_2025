@@ -10,10 +10,6 @@ size = Vector2(110, 182)
 z_index = 1
 scale = Vector2(0.2, 0.2)
 script = ExtResource("1_dhuld")
-problem_type = null
-bark_time_required = null
-growing_time = null
-dangerous_time = null
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 anchors_preset = 8

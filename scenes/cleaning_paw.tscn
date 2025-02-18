@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1o0hcne6e2g1"]
+
+[ext_resource type="Script" path="res://script/CleaningPaw.gd" id="1_wn7tx"]
+[ext_resource type="Texture2D" uid="uid://bhvbls3vl8i1d" path="res://assets/sprites/temp paw.jpg" id="2_5wc4q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_odp1n"]
+size = Vector2(57, 76)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6hkxq"]
+size = Vector2(74, 89)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_wn7tx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.074, 0.086)
+texture = ExtResource("2_5wc4q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_odp1n")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_6hkxq")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_clean_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_clean_area_exited"]

@@ -25,6 +25,8 @@ var current_state := ProblemState.GROWING
 var growing_timer := 0.0
 var danger_timer := 0.0
 
+var minigame_name: String = ""  # Will be set by spawn point
+
 func _ready():
 	if not prompt_label:
 		push_error("RichTextLabel node not found")
@@ -110,6 +112,8 @@ func handle_interaction(delta):
 			ProblemType.MINIGAME:
 				if Input.is_action_just_pressed("interact"):
 					start_minigame()
+					# Add a debug print
+					print("Starting minigame attempt")
 
 func update_visibility():
 	var my_room = get_parent().get_parent().get_parent()

@@ -47,6 +47,7 @@ func get_all_available_spawn_points() -> Array:
 	return available
 
 func spawn_problem():
+	
 	var available_points = get_all_available_spawn_points()
 	
 	if available_points.is_empty():
@@ -57,7 +58,6 @@ func spawn_problem():
 	print("Selected spawn point in: ", spawn_point.get_parent().name)
 	
 	var problem = problem_scene.instantiate()
-	
 	# Set the problem type based on spawn point configuration
 	problem.problem_type = spawn_point.problem_type
 	if problem.problem_type == problem.ProblemType.MINIGAME:
@@ -69,6 +69,8 @@ func spawn_problem():
 	problem.problem_solved.connect(
 		func(): on_problem_solved(problem)
 	)
+	
+	print("Spawning problem with type: ", spawn_point.problem_type, " and minigame name: ", spawn_point.minigame_name)
 	
 	emit_signal("problem_spawned", problem)
 	print("Problem spawned at point in ", spawn_point.get_parent().name)

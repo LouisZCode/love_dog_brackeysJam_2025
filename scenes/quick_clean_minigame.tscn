@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://btbkiaa25c8w3"]
+
+[ext_resource type="PackedScene" uid="uid://b7ea3ye7sx6i0" path="res://scenes/minigame_base.tscn" id="1_svc3i"]
+[ext_resource type="Script" path="res://script/QuickCleanMinigame.gd" id="2_v1h5m"]
+
+[node name="MinigameBase" instance=ExtResource("1_svc3i")]
+script = ExtResource("2_v1h5m")
+spots_to_clean = 5
+
+[node name="InstructionLabel" type="RichTextLabel" parent="." index="3"]
+offset_right = 40.0
+offset_bottom = 40.0
+bbcode_enabled = true

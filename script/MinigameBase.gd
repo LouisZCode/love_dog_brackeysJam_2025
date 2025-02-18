@@ -1,3 +1,4 @@
+class_name MinigameBase
 extends CanvasLayer
 
 signal minigame_won

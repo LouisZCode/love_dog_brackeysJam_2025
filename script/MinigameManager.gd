@@ -10,12 +10,19 @@ var is_minigame_active := false
 # Dictionary to map minigame names to their scene paths
 var minigame_scenes := {
 	"wire_fix": "res://scenes/minigames/wire_fix.tscn",
-	"quick_clean": "res://scenes/minigames/quick_clean.tscn",
+	"quick_clean": "res://scenes/quick_clean_minigame.tscn",
 	"pattern_match": "res://scenes/minigames/pattern_match.tscn"
 }
 
 func start_minigame(minigame_name: String, problem: Node) -> bool:
+	print("MinigameManager received start request for: ", minigame_name)
+	if minigame_name.is_empty():
+		print("ERROR: Minigame name is empty!")
+		return false
+	
 	if is_minigame_active:
+		print("Minigame already active")
+		print("Available minigames: ", minigame_scenes.keys())
 		return false
 	
 	if not minigame_name in minigame_scenes:
@@ -41,8 +48,8 @@ func start_minigame(minigame_name: String, problem: Node) -> bool:
 	add_child(current_minigame)
 	
 	# Pause main game systems
-	get_tree().paused = true
-	current_minigame.process_mode = Node.PROCESS_MODE_ALWAYS
+	#get_tree().paused = true
+	#current_minigame.process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	is_minigame_active = true
 	emit_signal("minigame_started")
@@ -59,7 +66,7 @@ func end_minigame(was_successful: bool):
 		return
 	
 	# Resume main game
-	get_tree().paused = false
+	#get_tree().paused = false
 	
 	# Handle the problem based on result
 	if was_successful and current_problem:

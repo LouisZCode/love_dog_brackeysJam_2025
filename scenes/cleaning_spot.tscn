@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5r8bnxdaht1d"]
+
+[ext_resource type="Script" path="res://script/spot_script.gd" id="1_duhw4"]
+[ext_resource type="Texture2D" uid="uid://dio5jddxm7ogo" path="res://assets/sprites/dirt_png.png" id="2_u22hk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wpb8i"]
+size = Vector2(68, 61)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_duhw4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(18, 18.5)
+scale = Vector2(0.0322917, 0.0286458)
+texture = ExtResource("2_u22hk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 21.5)
+shape = SubResource("RectangleShape2D_wpb8i")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
