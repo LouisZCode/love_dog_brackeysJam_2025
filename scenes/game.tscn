@@ -1,12 +1,16 @@
-[gd_scene load_steps=82 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=86 format=3 uid="uid://bxgd8ckgfbbq8"]
 
+[ext_resource type="Texture2D" uid="uid://dalqosjcw7y8y" path="res://assets/sprites/parallax_bgs/1.png" id="1_4856h"]
 [ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
 [ext_resource type="Script" path="res://script/static_camera.gd" id="1_mye2x"]
 [ext_resource type="PackedScene" uid="uid://byktwux5rrnxo" path="res://scenes/player.tscn" id="1_uhufi"]
 [ext_resource type="Script" path="res://script/problem_manager.gd" id="2_qbmpg"]
+[ext_resource type="Texture2D" uid="uid://bquo07rwyvx5n" path="res://assets/sprites/parallax_bgs/2.png" id="2_yesiq"]
+[ext_resource type="Texture2D" uid="uid://dth4c4r8bppvo" path="res://assets/sprites/parallax_bgs/3.png" id="3_6xnmm"]
 [ext_resource type="Script" path="res://script/DateManager.gd" id="3_deeda"]
 [ext_resource type="PackedScene" uid="uid://c5uda31jw6q3l" path="res://scenes/date.tscn" id="3_ea4ev"]
 [ext_resource type="Script" path="res://script/game_timer.gd" id="3_tvuu4"]
+[ext_resource type="Texture2D" uid="uid://bbnovfa47f0og" path="res://assets/sprites/parallax_bgs/4.png" id="4_lh23h"]
 [ext_resource type="PackedScene" uid="uid://cfbf3xry8lspc" path="res://scenes/owner.tscn" id="4_tkdp3"]
 [ext_resource type="Script" path="res://script/door_to_kitchen.gd" id="5_w7c7w"]
 [ext_resource type="Script" path="res://script/door_to_livingroom.gd" id="6_fx0nu"]
@@ -12493,7 +12497,62 @@ func transition_to_room():
 [node name="Game" type="Node2D"]
 position = Vector2(-5, -2)
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+follow_viewport_enabled = true
+
+[node name="Parallax2D" type="Parallax2D" parent="ParallaxBackground"]
+follow_viewport = false
+ignore_camera_scroll = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Parallax2D"]
+position = Vector2(52, -311)
+scale = Vector2(3.72917, 1)
+texture = ExtResource("1_4856h")
+
+[node name="Parallax2D2" type="Parallax2D" parent="ParallaxBackground"]
+follow_viewport = false
+ignore_camera_scroll = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Parallax2D2"]
+position = Vector2(-98, -205)
+scale = Vector2(1.04861, 1)
+texture = ExtResource("2_yesiq")
+
+[node name="Parallax2D3" type="Parallax2D" parent="ParallaxBackground"]
+scroll_offset = Vector2(-496, -25)
+repeat_size = Vector2(500, 0)
+autoscroll = Vector2(5, 0)
+follow_viewport = false
+ignore_camera_scroll = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Parallax2D3"]
+position = Vector2(-87, -185)
+texture = ExtResource("3_6xnmm")
+
+[node name="Parallax2D4" type="Parallax2D" parent="ParallaxBackground"]
+repeat_size = Vector2(500, 0)
+autoscroll = Vector2(10, 0)
+repeat_times = 2
+follow_viewport = false
+ignore_camera_scroll = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Parallax2D4"]
+position = Vector2(-76, -356)
+texture = ExtResource("4_lh23h")
+
+[node name="Parallax2D5" type="Parallax2D" parent="ParallaxBackground"]
+rotation = 3.13874
+scroll_offset = Vector2(103, -307)
+follow_viewport = false
+ignore_camera_scroll = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Parallax2D5"]
+position = Vector2(52, -311)
+scale = Vector2(3.72917, 1)
+texture = ExtResource("1_4856h")
+
 [node name="TileMap_generalBG" type="TileMap" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.368627)
 z_index = -3
 position = Vector2(-1, 0)
