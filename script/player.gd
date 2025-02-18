@@ -27,7 +27,11 @@ var jump_buffer_timer := 0.0
 var can_jump := true
 var wants_to_jump := false
 
+var can_move := true 
+
 func _physics_process(delta):
+	if not can_move:  # Check if movement is allowed
+		return
 	update_timers(delta)
 	handle_jump_input()
 	handle_jump(delta)

@@ -7,6 +7,9 @@ var current_minigame: Node = null
 var current_problem: Node = null
 var is_minigame_active := false
 
+@onready var player = get_node("/root/Game/Player")
+
+
 # Dictionary to map minigame names to their scene paths
 var minigame_scenes := {
 	"wire_fix": "res://scenes/minigames/wire_fix.tscn",
@@ -19,6 +22,9 @@ func start_minigame(minigame_name: String, problem: Node) -> bool:
 	if minigame_name.is_empty():
 		print("ERROR: Minigame name is empty!")
 		return false
+	
+	if player:
+		player.can_move = false
 	
 	if is_minigame_active:
 		print("Minigame already active")
@@ -65,6 +71,8 @@ func end_minigame(was_successful: bool):
 	if not is_minigame_active:
 		return
 	
+	if player:
+		player.can_move = true
 	# Resume main game
 	#get_tree().paused = false
 	

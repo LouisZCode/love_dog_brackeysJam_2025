@@ -12564,7 +12564,7 @@ script = ExtResource("8_x0tum")
 [node name="DiningSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint1" type="Marker2D" parent="ProblemSpawnPoints/DiningSpawnPoints"]
-position = Vector2(-187, -99)
+position = Vector2(-138, -34)
 script = ExtResource("8_34kcm")
 problem_type = 1
 minigame_name = "quick_clean"
@@ -12572,21 +12572,30 @@ minigame_name = "quick_clean"
 [node name="SpawnPoint2" type="Marker2D" parent="ProblemSpawnPoints/DiningSpawnPoints"]
 position = Vector2(88, -23)
 script = ExtResource("8_34kcm")
-problem_type = 1
-minigame_name = "quick_clean"
 
 [node name="KitchenSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint4" type="Marker2D" parent="ProblemSpawnPoints/KitchenSpawnPoints"]
-position = Vector2(-561, -25)
+position = Vector2(-600, -8)
 script = ExtResource("8_34kcm")
 problem_type = 1
 minigame_name = "quick_clean"
+description = "clean the mess!"
+
+[node name="SpawnPoint5" type="Marker2D" parent="ProblemSpawnPoints/KitchenSpawnPoints"]
+position = Vector2(-600, -8)
+script = ExtResource("8_34kcm")
+minigame_name = "Rat_stealing"
+description = "scare the rat!"
 
 [node name="LivingSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint3" type="Marker2D" parent="ProblemSpawnPoints/LivingSpawnPoints"]
 position = Vector2(622, -16)
+script = ExtResource("8_34kcm")
+
+[node name="SpawnPoint4" type="Marker2D" parent="ProblemSpawnPoints/LivingSpawnPoints"]
+position = Vector2(358, -27)
 script = ExtResource("8_34kcm")
 problem_type = 1
 minigame_name = "quick_clean"
@@ -12599,13 +12608,17 @@ script = ExtResource("8_34kcm")
 problem_type = 1
 minigame_name = "quick_clean"
 
+[node name="SpawnPoint6" type="Marker2D" parent="ProblemSpawnPoints/BasementSpawnPoints"]
+position = Vector2(-42, 113)
+script = ExtResource("8_34kcm")
+description = "scare Cuthlulu!"
+
 [node name="AtticSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint5" type="Marker2D" parent="ProblemSpawnPoints/AtticSpawnPoints"]
 position = Vector2(135, -203)
 script = ExtResource("8_34kcm")
-problem_type = 1
-minigame_name = "quick_clean"
+description = "scare the ex!"
 
 [node name="Rooms" type="Node2D" parent="."]
 

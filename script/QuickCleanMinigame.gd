@@ -6,6 +6,10 @@ var paw_scene = preload("res://scenes/cleaning_paw.tscn")
 var spots_cleaned := 0
 var cleaning_paw
 
+# Define the spawn area
+var spawn_area = Rect2(Vector2(300, 100), Vector2(400, 300))  # Adjust these values
+@onready var instruction_label = $InstructionLabel
+
 func setup_minigame():
 	setup_instruction_label()
 	spawn_spots()
