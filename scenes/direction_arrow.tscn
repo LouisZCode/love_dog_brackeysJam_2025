@@ -498,7 +498,6 @@ scale = Vector2(0.332527, 0.332512)
 sprite_frames = SubResource("SpriteFrames_r64af")
 animation = &"danger"
 autoplay = "danger"
-frame_progress = 0.0838426
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false

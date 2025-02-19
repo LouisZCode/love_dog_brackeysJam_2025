@@ -30,12 +30,11 @@ var direction_arrow: Node2D
 
 
 func _ready():
-	
-	# Create direction arrow
+
 	var arrow_scene = preload("res://scenes/direction_arrow.tscn")
 	direction_arrow = arrow_scene.instantiate()
 	get_node("/root/Game/CanvasLayer").add_child(direction_arrow)
-	direction_arrow.point_to(global_position)
+	direction_arrow.setup(self, global_position)  # Instead of just point_to
 	
 	if not prompt_label:
 		push_error("RichTextLabel node not found")

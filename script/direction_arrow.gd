@@ -3,7 +3,7 @@ extends Node2D
 @export var margin := 50.0  # Distance from screen edge
 @export var active_opacity := 1.0
 @export var inactive_opacity := 0.0
-@export var fade_speed := 10.0  # Speed of opacity transition
+@export var fade_speed := 10.0
 
 var target_position: Vector2
 var target_problem: Node
@@ -15,13 +15,14 @@ func _ready():
 	modulate.a = current_opacity
 	arrow_sprite.play("idle")
 
-func point_to(target_pos: Vector2):
-	target_position = target_pos
-	target_problem = get_parent()
+func setup(problem: Node, pos: Vector2):
+	target_problem = problem
+	target_position = pos
 	show()
 
 func _process(delta):
-	if not camera:
+	if not camera or not target_problem or not is_instance_valid(target_problem):
+		queue_free()
 		return
 		
 	var player = get_tree().get_first_node_in_group("player")
@@ -38,15 +39,13 @@ func _process(delta):
 	
 	var problem_room = target_problem.get_parent().get_parent()
 	
-	# Check if the problem's current_state property exists
-	if target_problem and target_problem.has_method("get") and target_problem.get("current_state") != null:
-		var problem_state = target_problem.get("current_state")
-		if problem_state == 1:  # ProblemState.DANGEROUS
-			if arrow_sprite.animation != "danger":
-				arrow_sprite.play("danger")
-		else:
-			if arrow_sprite.animation != "idle":
-				arrow_sprite.play("idle")
+	# Update animation based on problem state
+	if target_problem.current_state == 1:  # ProblemState.DANGEROUS
+		if arrow_sprite.animation != "danger":
+			arrow_sprite.play("danger")
+	else:
+		if arrow_sprite.animation != "idle":
+			arrow_sprite.play("idle")
 	
 	# Set target opacity based on whether we're in the same room
 	var target_opacity = inactive_opacity if problem_room == current_room else active_opacity
