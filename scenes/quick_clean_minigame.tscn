@@ -1,13 +1,37 @@
-[gd_scene load_steps=3 format=3 uid="uid://btbkiaa25c8w3"]
+[gd_scene load_steps=4 format=3 uid="uid://btbkiaa25c8w3"]
 
 [ext_resource type="PackedScene" uid="uid://b7ea3ye7sx6i0" path="res://scenes/minigame_base.tscn" id="1_svc3i"]
 [ext_resource type="Script" path="res://script/QuickCleanMinigame.gd" id="2_v1h5m"]
+[ext_resource type="Theme" uid="uid://cfpg0hvp634ax" path="res://assets/themes/action_richLabel_theme.tres" id="3_qmcpl"]
 
-[node name="MinigameBase" instance=ExtResource("1_svc3i")]
+[node name="QuickCleanMinigame" instance=ExtResource("1_svc3i")]
 script = ExtResource("2_v1h5m")
 spots_to_clean = 5
 
+[node name="GameArea" parent="." index="1"]
+z_index = -1
+offset_left = 257.0
+offset_top = 118.0
+offset_right = 897.0
+offset_bottom = 478.0
+
+[node name="ColorRect" type="ColorRect" parent="GameArea" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.631373, 0.635294, 0.54902)
+
 [node name="InstructionLabel" type="RichTextLabel" parent="." index="2"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 305.0
+offset_top = 132.0
+offset_right = 871.0
+offset_bottom = 178.0
+theme = ExtResource("3_qmcpl")
+theme_override_font_sizes/normal_font_size = 22
 bbcode_enabled = true
+text = "This are the instructions"
+fit_content = true
+scroll_active = false

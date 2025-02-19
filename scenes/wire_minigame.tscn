@@ -17,10 +17,15 @@ size = Vector2(75, 83)
 script = ExtResource("2_jqh7a")
 
 [node name="InstructionLabel" type="RichTextLabel" parent="." index="0"]
-offset_right = 532.0
-offset_bottom = 40.0
+offset_left = 327.0
+offset_top = 224.0
+offset_right = 859.0
+offset_bottom = 264.0
+mouse_filter = 2
 theme = ExtResource("3_5tk1h")
+theme_override_font_sizes/normal_font_size = 22
 bbcode_enabled = true
+text = "This is an instruction label"
 fit_content = true
 
 [node name="TopEndpoints" type="Node2D" parent="." index="1"]
@@ -51,8 +56,20 @@ wire_color = Color(0, 0, 1, 1)
 [node name="WireContainer" type="Node2D" parent="." index="3"]
 
 [node name="GameArea" parent="." index="5"]
-offset_right = 1003.0
-offset_bottom = 592.0
+z_index = -1
+offset_left = 340.0
+offset_top = 55.0
+offset_right = 841.0
+offset_bottom = 499.0
+
+[node name="ColorRect" type="ColorRect" parent="GameArea" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.396078, 0.427451, 0.972549, 0.74902)
 
 [node name="WirePaw" type="CharacterBody2D" parent="." index="6"]
 script = ExtResource("4_dquyl")
