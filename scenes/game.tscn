@@ -12667,7 +12667,7 @@ description = "scare the ex!"
 
 [node name="Rooms" type="Node2D" parent="."]
 
-[node name="DiningRoom" type="Node2D" parent="Rooms"]
+[node name="DiningRoom" type="Node2D" parent="Rooms" groups=["rooms"]]
 position = Vector2(0, -1)
 
 [node name="TileMap_furniture" type="TileMap" parent="Rooms/DiningRoom"]
@@ -12820,7 +12820,7 @@ position = Vector2(24, 0)
 z_index = -2
 position = Vector2(-25, 1)
 
-[node name="Kitchen" type="Node2D" parent="Rooms"]
+[node name="Kitchen" type="Node2D" parent="Rooms" groups=["rooms"]]
 position = Vector2(-715, -7)
 
 [node name="TileMap_wall" type="TileMap" parent="Rooms/Kitchen"]
@@ -12898,7 +12898,7 @@ position = Vector2(359, -25.5)
 shape = SubResource("RectangleShape2D_mee6t")
 one_way_collision = true
 
-[node name="LivingRoom" type="Node2D" parent="Rooms"]
+[node name="LivingRoom" type="Node2D" parent="Rooms" groups=["rooms"]]
 position = Vector2(582, -28)
 
 [node name="TileMap_walls" type="TileMap" parent="Rooms/LivingRoom"]
@@ -12959,7 +12959,7 @@ text = "Press E"
 fit_content = true
 scroll_active = false
 
-[node name="Basement" type="Node2D" parent="Rooms"]
+[node name="Basement" type="Node2D" parent="Rooms" groups=["rooms"]]
 position = Vector2(123, 711)
 
 [node name="TileMap_wall" type="TileMap" parent="Rooms/Basement"]
@@ -13025,7 +13025,7 @@ text = "Press E"
 fit_content = true
 scroll_active = false
 
-[node name="Attic" type="Node2D" parent="Rooms"]
+[node name="Attic" type="Node2D" parent="Rooms" groups=["rooms"]]
 position = Vector2(-73, 207)
 
 [node name="TileMap_walls" type="TileMap" parent="Rooms/Attic"]

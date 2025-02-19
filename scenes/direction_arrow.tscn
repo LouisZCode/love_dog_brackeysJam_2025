@@ -8,10 +8,10 @@
 script = ExtResource("1_3cvvx")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 scale = Vector2(0.3, 0.3)
 texture = SubResource("CompressedTexture2D_d410c")

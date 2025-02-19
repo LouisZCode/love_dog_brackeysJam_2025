@@ -26,8 +26,17 @@ var growing_timer := 0.0
 var danger_timer := 0.0
 
 var minigame_name: String = ""  # Will be set by spawn point
+var direction_arrow: Node2D
+
 
 func _ready():
+	
+	# Create direction arrow
+	var arrow_scene = preload("res://scenes/direction_arrow.tscn")
+	direction_arrow = arrow_scene.instantiate()
+	get_node("/root/Game/CanvasLayer").add_child(direction_arrow)
+	direction_arrow.point_to(global_position)
+	
 	if not prompt_label:
 		push_error("RichTextLabel node not found")
 		return
@@ -162,3 +171,7 @@ func solve_problem():
 		emit_signal("problem_solved")
 		print("Problem solved, remaining distractions:", date_manager.active_distractions)
 	queue_free()
+
+func _exit_tree():
+	if direction_arrow:
+		direction_arrow.queue_free()
