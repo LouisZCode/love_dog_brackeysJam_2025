@@ -45,7 +45,7 @@ func generate_new_pattern():
 		current_pattern.append(random_input)
 
 func display_pattern():
-	var display_text = "[center][font_size=62]"
+	var display_text = "[center][font_size=52]"
 	for i in pattern_length:
 		var color = "red" if i >= user_progress else "green"
 		display_text += "[color=%s]%s[/color] " % [color, current_pattern[i]]

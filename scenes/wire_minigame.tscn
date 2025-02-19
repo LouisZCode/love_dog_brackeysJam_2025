@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b3gksyxxa2afo"]
+[gd_scene load_steps=10 format=3 uid="uid://b3gksyxxa2afo"]
 
 [ext_resource type="PackedScene" uid="uid://b7ea3ye7sx6i0" path="res://scenes/minigame_base.tscn" id="1_dfla7"]
 [ext_resource type="Script" path="res://script/WireMinigame.gd" id="2_jqh7a"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://br5gfgs0wgkqb" path="res://scenes/wire_endpoint.tscn" id="3_qs36k"]
 [ext_resource type="Script" path="res://script/WirePaw.gd" id="4_dquyl"]
 [ext_resource type="Texture2D" uid="uid://c5nbxx4irnuhp" path="res://assets/sprites/clean_paw.png" id="4_gcoxg"]
+[ext_resource type="Texture2D" uid="uid://b7xbi734efvbh" path="res://assets/sprites/backgrounds/fuse_00001_.png" id="5_lg1u2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uxpp0"]
 size = Vector2(57, 72)
@@ -63,6 +64,7 @@ offset_right = 841.0
 offset_bottom = 499.0
 
 [node name="ColorRect" type="ColorRect" parent="GameArea" index="0"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,6 +72,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.396078, 0.427451, 0.972549, 0.74902)
+
+[node name="Sprite2D" type="Sprite2D" parent="GameArea" index="1"]
+position = Vector2(171, 264)
+scale = Vector2(6.84375, 3.0125)
+texture = ExtResource("5_lg1u2")
 
 [node name="WirePaw" type="CharacterBody2D" parent="." index="6"]
 script = ExtResource("4_dquyl")
