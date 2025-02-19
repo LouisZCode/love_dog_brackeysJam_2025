@@ -14,7 +14,7 @@ var is_minigame_active := false
 var minigame_scenes := {
 	"wire_fix": "res://scenes/wire_minigame.tscn",
 	"quick_clean": "res://scenes/quick_clean_minigame.tscn",
-	"pattern_match": "res://scenes/minigames/pattern_match.tscn"
+	"password_game": "res://scenes/password_minigame.tscn"
 }
 
 func start_minigame(minigame_name: String, problem: Node) -> bool:

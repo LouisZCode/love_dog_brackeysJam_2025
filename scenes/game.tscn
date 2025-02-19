@@ -12644,7 +12644,7 @@ script = ExtResource("8_34kcm")
 position = Vector2(358, -27)
 script = ExtResource("8_34kcm")
 problem_type = 1
-minigame_name = "quick_clean"
+minigame_name = "password_game"
 
 [node name="BasementSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
