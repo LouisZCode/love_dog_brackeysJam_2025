@@ -9,10 +9,11 @@ var target_position: Vector2
 var target_problem: Node
 var current_opacity := 1.0
 @onready var camera = get_viewport().get_camera_2d()
-@onready var arrow_sprite = $Sprite2D
+@onready var arrow_sprite = $AnimatedSprite2D
 
 func _ready():
 	modulate.a = current_opacity
+	arrow_sprite.play("idle")
 
 func point_to(target_pos: Vector2):
 	target_position = target_pos
