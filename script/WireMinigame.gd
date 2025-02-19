@@ -80,8 +80,11 @@ func try_connect_wire(endpoint: WireEndpoint):
 		active_wire.is_connected = true
 		current_line.points[1] = endpoint.global_position  # Snap to endpoint
 		wires_connected += 1
+		
+		# Wait a small moment before winning
 		if wires_connected == TOTAL_WIRES:
-			win_game()
+			var timer = get_tree().create_timer(0.5)  # Half second delay
+			timer.timeout.connect(func(): win_game())
 	else:
 		# Invalid connection - remove the line
 		current_line.queue_free()
