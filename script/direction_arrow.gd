@@ -38,6 +38,16 @@ func _process(delta):
 	
 	var problem_room = target_problem.get_parent().get_parent()
 	
+	# Check if the problem's current_state property exists
+	if target_problem and target_problem.has_method("get") and target_problem.get("current_state") != null:
+		var problem_state = target_problem.get("current_state")
+		if problem_state == 1:  # ProblemState.DANGEROUS
+			if arrow_sprite.animation != "danger":
+				arrow_sprite.play("danger")
+		else:
+			if arrow_sprite.animation != "idle":
+				arrow_sprite.play("idle")
+	
 	# Set target opacity based on whether we're in the same room
 	var target_opacity = inactive_opacity if problem_room == current_room else active_opacity
 	
