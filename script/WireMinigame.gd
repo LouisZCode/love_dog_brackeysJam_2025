@@ -18,7 +18,7 @@ func _ready():
 	setup_instruction_label()
 
 func setup_instruction_label():
-	$InstructionLabel.text = "[center]Connect the wires with matching colors![/center]"
+	$InstructionLabel.text = """[center]Connect the wires with [wave amp=50 freq=5][rainbow freq=0.2 sat=10 val=20]matching colors![/rainbow][/wave][/center]"""
 	$InstructionLabel.bbcode_enabled = true
 
 func setup_endpoints():

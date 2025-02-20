@@ -22,7 +22,7 @@ func spawn_cleaning_paw():
 	cleaning_paw.global_position = spawn_area.get_center()
 
 func setup_instruction_label():
-	instruction_label.text = "[center]Clean the [color=red][font_size=32]5[/font_size][/color] dirty spots![/center]"
+	instruction_label.text = "[center]Put out the [color=red][font_size=32]5[/font_size][/color] burning spots![/center]"
 	instruction_label.bbcode_enabled = true
 
 func spawn_spots():

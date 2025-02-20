@@ -12842,13 +12842,13 @@ script = ExtResource("8_34kcm")
 minigame_name = "Rat_stealing"
 description = "scare the rat!"
 
-[node name="LivingSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
+[node name="LivingRoomSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
-[node name="SpawnPoint3" type="Marker2D" parent="ProblemSpawnPoints/LivingSpawnPoints"]
+[node name="SpawnPoint3" type="Marker2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints"]
 position = Vector2(622, -16)
 script = ExtResource("8_34kcm")
 
-[node name="SpawnPoint4" type="Marker2D" parent="ProblemSpawnPoints/LivingSpawnPoints"]
+[node name="SpawnPoint4" type="Marker2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints"]
 position = Vector2(358, -27)
 script = ExtResource("8_34kcm")
 problem_type = 1

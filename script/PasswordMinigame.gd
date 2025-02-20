@@ -28,7 +28,7 @@ func setup_labels():
 	# Set up instruction label
 	instruction_label.text = "[center]Match the pattern using arrow keys and E![/center]"
 	instruction_label.bbcode_enabled = true
-	instruction_label.position = Vector2(display_area.position.x, display_area.position.y - 50)
+	#instruction_label.position = Vector2(display_area.position.x, display_area.position.y - 50)
 	
 	# Set up pattern label
 	pattern_label.bbcode_enabled = true

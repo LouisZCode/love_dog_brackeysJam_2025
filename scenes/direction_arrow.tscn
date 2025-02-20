@@ -492,6 +492,7 @@ animations = [{
 script = ExtResource("1_3cvvx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = -2
 position = Vector2(1, -2)
 rotation = 1.56291
 scale = Vector2(0.332527, 0.332512)
