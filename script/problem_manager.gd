@@ -42,12 +42,18 @@ func get_all_available_spawn_points() -> Array:
 		all_points.append_array(points)
 	
 	# Filter out points that already have problems
-	var available = all_points.filter(func(point): return point.get_child_count() == 0)
+	var available = all_points.filter(func(point): 
+		# Check if any child is a Problem node
+		for child in point.get_children():
+			if child.is_in_group("problem"):  # Add your problem to this group
+				return false
+		return true
+	)
+	
 	print("Total available points: ", available.size())
 	return available
 
 func spawn_problem():
-	
 	var available_points = get_all_available_spawn_points()
 	
 	if available_points.is_empty():
@@ -62,6 +68,9 @@ func spawn_problem():
 	problem.problem_type = spawn_point.problem_type
 	if problem.problem_type == problem.ProblemType.MINIGAME:
 		problem.minigame_name = spawn_point.minigame_name
+		
+	# Connect the state changed signal BEFORE adding the problem as child
+	problem.state_changed.connect(spawn_point._on_problem_state_changed)
 	
 	spawn_point.add_child(problem)
 	active_problems.append(problem)
@@ -74,29 +83,6 @@ func spawn_problem():
 	
 	emit_signal("problem_spawned", problem)
 	print("Problem spawned at point in ", spawn_point.get_parent().name)
-	
-	problem.state_changed.connect(
-		func(new_state: String): 
-			var animated_sprite = spawn_point.get_node("AnimatedSprite2D")
-			var audio_player = spawn_point.get_node("AudioStreamPlayer2D")
-			
-			match new_state:
-				"growing":
-					animated_sprite.play(spawn_point.growing_animation)
-					if spawn_point.growing_sound:
-						audio_player.stream = spawn_point.growing_sound
-						audio_player.play()
-				"danger":
-					animated_sprite.play(spawn_point.danger_animation)
-					if spawn_point.danger_sound:
-						audio_player.stream = spawn_point.danger_sound
-						audio_player.play()
-				"critical":
-					animated_sprite.play(spawn_point.critical_animation)
-					if spawn_point.critical_sound:
-						audio_player.stream = spawn_point.critical_sound
-						audio_player.play()
-	)
 
 func on_problem_solved(problem: Node):
 	active_problems.erase(problem)

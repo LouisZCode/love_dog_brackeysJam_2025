@@ -13,7 +13,8 @@ enum ProblemState { GROWING, DANGEROUS, CRITICAL }
 
 @onready var prompt_label = $RichTextLabel
 @onready var date_manager = get_node("/root/Game/DateManager")
-@onready var sprite = $ColorRect
+@onready var animated_sprite = $AnimatedSprite2D
+
 @onready var growing_bar = $GrowingBar
 @onready var danger_bar = $DangerBar
 
@@ -29,13 +30,13 @@ var danger_timer := 0.0
 var minigame_name: String = ""  # Will be set by spawn point
 var direction_arrow: Node2D
 
-
 func _ready():
+	add_to_group("problem")
 
 	var arrow_scene = preload("res://scenes/direction_arrow.tscn")
 	direction_arrow = arrow_scene.instantiate()
 	get_node("/root/Game/CanvasLayer").add_child(direction_arrow)
-	direction_arrow.setup(self, global_position)  # Instead of just point_to
+	direction_arrow.setup(self, global_position)
 	
 	if not prompt_label:
 		push_error("RichTextLabel node not found")
@@ -91,7 +92,7 @@ func transition_to_dangerous():
 	growing_bar.hide()
 	danger_bar.show()
 	update_prompt_text()
-	emit_signal("state_changed", "danger")  # Add this line
+	emit_signal("state_changed", "danger")
 	# Add it as a dangerous distraction that affects love
 	if date_manager:
 		date_manager.add_dangerous_distraction()
@@ -99,9 +100,7 @@ func transition_to_dangerous():
 
 func on_problem_timeout():
 	print("Problem reached critical state!")
-	sprite.modulate = Color.RED
 	emit_signal("state_changed", "critical")
-
 
 func handle_interaction(delta):
 	if can_interact:
@@ -124,13 +123,13 @@ func handle_interaction(delta):
 			ProblemType.MINIGAME:
 				if Input.is_action_just_pressed("interact"):
 					start_minigame()
-					# Add a debug print
 					print("Starting minigame attempt")
 
 func update_visibility():
 	var my_room = get_parent().get_parent().get_parent()
 	if my_room:
-		sprite.visible = my_room.visible
+		if animated_sprite != null:  # Add this check
+			animated_sprite.visible = my_room.visible
 		prompt_label.visible = my_room.visible and can_interact
 		growing_bar.visible = my_room.visible and current_state == ProblemState.GROWING
 		danger_bar.visible = my_room.visible and current_state == ProblemState.DANGEROUS
@@ -170,10 +169,10 @@ func solve_problem():
 	if is_active and date_manager:
 		date_manager.remove_distraction()  # Remove from display count
 		if current_state == ProblemState.DANGEROUS:
-			date_manager.remove_dangerous_distraction()  # Remove dangerous effect if it was dangerous
+			date_manager.remove_dangerous_distraction()
 		emit_signal("problem_solved")
 		print("Problem solved, remaining distractions:", date_manager.active_distractions)
-	queue_free()
+		queue_free()
 
 func _exit_tree():
 	if direction_arrow:

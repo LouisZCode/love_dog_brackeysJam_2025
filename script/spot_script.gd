@@ -1,12 +1,13 @@
 extends Area2D
 signal cleaned
 
-@onready var sprite = $Sprite2D
+@onready var sprite = $AnimatedSprite2D
 
 var can_be_cleaned := true  # Protection against multiple clicks
 
 func _ready():
 	add_to_group("cleanable")
+	sprite.play("default")
 
 func clean():
 	emit_signal("cleaned")

@@ -38,6 +38,15 @@ position = Vector2(2.49998, 66.5)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_mvjxg")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+z_index = -1
+offset_left = -27.0
+offset_top = -29.0
+offset_right = 26.0
+offset_bottom = 28.0
+color = Color(0.864633, 0.221863, 0.373209, 1)
+
 [node name="GrowingBar" type="ProgressBar" parent="."]
 offset_left = -25.0
 offset_top = -72.0
