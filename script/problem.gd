@@ -128,8 +128,6 @@ func handle_interaction(delta):
 func update_visibility():
 	var my_room = get_parent().get_parent().get_parent()
 	if my_room:
-		if animated_sprite != null:  # Add this check
-			animated_sprite.visible = my_room.visible
 		prompt_label.visible = my_room.visible and can_interact
 		growing_bar.visible = my_room.visible and current_state == ProblemState.GROWING
 		danger_bar.visible = my_room.visible and current_state == ProblemState.DANGEROUS
