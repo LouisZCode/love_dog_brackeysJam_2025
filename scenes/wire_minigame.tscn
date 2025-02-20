@@ -5,8 +5,8 @@
 [ext_resource type="Theme" uid="uid://cfpg0hvp634ax" path="res://assets/themes/action_richLabel_theme.tres" id="3_5tk1h"]
 [ext_resource type="PackedScene" uid="uid://br5gfgs0wgkqb" path="res://scenes/wire_endpoint.tscn" id="3_qs36k"]
 [ext_resource type="Script" path="res://script/WirePaw.gd" id="4_dquyl"]
-[ext_resource type="Texture2D" uid="uid://c5nbxx4irnuhp" path="res://assets/sprites/clean_paw.png" id="4_gcoxg"]
 [ext_resource type="Texture2D" uid="uid://b7xbi734efvbh" path="res://assets/sprites/backgrounds/fuse_00001_.png" id="5_lg1u2"]
+[ext_resource type="Texture2D" uid="uid://brnlf6cbvks7f" path="res://assets/sprite_shets/paw_00001_.png" id="7_arcvl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uxpp0"]
 size = Vector2(57, 72)
@@ -82,9 +82,9 @@ texture = ExtResource("5_lg1u2")
 script = ExtResource("4_dquyl")
 
 [node name="Sprite2D" type="Sprite2D" parent="WirePaw" index="0"]
-position = Vector2(5, -17)
-scale = Vector2(0.077, 0.08)
-texture = ExtResource("4_gcoxg")
+position = Vector2(6.5, 10)
+scale = Vector2(0.783333, 0.559322)
+texture = ExtResource("7_arcvl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WirePaw" index="1"]
 position = Vector2(7.5, -14)

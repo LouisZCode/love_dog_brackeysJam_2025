@@ -102,28 +102,41 @@ func on_problem_timeout():
 	print("Problem reached critical state!")
 	emit_signal("state_changed", "critical")
 
+# In Problem script, handle_interaction function
 func handle_interaction(delta):
 	if can_interact:
 		match problem_type:
 			ProblemType.BARK:
-				if Input.is_action_pressed("interact"):
+				if Input.is_action_pressed("bark"):
 					is_barking = true
 					bark_timer += delta
 					var progress = (bark_timer / bark_time_required) * 100
 					prompt_label.text = "[center]Barking... %d%%[/center]" % progress
 					
+					var player = get_node("/root/Game/Player")
+					if player:
+						player.enter_fixing_state()
+					
 					if bark_timer >= bark_time_required:
 						solve_problem()
 				else:
+					# Always reset the player state when not barking
+					var player = get_node("/root/Game/Player")
+					if player:
+						player.exit_fixing_state()
+					
+					# Then reset barking variables if needed
 					if is_barking:
 						bark_timer = 0.0
 						is_barking = false
 						update_prompt_text()
-						
-			ProblemType.MINIGAME:
+							
+			ProblemType.MINIGAME:  # This stays the same
 				if Input.is_action_just_pressed("interact"):
+					var player = get_node("/root/Game/Player")
+					if player:
+						player.enter_fixing_state()
 					start_minigame()
-					print("Starting minigame attempt")
 
 func update_visibility():
 	var my_room = get_parent().get_parent().get_parent()
@@ -146,7 +159,7 @@ func _on_body_exited(body):
 func update_prompt_text():
 	match problem_type:
 		ProblemType.BARK:
-			prompt_label.text = "[center]Hold E to bark![/center]"
+			prompt_label.text = "[center]Hold W to bark![/center]"  # Changed from E to W
 		ProblemType.MINIGAME:
 			prompt_label.text = "[center]Press E to start minigame[/center]"
 
@@ -165,6 +178,11 @@ func start_minigame():
 
 func solve_problem():
 	if is_active and date_manager:
+		# Get the player and reset state BEFORE removing the problem
+		var player = get_node("/root/Game/Player")
+		if player:
+			player.exit_fixing_state()
+			
 		date_manager.remove_distraction()  # Remove from display count
 		if current_state == ProblemState.DANGEROUS:
 			date_manager.remove_dangerous_distraction()

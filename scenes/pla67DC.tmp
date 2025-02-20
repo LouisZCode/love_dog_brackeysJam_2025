@@ -305,12 +305,23 @@ floor_constant_speed = true
 floor_max_angle = 0.0174533
 floor_snap_length = 32.0
 script = ExtResource("1_ev1qf")
+walk_speed = null
+run_speed = null
+acceleration = null
+friction = null
+jump_force = null
+jump_cut_height = null
+max_fall_speed = null
+fall_acceleration = null
+jump_acceleration = null
+coyote_time = null
+jump_buffer_time = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-8, -34)
 sprite_frames = SubResource("SpriteFrames_0s1wv")
 animation = &"barking"
-frame_progress = 0.618666
+frame_progress = 0.432501
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2.48353e-08, -20)

@@ -130,7 +130,26 @@ func update_animation_state():
 		DogState.FALLING:
 			animated_sprite.play("fall" if has_animation("fall") else "idle")
 		DogState.FIXING:
+			print("Playing barking animation")  # Debug print
 			animated_sprite.play("barking")
 
 func has_animation(anim_name: String) -> bool:
 	return animated_sprite.sprite_frames.has_animation(anim_name)
+	
+func enter_fixing_state():
+	print("Entering fixing state, should play barking animation")
+	current_state = DogState.FIXING
+	can_move = false
+	# Force animation update
+	update_animation_state()
+
+func exit_fixing_state():
+	print("Exiting fixing state") # Debug print
+	current_state = DogState.IDLE
+	can_move = true
+	
+func _input(event):
+	# Emergency reset if stuck
+	if event.is_action_pressed("interact") and not can_move:
+		print("Emergency movement reset")
+		exit_fixing_state()
