@@ -12867,6 +12867,10 @@ position = Vector2(-42, 113)
 script = ExtResource("8_34kcm")
 description = "scare Cuthlulu!"
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint6"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint6"]
+
 [node name="AtticSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint5" type="Marker2D" parent="ProblemSpawnPoints/AtticSpawnPoints"]

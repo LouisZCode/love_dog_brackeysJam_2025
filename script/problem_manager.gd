@@ -74,6 +74,29 @@ func spawn_problem():
 	
 	emit_signal("problem_spawned", problem)
 	print("Problem spawned at point in ", spawn_point.get_parent().name)
+	
+	problem.state_changed.connect(
+		func(new_state: String): 
+			var animated_sprite = spawn_point.get_node("AnimatedSprite2D")
+			var audio_player = spawn_point.get_node("AudioStreamPlayer2D")
+			
+			match new_state:
+				"growing":
+					animated_sprite.play(spawn_point.growing_animation)
+					if spawn_point.growing_sound:
+						audio_player.stream = spawn_point.growing_sound
+						audio_player.play()
+				"danger":
+					animated_sprite.play(spawn_point.danger_animation)
+					if spawn_point.danger_sound:
+						audio_player.stream = spawn_point.danger_sound
+						audio_player.play()
+				"critical":
+					animated_sprite.play(spawn_point.critical_animation)
+					if spawn_point.critical_sound:
+						audio_player.stream = spawn_point.critical_sound
+						audio_player.play()
+	)
 
 func on_problem_solved(problem: Node):
 	active_problems.erase(problem)

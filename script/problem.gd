@@ -1,9 +1,10 @@
 extends Area2D
 
 signal problem_solved
+signal state_changed(new_state: String)
 
 enum ProblemType { BARK, MINIGAME }
-enum ProblemState { GROWING, DANGEROUS }
+enum ProblemState { GROWING, DANGEROUS, CRITICAL }
 
 @export var problem_type: ProblemType = ProblemType.BARK
 @export var bark_time_required := 2.0
@@ -49,6 +50,8 @@ func _ready():
 	prompt_label.hide()
 	activate_distraction()
 	print("Problem created and registered with DateManager")
+	
+	emit_signal("state_changed", "growing") 
 
 func setup_progress_bars():
 	# Growing bar (yellow)
@@ -88,16 +91,17 @@ func transition_to_dangerous():
 	growing_bar.hide()
 	danger_bar.show()
 	update_prompt_text()
+	emit_signal("state_changed", "danger")  # Add this line
 	# Add it as a dangerous distraction that affects love
 	if date_manager:
 		date_manager.add_dangerous_distraction()
 		print("Problem became dangerous and now affects love!")
 
 func on_problem_timeout():
-	# This will be implemented later for game over
 	print("Problem reached critical state!")
-	# For now, just make it more urgent
 	sprite.modulate = Color.RED
+	emit_signal("state_changed", "critical")
+
 
 func handle_interaction(delta):
 	if can_interact:
