@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://cfpg0hvp634ax" path="res://assets/themes/action_richLabel_theme.tres" id="2_r7vjt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvjxg"]
-size = Vector2(675, 247)
+size = Vector2(260, 192)
 
 [node name="Problem" type="Area2D"]
 z_index = 1
@@ -20,9 +20,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -195.0
-offset_top = -155.0
+offset_top = -325.0
 offset_right = 305.0
-offset_bottom = -83.0
+offset_bottom = -253.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_r7vjt")
@@ -34,22 +34,22 @@ fit_content = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
-position = Vector2(2.49998, 66.5)
+position = Vector2(-15, 39)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_mvjxg")
 
 [node name="GrowingBar" type="ProgressBar" parent="."]
-offset_left = -25.0
-offset_top = -72.0
-offset_right = 25.0
-offset_bottom = -47.0
+offset_left = -75.0
+offset_top = -200.0
+offset_right = 70.0
+offset_bottom = -140.0
 show_percentage = false
 
 [node name="DangerBar" type="ProgressBar" parent="."]
-offset_left = -26.0
-offset_top = -70.0
-offset_right = 24.0
-offset_bottom = -45.0
+offset_left = -65.0
+offset_top = -195.0
+offset_right = 65.0
+offset_bottom = -140.0
 show_percentage = false
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -47,7 +47,7 @@ func update_instruction():
 	var color = Color.RED.lerp(Color.GREEN, spots_cleaned / float(spots_to_clean))
 	var color_code = color.to_html(false)
 	
-	instruction_label.text = "[center]Clean the [color=#%s][font_size=%d]%d[/font_size][/color] dirty spots![/center]" % [
+	instruction_label.text = "[center]Put out the[color=#%s][font_size=%d]%d[/font_size][/color] burning spots![/center]" % [
 		color_code,
 		size,
 		remaining
