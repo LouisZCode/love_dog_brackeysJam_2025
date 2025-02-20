@@ -9,6 +9,10 @@ var user_progress := 0
 
 # Define the display area (similar to QuickClean)
 var display_area = Rect2(Vector2(300, 200), Vector2(400, 200))
+@onready var left_hand = $LeftHandSprite
+@onready var right_hand = $RightHandSprite
+@export var type_offset := 10.0   # How far up the sprites move
+@export var type_speed := 0.1    # How long the animation takes
 
 # Arrows and input mapping
 var input_map = {
@@ -69,7 +73,25 @@ func _input(event):
 	if input_detected:
 		check_input(input_value)
 
+
+func animate_typing(is_left_hand: bool):
+	var sprite = left_hand if is_left_hand else right_hand
+	var initial_position = sprite.position
+	
+	# Move up
+	sprite.position.y = initial_position.y - type_offset
+	await get_tree().create_timer(type_speed).timeout
+	# Move back
+	sprite.position.y = initial_position.y
+
 func check_input(input_value: String):
+	
+	match input_value:
+		"←", "↓":  # Left hand inputs
+			animate_typing(true)
+		"→", "↑", "E":  # Right hand inputs
+			animate_typing(false)
+	
 	if input_value == current_pattern[user_progress]:
 		# Correct input
 		user_progress += 1

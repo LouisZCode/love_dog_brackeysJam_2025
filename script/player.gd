@@ -130,7 +130,7 @@ func update_animation_state():
 		DogState.FALLING:
 			animated_sprite.play("fall" if has_animation("fall") else "idle")
 		DogState.FIXING:
-			animated_sprite.play("idle")
+			animated_sprite.play("barking")
 
 func has_animation(anim_name: String) -> bool:
 	return animated_sprite.sprite_frames.has_animation(anim_name)

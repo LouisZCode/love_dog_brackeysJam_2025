@@ -1,4 +1,4 @@
-[gd_scene load_steps=338 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=399 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="Texture2D" uid="uid://dalqosjcw7y8y" path="res://assets/sprites/parallax_bgs/1.png" id="1_4856h"]
 [ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
@@ -32,9 +32,11 @@
 [ext_resource type="Texture2D" uid="uid://x7rn7e6jlkep" path="res://assets/sprite_shets/tentacles_critical_SS.png" id="16_hw1w6"]
 [ext_resource type="Texture2D" uid="uid://ctl0k8wd24bx2" path="res://assets/sprite_shets/kitchen_growing.png" id="16_q5dft"]
 [ext_resource type="Texture2D" uid="uid://b2ajd68paup67" path="res://assets/sprite_shets/tentacles_growing_SS.png" id="17_bmnka"]
+[ext_resource type="Texture2D" uid="uid://cbkndaq0j06tk" path="res://assets/sprite_shets/Squirrel Sprite Sheet.png" id="17_f80x2"]
 [ext_resource type="Texture2D" uid="uid://pk5ifrtnuxmi" path="res://assets/sprite_shets/desk_critical.png" id="17_qf3c1"]
 [ext_resource type="Texture2D" uid="uid://87r5as8g52my" path="res://assets/sprite_shets/desk_danger.png" id="18_7bx68"]
 [ext_resource type="Texture2D" uid="uid://cgie8fsytrgxh" path="res://assets/sprite_shets/desk_growing.png" id="19_sihsl"]
+[ext_resource type="Texture2D" uid="uid://dsfa5sao8j74a" path="res://assets/sprite_shets/Cat Sprite Sheet.png" id="20_m2i35"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ogdn"]
 texture = ExtResource("6_qh67y")
@@ -721,6 +723,249 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="GDScript" id="GDScript_w67yu"]
+script/source = "extends Marker2D
+enum ProblemType { BARK, MINIGAME }
+
+@export var problem_type: ProblemType = ProblemType.BARK
+@export var minigame_name: String = \"\"
+@export var description: String = \"\"
+
+@onready var animated_sprite = $AnimatedSprite2D
+
+func _ready():
+	if animated_sprite:
+		animated_sprite.visible = false
+		animated_sprite.stop()
+
+# This function will be called when a problem starts using this point
+func activate_problem_visuals():
+	if animated_sprite:
+		animated_sprite.visible = true
+		animated_sprite.play(\"growing\")
+
+# This function will be called when a problem is solved
+func deactivate_problem_visuals():
+	if animated_sprite:
+		animated_sprite.visible = false
+		animated_sprite.stop()
+
+func _on_problem_state_changed(new_state):
+	print(\"SpawnPoint received state change:\", new_state)  # Debug print
+	if animated_sprite:
+		animated_sprite.visible = true
+		match new_state:
+			\"growing\":
+				print(\"Playing growing animation\")  # Debug print
+				animated_sprite.play(\"growing\")
+			\"danger\":
+				print(\"Playing danger animation\")  # Debug print
+				animated_sprite.play(\"danger\")
+			\"critical\":
+				print(\"Playing critical animation\")  # Debug print
+				animated_sprite.play(\"critical\")
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0evdc"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ct2hf"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(32, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5qyb1"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(64, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8y8w"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(96, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4tgy"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrkow"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(32, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6fkd"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(64, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dcy6v"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(96, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_474k3"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fcsl0"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(32, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0uph"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ee1ec"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(96, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksfes"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vg1q8"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(32, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iiq37"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_omj88"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_624qu"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rgc1x"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_heuht"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubfby"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8783"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ilfdv"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kqbi"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bmbon"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvhn5"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytlxp"]
+atlas = ExtResource("17_f80x2")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j05jj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0evdc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ct2hf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5qyb1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8y8w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4tgy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrkow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6fkd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dcy6v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_474k3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fcsl0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k0uph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ee1ec")
+}],
+"loop": true,
+"name": &"critical",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksfes")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vg1q8")
+}],
+"loop": true,
+"name": &"danger",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iiq37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_omj88")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_624qu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rgc1x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_heuht")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubfby")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8783")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ilfdv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0kqbi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bmbon")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvhn5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ytlxp")
+}],
+"loop": true,
+"name": &"growing",
+"speed": 10.0
+}]
+
 [sub_resource type="GDScript" id="GDScript_0er74"]
 script/source = "extends Marker2D
 enum ProblemType { BARK, MINIGAME }
@@ -990,6 +1235,271 @@ animations = [{
 "loop": true,
 "name": &"growing",
 "speed": 15.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_0cl0d"]
+script/source = "extends Marker2D
+enum ProblemType { BARK, MINIGAME }
+
+@export var problem_type: ProblemType = ProblemType.BARK
+@export var minigame_name: String = \"\"
+@export var description: String = \"\"
+
+@onready var animated_sprite = $AnimatedSprite2D
+
+func _ready():
+	if animated_sprite:
+		animated_sprite.visible = false
+		animated_sprite.stop()
+
+# This function will be called when a problem starts using this point
+func activate_problem_visuals():
+	if animated_sprite:
+		animated_sprite.visible = true
+		animated_sprite.play(\"growing\")
+
+# This function will be called when a problem is solved
+func deactivate_problem_visuals():
+	if animated_sprite:
+		animated_sprite.visible = false
+		animated_sprite.stop()
+
+func _on_problem_state_changed(new_state):
+	print(\"SpawnPoint received state change:\", new_state)  # Debug print
+	if animated_sprite:
+		animated_sprite.visible = true
+		match new_state:
+			\"growing\":
+				print(\"Playing growing animation\")  # Debug print
+				animated_sprite.play(\"growing\")
+			\"danger\":
+				print(\"Playing danger animation\")  # Debug print
+				animated_sprite.play(\"danger\")
+			\"critical\":
+				print(\"Playing critical animation\")  # Debug print
+				animated_sprite.play(\"critical\")
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gbgwp"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(0, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qofx0"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(32, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxs7q"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(64, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_us34v"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(96, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o76yv"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(128, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_muowj"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(160, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ep4ng"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(192, 256, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ky0qv"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5grx"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(32, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abnos"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j80vv"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(96, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ph2pa"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rku20"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgmv1"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t5f26"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25hyj"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xb5x4"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4b76j"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmtg4"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkkrn"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dj7ux"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0q13"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pk2av"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwskt"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5oirl"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ej465"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(64, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eoqps"]
+atlas = ExtResource("20_m2i35")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4uqtv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbgwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qofx0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxs7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_us34v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o76yv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_muowj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ep4ng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbgwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbgwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbgwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbgwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbgwp")
+}],
+"loop": true,
+"name": &"critical",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ky0qv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5grx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abnos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j80vv")
+}],
+"loop": true,
+"name": &"danger",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ph2pa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rku20")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgmv1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t5f26")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25hyj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xb5x4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4b76j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmtg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rkkrn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dj7ux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0q13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pk2av")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwskt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5oirl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ej465")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eoqps")
+}],
+"loop": true,
+"name": &"growing",
+"speed": 8.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_smftw"]
@@ -2153,6 +2663,163 @@ animations = [{
 "loop": true,
 "name": &"growing",
 "speed": 25.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_pegwv"]
+script/source = "extends Marker2D
+enum ProblemType { BARK, MINIGAME }
+
+@export var problem_type: ProblemType = ProblemType.BARK
+@export var minigame_name: String = \"\"
+@export var description: String = \"\"
+
+@onready var animated_sprite = $AnimatedSprite2D
+
+func _ready():
+	if animated_sprite:
+		animated_sprite.visible = false
+		animated_sprite.stop()
+
+# This function will be called when a problem starts using this point
+func activate_problem_visuals():
+	if animated_sprite:
+		animated_sprite.visible = true
+		animated_sprite.play(\"growing\")
+
+# This function will be called when a problem is solved
+func deactivate_problem_visuals():
+	if animated_sprite:
+		animated_sprite.visible = false
+		animated_sprite.stop()
+
+func _on_problem_state_changed(new_state):
+	print(\"SpawnPoint received state change:\", new_state)  # Debug print
+	if animated_sprite:
+		animated_sprite.visible = true
+		match new_state:
+			\"growing\":
+				print(\"Playing growing animation\")  # Debug print
+				animated_sprite.play(\"growing\")
+			\"danger\":
+				print(\"Playing danger animation\")  # Debug print
+				animated_sprite.play(\"danger\")
+			\"critical\":
+				print(\"Playing critical animation\")  # Debug print
+				animated_sprite.play(\"critical\")
+"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7mxvu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbgwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qofx0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxs7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_us34v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o76yv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_muowj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ep4ng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbgwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbgwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbgwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbgwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gbgwp")
+}],
+"loop": true,
+"name": &"critical",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ky0qv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5grx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abnos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j80vv")
+}],
+"loop": true,
+"name": &"danger",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ph2pa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rku20")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgmv1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t5f26")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25hyj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xb5x4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4b76j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmtg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rkkrn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dj7ux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0q13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pk2av")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwskt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5oirl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ej465")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eoqps")
+}],
+"loop": true,
+"name": &"growing",
+"speed": 8.0
 }]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gr7na"]
@@ -14642,7 +15309,18 @@ position = Vector2(0.999972, -15.25)
 scale = Vector2(0.573333, 0.505)
 sprite_frames = SubResource("SpriteFrames_oklh6")
 animation = &"critical"
-frame_progress = 0.889203
+frame_progress = 0.128484
+
+[node name="SpawnPoint6" type="Marker2D" parent="ProblemSpawnPoints/KitchenSpawnPoints"]
+position = Vector2(-501, -55)
+script = SubResource("GDScript_w67yu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ProblemSpawnPoints/KitchenSpawnPoints/SpawnPoint6"]
+position = Vector2(2.86102e-06, 0.999998)
+scale = Vector2(0.573333, 0.505)
+sprite_frames = SubResource("SpriteFrames_j05jj")
+animation = &"growing"
+frame_progress = 0.03537
 
 [node name="LivingRoomSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
@@ -14658,7 +15336,18 @@ position = Vector2(4, -13)
 scale = Vector2(0.573333, 0.505)
 sprite_frames = SubResource("SpriteFrames_gx6wq")
 animation = &"growing"
-frame_progress = 0.872528
+frame_progress = 0.111814
+
+[node name="SpawnPoint6" type="Marker2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints"]
+position = Vector2(626, -11)
+script = SubResource("GDScript_0cl0d")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints/SpawnPoint6"]
+position = Vector2(3.00001, -14)
+scale = Vector2(1.31792, 1.09625)
+sprite_frames = SubResource("SpriteFrames_4uqtv")
+animation = &"growing"
+frame_progress = 0.22614
 
 [node name="BasementSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
@@ -14674,7 +15363,7 @@ position = Vector2(1, 12)
 scale = Vector2(0.433333, 0.32)
 sprite_frames = SubResource("SpriteFrames_kdeh2")
 animation = &"critical"
-frame_progress = 0.417878
+frame_progress = 0.149698
 
 [node name="SpawnPoint6" type="Marker2D" parent="ProblemSpawnPoints/BasementSpawnPoints"]
 position = Vector2(-42, 113)
@@ -14685,11 +15374,21 @@ description = "scare Cuthlulu!"
 position = Vector2(6, -23)
 sprite_frames = SubResource("SpriteFrames_mqc2k")
 animation = &"danger"
-frame_progress = 0.161357
+frame_progress = 0.893169
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint6"]
 
 [node name="AtticSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
+
+[node name="SpawnPoint6" type="Marker2D" parent="ProblemSpawnPoints/AtticSpawnPoints"]
+position = Vector2(133, -197)
+script = SubResource("GDScript_pegwv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ProblemSpawnPoints/AtticSpawnPoints/SpawnPoint6"]
+position = Vector2(3.00001, -14)
+scale = Vector2(1.31792, 1.09625)
+sprite_frames = SubResource("SpriteFrames_7mxvu")
+animation = &"growing"
 
 [node name="Rooms" type="Node2D" parent="."]
 
