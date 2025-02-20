@@ -72,6 +72,14 @@ func spawn_problem():
 	# Connect the state changed signal BEFORE adding the problem as child
 	problem.state_changed.connect(spawn_point._on_problem_state_changed)
 	
+	problem.problem_solved.connect(
+		func():
+			if spawn_point.animated_sprite:
+				spawn_point.animated_sprite.stop()
+				spawn_point.animated_sprite.visible = false
+			on_problem_solved(problem)
+	)
+	
 	spawn_point.add_child(problem)
 	active_problems.append(problem)
 	
