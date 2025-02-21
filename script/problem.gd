@@ -7,9 +7,9 @@ enum ProblemType { BARK, MINIGAME }
 enum ProblemState { GROWING, DANGEROUS, CRITICAL }
 
 @export var problem_type: ProblemType = ProblemType.BARK
-@export var bark_time_required := 2.0
-@export var growing_time := 10.0
-@export var dangerous_time := 10.0
+@export var bark_time_required : int
+@export var growing_time : int
+@export var dangerous_time : int
 
 @onready var prompt_label = $RichTextLabel
 @onready var date_manager = get_node("/root/Game/DateManager")

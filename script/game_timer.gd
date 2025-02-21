@@ -3,7 +3,7 @@ extends RichTextLabel
 signal time_warning
 signal time_up
 
-@export var total_time := 180.0  # 3 minutes in seconds
+@export var total_time : int  # 3 minutes in seconds
 @export var min_font_size := 20
 @export var max_font_size := 50
 

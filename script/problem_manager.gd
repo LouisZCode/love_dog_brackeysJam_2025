@@ -3,9 +3,9 @@ extends Node
 signal problem_spawned(problem: Node)
 signal problem_solved(problem: Node)
 
-@export var spawn_interval_min := 3.0
-@export var spawn_interval_max := 8.0
-@export var max_simultaneous_problems := 3
+@export var spawn_interval_min : int
+@export var spawn_interval_max : int
+@export var max_simultaneous_problems : int
 
 var problem_scene = preload("res://scenes/problem.tscn")
 @onready var spawn_points_root = $"../ProblemSpawnPoints"

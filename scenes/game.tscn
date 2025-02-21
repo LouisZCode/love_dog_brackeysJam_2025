@@ -15951,22 +15951,23 @@ theme = ExtResource("9_lwirj")
 bbcode_enabled = true
 fit_content = true
 script = ExtResource("3_tvuu4")
+total_time = 60
 
 [node name="Player" parent="." instance=ExtResource("1_uhufi")]
 position = Vector2(-1219, 0)
 
 [node name="ProblemManager" type="Node2D" parent="."]
 script = ExtResource("2_qbmpg")
-spawn_interval_min = 5.0
-spawn_interval_max = 12.0
-max_simultaneous_problems = 5
+spawn_interval_min = 8
+spawn_interval_max = 12
+max_simultaneous_problems = 2
 
 [node name="DateManager" type="Node" parent="."]
 script = ExtResource("3_deeda")
 love_increase_rate = 1
 love_decrease_rate_dangerous = 2
 love_decrease_rate_critical = 3
-initial_love = 0.0
+initial_love = 20.0
 good_date_threshold = 65.0
 
 [node name="radio_music" type="AudioStreamPlayer2D" parent="DateManager"]
