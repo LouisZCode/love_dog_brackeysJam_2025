@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://duubwicj62ce2"
+path="res://.godot/imported/Puppy Love.mp3-084bcf9d40901a26062a1ab16f6f3bb2.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/Puppy Love.mp3"
+dest_files=["res://.godot/imported/Puppy Love.mp3-084bcf9d40901a26062a1ab16f6f3bb2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

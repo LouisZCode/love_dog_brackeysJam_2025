@@ -1,4 +1,4 @@
-[gd_scene load_steps=399 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=413 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="Texture2D" uid="uid://dalqosjcw7y8y" path="res://assets/sprites/parallax_bgs/1.png" id="1_4856h"]
 [ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
@@ -18,7 +18,6 @@
 [ext_resource type="Script" path="res://script/door_to_dinning.gd" id="6_iy431"]
 [ext_resource type="Texture2D" uid="uid://nx73wpbw0l7f" path="res://assets/tilesets/pixel_platform_03_tileset_final.png" id="6_qh67y"]
 [ext_resource type="Texture2D" uid="uid://bhgqbw3vr16cu" path="res://assets/tilesets/tilemap_all.png" id="7_cytv1"]
-[ext_resource type="Script" path="res://script/SpawnPoint.gd" id="8_34kcm"]
 [ext_resource type="Script" path="res://script/MinigameManager.gd" id="8_x0tum"]
 [ext_resource type="Script" path="res://script/door_to_attic.gd" id="9_bg0qy"]
 [ext_resource type="Theme" uid="uid://cfpg0hvp634ax" path="res://assets/themes/action_richLabel_theme.tres" id="9_lwirj"]
@@ -31,12 +30,25 @@
 [ext_resource type="Texture2D" uid="uid://g8g4kd0kft8c" path="res://assets/sprite_shets/sparks_dangerous.png" id="16_7isgl"]
 [ext_resource type="Texture2D" uid="uid://x7rn7e6jlkep" path="res://assets/sprite_shets/tentacles_critical_SS.png" id="16_hw1w6"]
 [ext_resource type="Texture2D" uid="uid://ctl0k8wd24bx2" path="res://assets/sprite_shets/kitchen_growing.png" id="16_q5dft"]
+[ext_resource type="AudioStream" uid="uid://cvwpw2a73hi6n" path="res://assets/sounds/fire_burning_gently.mp3" id="17_5v164"]
 [ext_resource type="Texture2D" uid="uid://b2ajd68paup67" path="res://assets/sprite_shets/tentacles_growing_SS.png" id="17_bmnka"]
 [ext_resource type="Texture2D" uid="uid://cbkndaq0j06tk" path="res://assets/sprite_shets/Squirrel Sprite Sheet.png" id="17_f80x2"]
 [ext_resource type="Texture2D" uid="uid://pk5ifrtnuxmi" path="res://assets/sprite_shets/desk_critical.png" id="17_qf3c1"]
 [ext_resource type="Texture2D" uid="uid://87r5as8g52my" path="res://assets/sprite_shets/desk_danger.png" id="18_7bx68"]
+[ext_resource type="AudioStream" uid="uid://m1ycpex5lx5m" path="res://assets/sounds/fire_burning_fiercel.mp3" id="18_84ag8"]
 [ext_resource type="Texture2D" uid="uid://cgie8fsytrgxh" path="res://assets/sprite_shets/desk_growing.png" id="19_sihsl"]
+[ext_resource type="AudioStream" uid="uid://br80h6mmwm6i4" path="res://assets/sounds/mouse_noises.mp3" id="20_inrxr"]
 [ext_resource type="Texture2D" uid="uid://dsfa5sao8j74a" path="res://assets/sprite_shets/Cat Sprite Sheet.png" id="20_m2i35"]
+[ext_resource type="AudioStream" uid="uid://bevg5ot4s3sl1" path="res://assets/sounds/mouse_noises (1).mp3" id="21_ogtmj"]
+[ext_resource type="AudioStream" uid="uid://c1c6d538wtft5" path="res://assets/sounds/electric_sparks.mp3" id="25_wvgle"]
+[ext_resource type="AudioStream" uid="uid://bp668ngula7iu" path="res://assets/sounds/electric_sparks_and_.mp3" id="26_alr1a"]
+[ext_resource type="AudioStream" uid="uid://c7ypgpnkxxujc" path="res://assets/sounds/cat_chilling_noises.mp3" id="28_ipyec"]
+[ext_resource type="AudioStream" uid="uid://hn686kjwoeyt" path="res://assets/sounds/cat_chilling_noises (2).mp3" id="29_jf5tl"]
+[ext_resource type="AudioStream" uid="uid://ctk8goxftuwm0" path="res://assets/sounds/moving_squid_tentacl.mp3" id="29_tn6rq"]
+[ext_resource type="AudioStream" uid="uid://da13etit30byq" path="res://assets/sounds/cat_chilling_noises (1).mp3" id="30_ppske"]
+[ext_resource type="AudioStream" uid="uid://c43wousurow1e" path="res://assets/sounds/moving_squid_tentacl (1).mp3" id="39_u6q7r"]
+[ext_resource type="AudioStream" uid="uid://b6j3n3chuu80y" path="res://assets/sounds/beastly_hellish_scre (1).mp3" id="40_onnph"]
+[ext_resource type="AudioStream" uid="uid://b8mplrh53q7w0" path="res://assets/music/date_2_music.mp3" id="47_m3tvv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ogdn"]
 texture = ExtResource("6_qh67y")
@@ -376,12 +388,25 @@ enum ProblemType { BARK, MINIGAME }
 @export var minigame_name: String = \"\"
 @export var description: String = \"\"
 
+@onready var growing_sound: AudioStreamPlayer2D = $\"../SpawnPoint1/GrowingStateSound\"
+
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var danger_sound = $DangerStateSound
+@onready var critical_sound = $CriticalStateSound
 
 func _ready():
 	if animated_sprite:
 		animated_sprite.visible = false
 		animated_sprite.stop()
+	
+	growing_sound.stream.loop = true
+	danger_sound.stream.loop = true
+	critical_sound.stream.loop = true
+	
+	# Stop any sounds that might be playing
+	growing_sound.stop()
+	danger_sound.stop()
+	critical_sound.stop()
 
 # This function will be called when a problem starts using this point
 func activate_problem_visuals():
@@ -395,20 +420,36 @@ func deactivate_problem_visuals():
 		animated_sprite.visible = false
 		animated_sprite.stop()
 
+func stop_all_sounds():
+	growing_sound.stop()
+	danger_sound.stop()
+	critical_sound.stop()
+
 func _on_problem_state_changed(new_state):
-	print(\"SpawnPoint received state change:\", new_state)  # Debug print
+	print(\"SpawnPoint received state change:\", new_state)
 	if animated_sprite:
 		animated_sprite.visible = true
 		match new_state:
 			\"growing\":
-				print(\"Playing growing animation\")  # Debug print
 				animated_sprite.play(\"growing\")
+				# Stop other sounds and play growing sound
+				danger_sound.stop()
+				critical_sound.stop()
+				growing_sound.play()
+				
 			\"danger\":
-				print(\"Playing danger animation\")  # Debug print
 				animated_sprite.play(\"danger\")
+				# Stop other sounds and play danger sound
+				growing_sound.stop()
+				critical_sound.stop()
+				danger_sound.play()
+				
 			\"critical\":
-				print(\"Playing critical animation\")  # Debug print
 				animated_sprite.play(\"critical\")
+				# Stop other sounds and play critical sound
+				growing_sound.stop()
+				danger_sound.stop()
+				critical_sound.play()
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uh4fx"]
@@ -723,7 +764,7 @@ animations = [{
 "speed": 15.0
 }]
 
-[sub_resource type="GDScript" id="GDScript_w67yu"]
+[sub_resource type="GDScript" id="GDScript_i84m8"]
 script/source = "extends Marker2D
 enum ProblemType { BARK, MINIGAME }
 
@@ -731,12 +772,25 @@ enum ProblemType { BARK, MINIGAME }
 @export var minigame_name: String = \"\"
 @export var description: String = \"\"
 
+@onready var growing_sound: AudioStreamPlayer2D = $\"../SpawnPoint2/GrowingStateSound\"
+
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var danger_sound = $DangerStateSound
+@onready var critical_sound = $CriticalStateSound
 
 func _ready():
 	if animated_sprite:
 		animated_sprite.visible = false
 		animated_sprite.stop()
+	
+	growing_sound.stream.loop = true
+	danger_sound.stream.loop = true
+	critical_sound.stream.loop = true
+	
+	# Stop any sounds that might be playing
+	growing_sound.stop()
+	danger_sound.stop()
+	critical_sound.stop()
 
 # This function will be called when a problem starts using this point
 func activate_problem_visuals():
@@ -750,20 +804,36 @@ func deactivate_problem_visuals():
 		animated_sprite.visible = false
 		animated_sprite.stop()
 
+func stop_all_sounds():
+	growing_sound.stop()
+	danger_sound.stop()
+	critical_sound.stop()
+
 func _on_problem_state_changed(new_state):
-	print(\"SpawnPoint received state change:\", new_state)  # Debug print
+	print(\"SpawnPoint received state change:\", new_state)
 	if animated_sprite:
 		animated_sprite.visible = true
 		match new_state:
 			\"growing\":
-				print(\"Playing growing animation\")  # Debug print
 				animated_sprite.play(\"growing\")
+				# Stop other sounds and play growing sound
+				danger_sound.stop()
+				critical_sound.stop()
+				growing_sound.play()
+				
 			\"danger\":
-				print(\"Playing danger animation\")  # Debug print
 				animated_sprite.play(\"danger\")
+				# Stop other sounds and play danger sound
+				growing_sound.stop()
+				critical_sound.stop()
+				danger_sound.play()
+				
 			\"critical\":
-				print(\"Playing critical animation\")  # Debug print
 				animated_sprite.play(\"critical\")
+				# Stop other sounds and play critical sound
+				growing_sound.stop()
+				danger_sound.stop()
+				critical_sound.play()
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0evdc"]
@@ -966,7 +1036,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="GDScript" id="GDScript_0er74"]
+[sub_resource type="GDScript" id="GDScript_wiiqv"]
 script/source = "extends Marker2D
 enum ProblemType { BARK, MINIGAME }
 
@@ -974,12 +1044,25 @@ enum ProblemType { BARK, MINIGAME }
 @export var minigame_name: String = \"\"
 @export var description: String = \"\"
 
+@onready var growing_sound: AudioStreamPlayer2D = $\"../SpawnPoint3/GrowingStateSound\"
+
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var danger_sound = $DangerStateSound
+@onready var critical_sound = $CriticalStateSound
 
 func _ready():
 	if animated_sprite:
 		animated_sprite.visible = false
 		animated_sprite.stop()
+	
+	growing_sound.stream.loop = true
+	danger_sound.stream.loop = true
+	critical_sound.stream.loop = true
+	
+	# Stop any sounds that might be playing
+	growing_sound.stop()
+	danger_sound.stop()
+	critical_sound.stop()
 
 # This function will be called when a problem starts using this point
 func activate_problem_visuals():
@@ -993,20 +1076,36 @@ func deactivate_problem_visuals():
 		animated_sprite.visible = false
 		animated_sprite.stop()
 
+func stop_all_sounds():
+	growing_sound.stop()
+	danger_sound.stop()
+	critical_sound.stop()
+
 func _on_problem_state_changed(new_state):
-	print(\"SpawnPoint received state change:\", new_state)  # Debug print
+	print(\"SpawnPoint received state change:\", new_state)
 	if animated_sprite:
 		animated_sprite.visible = true
 		match new_state:
 			\"growing\":
-				print(\"Playing growing animation\")  # Debug print
 				animated_sprite.play(\"growing\")
+				# Stop other sounds and play growing sound
+				danger_sound.stop()
+				critical_sound.stop()
+				growing_sound.play()
+				
 			\"danger\":
-				print(\"Playing danger animation\")  # Debug print
 				animated_sprite.play(\"danger\")
+				# Stop other sounds and play danger sound
+				growing_sound.stop()
+				critical_sound.stop()
+				danger_sound.play()
+				
 			\"critical\":
-				print(\"Playing critical animation\")  # Debug print
 				animated_sprite.play(\"critical\")
+				# Stop other sounds and play critical sound
+				growing_sound.stop()
+				danger_sound.stop()
+				critical_sound.play()
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8dkjp"]
@@ -1245,12 +1344,25 @@ enum ProblemType { BARK, MINIGAME }
 @export var minigame_name: String = \"\"
 @export var description: String = \"\"
 
+@onready var growing_sound: AudioStreamPlayer2D = $\"../SpawnPoint4/GrowingStateSound\"
+
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var danger_sound = $DangerStateSound
+@onready var critical_sound = $CriticalStateSound
 
 func _ready():
 	if animated_sprite:
 		animated_sprite.visible = false
 		animated_sprite.stop()
+	
+	growing_sound.stream.loop = true
+	danger_sound.stream.loop = true
+	critical_sound.stream.loop = true
+	
+	# Stop any sounds that might be playing
+	growing_sound.stop()
+	danger_sound.stop()
+	critical_sound.stop()
 
 # This function will be called when a problem starts using this point
 func activate_problem_visuals():
@@ -1264,20 +1376,36 @@ func deactivate_problem_visuals():
 		animated_sprite.visible = false
 		animated_sprite.stop()
 
+func stop_all_sounds():
+	growing_sound.stop()
+	danger_sound.stop()
+	critical_sound.stop()
+
 func _on_problem_state_changed(new_state):
-	print(\"SpawnPoint received state change:\", new_state)  # Debug print
+	print(\"SpawnPoint received state change:\", new_state)
 	if animated_sprite:
 		animated_sprite.visible = true
 		match new_state:
 			\"growing\":
-				print(\"Playing growing animation\")  # Debug print
 				animated_sprite.play(\"growing\")
+				# Stop other sounds and play growing sound
+				danger_sound.stop()
+				critical_sound.stop()
+				growing_sound.play()
+				
 			\"danger\":
-				print(\"Playing danger animation\")  # Debug print
 				animated_sprite.play(\"danger\")
+				# Stop other sounds and play danger sound
+				growing_sound.stop()
+				critical_sound.stop()
+				danger_sound.play()
+				
 			\"critical\":
-				print(\"Playing critical animation\")  # Debug print
 				animated_sprite.play(\"critical\")
+				# Stop other sounds and play critical sound
+				growing_sound.stop()
+				danger_sound.stop()
+				critical_sound.play()
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gbgwp"]
@@ -1501,6 +1629,78 @@ animations = [{
 "name": &"growing",
 "speed": 8.0
 }]
+
+[sub_resource type="GDScript" id="GDScript_4bycw"]
+script/source = "extends Marker2D
+enum ProblemType { BARK, MINIGAME }
+
+@export var problem_type: ProblemType = ProblemType.BARK
+@export var minigame_name: String = \"\"
+@export var description: String = \"\"
+
+@onready var growing_sound: AudioStreamPlayer2D = $\"../SpawnPoint5/GrowingStateSound\"
+
+@onready var animated_sprite = $AnimatedSprite2D
+@onready var danger_sound = $DangerStateSound
+@onready var critical_sound = $CriticalStateSound
+
+func _ready():
+	if animated_sprite:
+		animated_sprite.visible = false
+		animated_sprite.stop()
+	
+	growing_sound.stream.loop = true
+	danger_sound.stream.loop = true
+	critical_sound.stream.loop = true
+	
+	# Stop any sounds that might be playing
+	growing_sound.stop()
+	danger_sound.stop()
+	critical_sound.stop()
+
+# This function will be called when a problem starts using this point
+func activate_problem_visuals():
+	if animated_sprite:
+		animated_sprite.visible = true
+		animated_sprite.play(\"growing\")
+
+# This function will be called when a problem is solved
+func deactivate_problem_visuals():
+	if animated_sprite:
+		animated_sprite.visible = false
+		animated_sprite.stop()
+
+func stop_all_sounds():
+	growing_sound.stop()
+	danger_sound.stop()
+	critical_sound.stop()
+
+func _on_problem_state_changed(new_state):
+	print(\"SpawnPoint received state change:\", new_state)
+	if animated_sprite:
+		animated_sprite.visible = true
+		match new_state:
+			\"growing\":
+				animated_sprite.play(\"growing\")
+				# Stop other sounds and play growing sound
+				danger_sound.stop()
+				critical_sound.stop()
+				growing_sound.play()
+				
+			\"danger\":
+				animated_sprite.play(\"danger\")
+				# Stop other sounds and play danger sound
+				growing_sound.stop()
+				critical_sound.stop()
+				danger_sound.play()
+				
+			\"critical\":
+				animated_sprite.play(\"critical\")
+				# Stop other sounds and play critical sound
+				growing_sound.stop()
+				danger_sound.stop()
+				critical_sound.play()
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_smftw"]
 atlas = ExtResource("15_eg01e")
@@ -2206,6 +2406,78 @@ animations = [{
 "speed": 25.0
 }]
 
+[sub_resource type="GDScript" id="GDScript_8xgw7"]
+script/source = "extends Marker2D
+enum ProblemType { BARK, MINIGAME }
+
+@export var problem_type: ProblemType = ProblemType.BARK
+@export var minigame_name: String = \"\"
+@export var description: String = \"\"
+
+@onready var growing_sound: AudioStreamPlayer2D = $\"../SpawnPoint6/GrowingStateSound\"
+
+@onready var animated_sprite = $AnimatedSprite2D
+@onready var danger_sound = $DangerStateSound
+@onready var critical_sound = $CriticalStateSound
+
+func _ready():
+	if animated_sprite:
+		animated_sprite.visible = false
+		animated_sprite.stop()
+	
+	growing_sound.stream.loop = true
+	danger_sound.stream.loop = true
+	critical_sound.stream.loop = true
+	
+	# Stop any sounds that might be playing
+	growing_sound.stop()
+	danger_sound.stop()
+	critical_sound.stop()
+
+# This function will be called when a problem starts using this point
+func activate_problem_visuals():
+	if animated_sprite:
+		animated_sprite.visible = true
+		animated_sprite.play(\"growing\")
+
+# This function will be called when a problem is solved
+func deactivate_problem_visuals():
+	if animated_sprite:
+		animated_sprite.visible = false
+		animated_sprite.stop()
+
+func stop_all_sounds():
+	growing_sound.stop()
+	danger_sound.stop()
+	critical_sound.stop()
+
+func _on_problem_state_changed(new_state):
+	print(\"SpawnPoint received state change:\", new_state)
+	if animated_sprite:
+		animated_sprite.visible = true
+		match new_state:
+			\"growing\":
+				animated_sprite.play(\"growing\")
+				# Stop other sounds and play growing sound
+				danger_sound.stop()
+				critical_sound.stop()
+				growing_sound.play()
+				
+			\"danger\":
+				animated_sprite.play(\"danger\")
+				# Stop other sounds and play danger sound
+				growing_sound.stop()
+				critical_sound.stop()
+				danger_sound.play()
+				
+			\"critical\":
+				animated_sprite.play(\"critical\")
+				# Stop other sounds and play critical sound
+				growing_sound.stop()
+				danger_sound.stop()
+				critical_sound.play()
+"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_lggtt"]
 atlas = ExtResource("16_hw1w6")
 region = Rect2(0, 0, 120, 90)
@@ -2665,7 +2937,7 @@ animations = [{
 "speed": 25.0
 }]
 
-[sub_resource type="GDScript" id="GDScript_pegwv"]
+[sub_resource type="GDScript" id="GDScript_gyhbf"]
 script/source = "extends Marker2D
 enum ProblemType { BARK, MINIGAME }
 
@@ -2673,12 +2945,25 @@ enum ProblemType { BARK, MINIGAME }
 @export var minigame_name: String = \"\"
 @export var description: String = \"\"
 
+@onready var growing_sound: AudioStreamPlayer2D = $\"../SpawnPoint7/GrowingStateSound\"
+
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var danger_sound = $DangerStateSound
+@onready var critical_sound = $CriticalStateSound
 
 func _ready():
 	if animated_sprite:
 		animated_sprite.visible = false
 		animated_sprite.stop()
+	
+	growing_sound.stream.loop = true
+	danger_sound.stream.loop = true
+	critical_sound.stream.loop = true
+	
+	# Stop any sounds that might be playing
+	growing_sound.stop()
+	danger_sound.stop()
+	critical_sound.stop()
 
 # This function will be called when a problem starts using this point
 func activate_problem_visuals():
@@ -2692,20 +2977,36 @@ func deactivate_problem_visuals():
 		animated_sprite.visible = false
 		animated_sprite.stop()
 
+func stop_all_sounds():
+	growing_sound.stop()
+	danger_sound.stop()
+	critical_sound.stop()
+
 func _on_problem_state_changed(new_state):
-	print(\"SpawnPoint received state change:\", new_state)  # Debug print
+	print(\"SpawnPoint received state change:\", new_state)
 	if animated_sprite:
 		animated_sprite.visible = true
 		match new_state:
 			\"growing\":
-				print(\"Playing growing animation\")  # Debug print
 				animated_sprite.play(\"growing\")
+				# Stop other sounds and play growing sound
+				danger_sound.stop()
+				critical_sound.stop()
+				growing_sound.play()
+				
 			\"danger\":
-				print(\"Playing danger animation\")  # Debug print
 				animated_sprite.play(\"danger\")
+				# Stop other sounds and play danger sound
+				growing_sound.stop()
+				critical_sound.stop()
+				danger_sound.play()
+				
 			\"critical\":
-				print(\"Playing critical animation\")  # Debug print
 				animated_sprite.play(\"critical\")
+				# Stop other sounds and play critical sound
+				growing_sound.stop()
+				danger_sound.stop()
+				critical_sound.play()
 "
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7mxvu"]
@@ -15297,66 +15598,117 @@ script = ExtResource("8_x0tum")
 
 [node name="KitchenSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
-[node name="SpawnPoint5" type="Marker2D" parent="ProblemSpawnPoints/KitchenSpawnPoints"]
+[node name="SpawnPoint1" type="Marker2D" parent="ProblemSpawnPoints/KitchenSpawnPoints"]
 position = Vector2(-600, -8)
 script = SubResource("GDScript_qsgvq")
 problem_type = 1
 minigame_name = "quick_clean"
 description = "take fires out!"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ProblemSpawnPoints/KitchenSpawnPoints/SpawnPoint5"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ProblemSpawnPoints/KitchenSpawnPoints/SpawnPoint1"]
 position = Vector2(0.999972, -15.25)
 scale = Vector2(0.573333, 0.505)
 sprite_frames = SubResource("SpriteFrames_oklh6")
 animation = &"critical"
 frame_progress = 0.128484
 
-[node name="SpawnPoint6" type="Marker2D" parent="ProblemSpawnPoints/KitchenSpawnPoints"]
-position = Vector2(-501, -55)
-script = SubResource("GDScript_w67yu")
+[node name="GrowingStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/KitchenSpawnPoints/SpawnPoint1"]
+stream = ExtResource("17_5v164")
+volume_db = -10.0
+max_distance = 800.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ProblemSpawnPoints/KitchenSpawnPoints/SpawnPoint6"]
+[node name="DangerStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/KitchenSpawnPoints/SpawnPoint1"]
+stream = ExtResource("17_5v164")
+max_distance = 1000.0
+
+[node name="CriticalStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/KitchenSpawnPoints/SpawnPoint1"]
+stream = ExtResource("18_84ag8")
+
+[node name="SpawnPoint2" type="Marker2D" parent="ProblemSpawnPoints/KitchenSpawnPoints"]
+position = Vector2(-501, -55)
+script = SubResource("GDScript_i84m8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ProblemSpawnPoints/KitchenSpawnPoints/SpawnPoint2"]
 position = Vector2(2.86102e-06, 0.999998)
 scale = Vector2(0.573333, 0.505)
 sprite_frames = SubResource("SpriteFrames_j05jj")
 animation = &"growing"
 frame_progress = 0.03537
 
+[node name="GrowingStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/KitchenSpawnPoints/SpawnPoint2"]
+stream = ExtResource("20_inrxr")
+volume_db = -20.0
+max_distance = 800.0
+
+[node name="DangerStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/KitchenSpawnPoints/SpawnPoint2"]
+stream = ExtResource("21_ogtmj")
+volume_db = -20.0
+max_distance = 1000.0
+
+[node name="CriticalStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/KitchenSpawnPoints/SpawnPoint2"]
+stream = ExtResource("21_ogtmj")
+volume_db = -20.0
+
 [node name="LivingRoomSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
-[node name="SpawnPoint5" type="Marker2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints"]
+[node name="SpawnPoint3" type="Marker2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints"]
 position = Vector2(358, -17)
-script = SubResource("GDScript_0er74")
+script = SubResource("GDScript_wiiqv")
 problem_type = 1
 minigame_name = "password_game"
-description = "reboot the pc!"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints/SpawnPoint5"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints/SpawnPoint3"]
 position = Vector2(4, -13)
 scale = Vector2(0.573333, 0.505)
 sprite_frames = SubResource("SpriteFrames_gx6wq")
 animation = &"growing"
 frame_progress = 0.111814
 
-[node name="SpawnPoint6" type="Marker2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints"]
+[node name="GrowingStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints/SpawnPoint3"]
+stream = ExtResource("25_wvgle")
+volume_db = -15.0
+max_distance = 800.0
+
+[node name="DangerStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints/SpawnPoint3"]
+stream = ExtResource("25_wvgle")
+volume_db = -15.0
+max_distance = 1000.0
+
+[node name="CriticalStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints/SpawnPoint3"]
+stream = ExtResource("26_alr1a")
+
+[node name="SpawnPoint4" type="Marker2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints"]
 position = Vector2(626, -11)
 script = SubResource("GDScript_0cl0d")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints/SpawnPoint6"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints/SpawnPoint4"]
 position = Vector2(3.00001, -14)
 scale = Vector2(1.31792, 1.09625)
 sprite_frames = SubResource("SpriteFrames_4uqtv")
 animation = &"growing"
 frame_progress = 0.22614
 
+[node name="GrowingStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints/SpawnPoint4"]
+stream = ExtResource("28_ipyec")
+volume_db = -20.0
+max_distance = 800.0
+
+[node name="DangerStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints/SpawnPoint4"]
+stream = ExtResource("29_jf5tl")
+volume_db = -20.0
+max_distance = 1000.0
+
+[node name="CriticalStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints/SpawnPoint4"]
+stream = ExtResource("30_ppske")
+volume_db = -20.0
+
 [node name="BasementSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
 [node name="SpawnPoint5" type="Marker2D" parent="ProblemSpawnPoints/BasementSpawnPoints"]
 position = Vector2(259, 99)
-script = ExtResource("8_34kcm")
+script = SubResource("GDScript_4bycw")
 problem_type = 1
 minigame_name = "wire_fix"
-description = "connect the wires!"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint5"]
 position = Vector2(1, 12)
@@ -15365,10 +15717,23 @@ sprite_frames = SubResource("SpriteFrames_kdeh2")
 animation = &"critical"
 frame_progress = 0.149698
 
+[node name="GrowingStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint5"]
+stream = ExtResource("25_wvgle")
+volume_db = -20.201
+max_distance = 500.0
+
+[node name="DangerStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint5"]
+stream = ExtResource("25_wvgle")
+volume_db = -20.0
+max_distance = 1000.0
+
+[node name="CriticalStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint5"]
+stream = ExtResource("18_84ag8")
+volume_db = -20.0
+
 [node name="SpawnPoint6" type="Marker2D" parent="ProblemSpawnPoints/BasementSpawnPoints"]
 position = Vector2(-42, 113)
-script = ExtResource("8_34kcm")
-description = "scare Cuthlulu!"
+script = SubResource("GDScript_8xgw7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint6"]
 position = Vector2(6, -23)
@@ -15376,19 +15741,45 @@ sprite_frames = SubResource("SpriteFrames_mqc2k")
 animation = &"danger"
 frame_progress = 0.893169
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint6"]
+[node name="GrowingStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint6"]
+stream = ExtResource("29_tn6rq")
+volume_db = -20.0
+max_distance = 500.0
+
+[node name="DangerStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint6"]
+stream = ExtResource("39_u6q7r")
+volume_db = -20.0
+max_distance = 1000.0
+
+[node name="CriticalStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint6"]
+stream = ExtResource("40_onnph")
+volume_db = -20.0
 
 [node name="AtticSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
-[node name="SpawnPoint6" type="Marker2D" parent="ProblemSpawnPoints/AtticSpawnPoints"]
+[node name="SpawnPoint7" type="Marker2D" parent="ProblemSpawnPoints/AtticSpawnPoints"]
 position = Vector2(133, -197)
-script = SubResource("GDScript_pegwv")
+script = SubResource("GDScript_gyhbf")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ProblemSpawnPoints/AtticSpawnPoints/SpawnPoint6"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ProblemSpawnPoints/AtticSpawnPoints/SpawnPoint7"]
 position = Vector2(3.00001, -14)
 scale = Vector2(1.31792, 1.09625)
 sprite_frames = SubResource("SpriteFrames_7mxvu")
 animation = &"growing"
+
+[node name="GrowingStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/AtticSpawnPoints/SpawnPoint7"]
+stream = ExtResource("28_ipyec")
+volume_db = -20.0
+max_distance = 500.0
+
+[node name="DangerStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/AtticSpawnPoints/SpawnPoint7"]
+stream = ExtResource("29_jf5tl")
+volume_db = -20.0
+max_distance = 1000.0
+
+[node name="CriticalStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/AtticSpawnPoints/SpawnPoint7"]
+stream = ExtResource("30_ppske")
+volume_db = -20.0
 
 [node name="Rooms" type="Node2D" parent="."]
 
@@ -15544,6 +15935,13 @@ position = Vector2(24, 0)
 [node name="owner" parent="Rooms/DiningRoom" instance=ExtResource("4_tkdp3")]
 z_index = -2
 position = Vector2(-25, 1)
+
+[node name="romantic_music" type="AudioStreamPlayer2D" parent="Rooms/DiningRoom"]
+position = Vector2(-2, -27)
+stream = ExtResource("47_m3tvv")
+volume_db = -10.0
+autoplay = true
+max_distance = 500.0
 
 [node name="Kitchen" type="Node2D" parent="Rooms" groups=["rooms"]]
 position = Vector2(-715, -7)

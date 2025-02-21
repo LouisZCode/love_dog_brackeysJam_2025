@@ -14,6 +14,7 @@ enum ProblemState { GROWING, DANGEROUS, CRITICAL }
 @onready var prompt_label = $RichTextLabel
 @onready var date_manager = get_node("/root/Game/DateManager")
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var bark_sound: AudioStreamPlayer2D = $BarkSound
 
 @onready var growing_bar = $GrowingBar
 @onready var danger_bar = $DangerBar
@@ -53,6 +54,9 @@ func _ready():
 	print("Problem created and registered with DateManager")
 	
 	emit_signal("state_changed", "growing") 
+	
+	if bark_sound:
+		bark_sound.stream.loop = true
 
 func setup_progress_bars():
 	# Growing bar (yellow)
@@ -99,6 +103,7 @@ func transition_to_dangerous():
 		print("Problem became dangerous and now affects love!")
 
 func on_problem_timeout():
+	current_state = ProblemState.CRITICAL
 	print("Problem reached critical state!")
 	emit_signal("state_changed", "critical")
 
@@ -113,6 +118,10 @@ func handle_interaction(delta):
 					var progress = (bark_timer / bark_time_required) * 100
 					prompt_label.text = "[center]Barking... %d%%[/center]" % progress
 					
+					# Play bark sound while key is held
+					if bark_sound and not bark_sound.playing:
+						bark_sound.play()
+					
 					var player = get_node("/root/Game/Player")
 					if player:
 						player.enter_fixing_state()
@@ -120,12 +129,14 @@ func handle_interaction(delta):
 					if bark_timer >= bark_time_required:
 						solve_problem()
 				else:
-					# Always reset the player state when not barking
+					# Stop bark sound when key is released
+					if bark_sound and bark_sound.playing:
+						bark_sound.stop()
+					
 					var player = get_node("/root/Game/Player")
 					if player:
 						player.exit_fixing_state()
 					
-					# Then reset barking variables if needed
 					if is_barking:
 						bark_timer = 0.0
 						is_barking = false
@@ -178,12 +189,16 @@ func start_minigame():
 
 func solve_problem():
 	if is_active and date_manager:
-		# Get the player and reset state BEFORE removing the problem
 		var player = get_node("/root/Game/Player")
 		if player:
 			player.exit_fixing_state()
+		
+		# Stop sounds on the spawn point
+		var spawn_point = get_parent()
+		if spawn_point.has_method("stop_all_sounds"):
+			spawn_point.stop_all_sounds()
 			
-		date_manager.remove_distraction()  # Remove from display count
+		date_manager.remove_distraction()
 		if current_state == ProblemState.DANGEROUS:
 			date_manager.remove_dangerous_distraction()
 		emit_signal("problem_solved")

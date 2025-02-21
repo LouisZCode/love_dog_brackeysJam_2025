@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c1uyl20d67fa2"
+path="res://.godot/imported/Puppy Love Hero.mp3-50395355d992f0562e921ecf6020f5a6.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/Puppy Love Hero.mp3"
+dest_files=["res://.godot/imported/Puppy Love Hero.mp3-50395355d992f0562e921ecf6020f5a6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

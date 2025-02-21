@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c43wousurow1e"
+path="res://.godot/imported/moving_squid_tentacl (1).mp3-50a99624537cc35297ce5c8de0a7d8bd.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/moving_squid_tentacl (1).mp3"
+dest_files=["res://.godot/imported/moving_squid_tentacl (1).mp3-50a99624537cc35297ce5c8de0a7d8bd.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
