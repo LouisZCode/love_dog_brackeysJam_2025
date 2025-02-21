@@ -16,11 +16,84 @@ var current_love := initial_love
 var active_distractions := 0  # For display purposes
 var dangerous_distractions := 0  # For love bar effects
 
+@onready var radio_start: AudioStreamPlayer2D = $radio_start
+@onready var radio_music: AudioStreamPlayer2D = $radio_music
+@onready var radio_stop: AudioStreamPlayer2D = $radio_stop
+
+@onready var music_sprite_1: Sprite2D = $MusicSprite1
+@onready var music_sprite_2: Sprite2D = $MusicSprite2
+
+
+var was_date_going_well := false 
+var tween: Tween
+
 func _ready():
 	current_love = initial_love
 	emit_signal("love_level_changed", current_love)
 	timer.start_timer()
 	timer.time_up.connect(_on_time_up)
+	
+	if radio_music:
+		radio_music.play()
+		show_music_sprite()
+
+func show_music_sprite():
+	# Kill previous tween if exists
+	if tween:
+		tween.kill()
+	
+	# Store original positions
+	var original_pos_1 = music_sprite_1.position
+	var original_pos_2 = music_sprite_2.position
+	
+	tween = create_tween()
+	
+	# First sprite animation
+	if music_sprite_1:
+		# Fade in
+		tween.tween_property(music_sprite_1, "modulate:a", 1.0, 0.5)
+		# Gentle floating with musical sway
+		tween.parallel().tween_property(music_sprite_1, "position:x", 
+			original_pos_1.x + 10, 0.8).set_trans(Tween.TRANS_SINE)
+		tween.parallel().tween_property(music_sprite_1, "position:y", 
+			original_pos_1.y - 20, 1.0).set_trans(Tween.TRANS_SINE)
+		# Additional sway
+		tween.tween_property(music_sprite_1, "position:x", 
+			original_pos_1.x - 10, 0.8).set_trans(Tween.TRANS_SINE)
+		# Fade out
+		tween.tween_property(music_sprite_1, "modulate:a", 0.0, 0.5)
+		# Reset position when invisible
+		tween.tween_property(music_sprite_1, "position", original_pos_1, 0.01)
+	
+	# Second sprite animation with delay
+	if music_sprite_2:
+		tween.tween_interval(0.4)  # Slightly delayed start
+		# Fade in
+		tween.tween_property(music_sprite_2, "modulate:a", 1.0, 0.5)
+		# Gentle floating with musical sway (opposite direction)
+		tween.parallel().tween_property(music_sprite_2, "position:x", 
+			original_pos_2.x - 10, 0.8).set_trans(Tween.TRANS_SINE)
+		tween.parallel().tween_property(music_sprite_2, "position:y", 
+			original_pos_2.y - 20, 1.0).set_trans(Tween.TRANS_SINE)
+		# Additional sway
+		tween.tween_property(music_sprite_2, "position:x", 
+			original_pos_2.x + 10, 0.8).set_trans(Tween.TRANS_SINE)
+		# Fade out
+		tween.tween_property(music_sprite_2, "modulate:a", 0.0, 0.5)
+		# Reset position when invisible
+		tween.tween_property(music_sprite_2, "position", original_pos_2, 0.01)
+	
+	# Wait a bit before restarting
+	tween.tween_interval(0.3)
+	# Restart animation if music still playing
+	tween.tween_callback(func(): if radio_music.playing: show_music_sprite())
+func hide_music_sprite():
+	if tween:
+		tween.kill()
+	if music_sprite_1:
+		music_sprite_1.modulate.a = 0
+	if music_sprite_2:
+		music_sprite_2.modulate.a = 0
 
 func _process(delta):
 	if timer.is_running:
@@ -30,6 +103,26 @@ func update_love(delta):
 	# Get difficulty multiplier based on remaining time
 	var time_percentage = timer.get_time_percentage()
 	var difficulty = 1.0 + (1.0 - (time_percentage / 100.0))  # 1.0 to 2.0
+	
+	
+	var is_going_well = current_love >= good_date_threshold
+	
+	 # Check if we crossed the threshold
+	if is_going_well != was_date_going_well:
+		if is_going_well:
+			# Date just got better
+			if radio_music and not radio_music.playing:
+				radio_music.play()
+				show_music_sprite()
+		else:
+			# Date just got worse
+			if radio_music and radio_music.playing:
+				radio_music.stop()
+				if radio_stop:
+					radio_stop.play()
+				hide_music_sprite()
+	
+	was_date_going_well = is_going_well
 	
 	# Only decrease love if there are DANGEROUS distractions
 	if dangerous_distractions > 0:
