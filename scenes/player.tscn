@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://byktwux5rrnxo"]
+[gd_scene load_steps=47 format=3 uid="uid://byktwux5rrnxo"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_ev1qf"]
 [ext_resource type="Texture2D" uid="uid://bo3u72f2nu121" path="res://assets/sprite_shets/barking.png" id="2_4dfpr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://copiib46bmks4" path="res://assets/sprites/falling.png" id="2_wut56"]
 [ext_resource type="Texture2D" uid="uid://dlxi2vnemr5q0" path="res://assets/sprite_shets/dog_run_ss.png" id="3_l15qm"]
 [ext_resource type="Texture2D" uid="uid://bi6y6i5i2c7wv" path="res://assets/sprites/jumping.png" id="4_kwbdw"]
+[ext_resource type="AudioStream" uid="uid://c3ncqmln1ptsw" path="res://assets/sounds/dog_walk.mp3" id="7_xj8wa"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tysey"]
 atlas = ExtResource("2_4dfpr")
@@ -316,3 +317,7 @@ frame_progress = 0.618666
 position = Vector2(-2.48353e-08, -20)
 rotation = 1.57814
 shape = SubResource("CapsuleShape2D_nyse4")
+
+[node name="FootstepSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_xj8wa")
+volume_db = -15.0

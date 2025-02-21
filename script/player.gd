@@ -15,6 +15,8 @@ extends CharacterBody2D
 @export var jump_buffer_time := 0.1  # Time in seconds to buffer jump input
 
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var footstep_sound: AudioStreamPlayer2D = $FootstepSound
+
 
 enum DogState { IDLE, WALKING, RUNNING, JUMPING, FALLING, FIXING }
 var current_state: DogState = DogState.IDLE
@@ -28,6 +30,10 @@ var can_jump := true
 var wants_to_jump := false
 
 var can_move := true 
+
+func _ready():
+	if footstep_sound:
+		footstep_sound.stream.loop = true
 
 func _physics_process(delta):
 	if not can_move:  # Check if movement is allowed
@@ -111,10 +117,22 @@ func update_state():
 	if is_on_floor():
 		if abs(velocity.x) > 10:
 			current_state = DogState.RUNNING if abs(velocity.x) > walk_speed else DogState.WALKING
+			# Play footsteps when moving
+			if footstep_sound and not footstep_sound.playing:
+				footstep_sound.play()
+			# Adjust speed based on running
+			if footstep_sound:
+				footstep_sound.pitch_scale = 1.5 if abs(velocity.x) > walk_speed else 1.0
 		else:
 			current_state = DogState.IDLE
+			# Stop footsteps when idle
+			if footstep_sound and footstep_sound.playing:
+				footstep_sound.stop()
 	else:
 		current_state = DogState.JUMPING if velocity.y < 0 else DogState.FALLING
+		# Stop footsteps when in air
+		if footstep_sound and footstep_sound.playing:
+			footstep_sound.stop()
 
 func update_animation_state():
 	animated_sprite.flip_h = !facing_right

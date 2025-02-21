@@ -15782,12 +15782,11 @@ frame_progress = 0.893169
 
 [node name="GrowingStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint6"]
 stream = ExtResource("29_tn6rq")
-volume_db = -10.0
 max_distance = 500.0
 
 [node name="DangerStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint6"]
 stream = ExtResource("39_u6q7r")
-volume_db = -10.0
+volume_db = 5.0
 max_distance = 1000.0
 
 [node name="CriticalStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint6"]
