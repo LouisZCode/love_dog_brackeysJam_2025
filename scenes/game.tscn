@@ -1,4 +1,4 @@
-[gd_scene load_steps=465 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=466 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="Texture2D" uid="uid://dalqosjcw7y8y" path="res://assets/sprites/parallax_bgs/1.png" id="1_4856h"]
 [ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
@@ -59,6 +59,7 @@
 [ext_resource type="Texture2D" uid="uid://b8qogkj5g201k" path="res://assets/sprites/Garden/Keyboard_UI_White_Animated.png" id="57_67i38"]
 [ext_resource type="FontFile" uid="uid://bl2p1xlus6ku1" path="res://assets/fonts/PixelOperator8.ttf" id="58_4c5qb"]
 [ext_resource type="Texture2D" uid="uid://bfeevqhjvydg6" path="res://assets/sprites/Garden/Start.png" id="59_s3l4v"]
+[ext_resource type="AudioStream" uid="uid://bwf7jtf1qird4" path="res://assets/music/night-ambience-17064.mp3" id="60_qxym6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ogdn"]
 texture = ExtResource("6_qh67y")
@@ -16719,6 +16720,12 @@ shape = SubResource("RectangleShape2D_47pun")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Rooms/Garden/StaticBody2D"]
 position = Vector2(218, -148)
 shape = SubResource("RectangleShape2D_pdwts")
+
+[node name="night_noise" type="AudioStreamPlayer2D" parent="Rooms/Garden"]
+position = Vector2(-957, -68)
+stream = ExtResource("60_qxym6")
+autoplay = true
+max_distance = 1000.0
 
 [connection signal="love_level_changed" from="DateManager" to="Rooms/DiningRoom/date" method="_on_date_manager_love_level_changed"]
 [connection signal="love_level_changed" from="DateManager" to="Rooms/DiningRoom/owner" method="_on_date_manager_love_level_changed"]
