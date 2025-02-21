@@ -15764,6 +15764,9 @@ script/source = "extends Area2D
 @onready var date_manager = get_node(\"/root/Game/DateManager\")
 @onready var problem_manager = get_node(\"/root/Game/ProblemManager\")
 
+@onready var date_number: RichTextLabel = $date_number
+
+
 static var is_transitioning := false
 
 func _ready():
@@ -15772,6 +15775,10 @@ func _ready():
 		date_manager.set_process(false)
 	if problem_manager:
 		problem_manager.set_process(false)
+	
+	date_number.text = \"Date number: \" + \"[color=green]\" + str(GlobalControls.night_number) + \"[/color]\"
+	
+	
 
 func _process(_delta):
 	if not get_parent().visible:
@@ -15973,9 +15980,9 @@ good_date_threshold = 65.0
 [node name="radio_music" type="AudioStreamPlayer2D" parent="DateManager"]
 position = Vector2(15, -96)
 stream = ExtResource("47_m3tvv")
-volume_db = -10.0
+volume_db = -20.0
 autoplay = true
-max_distance = 500.0
+max_distance = 700.0
 
 [node name="radio_stop" type="AudioStreamPlayer2D" parent="DateManager"]
 stream = ExtResource("14_5fni0")
@@ -16713,6 +16720,17 @@ texture = ExtResource("59_s3l4v")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Garden/DoorToKitchen"]
 position = Vector2(147.5, 72.5)
 shape = SubResource("RectangleShape2D_tdhqd")
+
+[node name="date_number" type="RichTextLabel" parent="Rooms/Garden/DoorToKitchen"]
+z_index = -1
+offset_left = 106.0
+offset_top = 37.0
+offset_right = 197.0
+offset_bottom = 50.0
+theme = ExtResource("9_lwirj")
+bbcode_enabled = true
+text = "Date number: 1"
+fit_content = true
 
 [node name="Area2D" type="Area2D" parent="Rooms/Garden"]
 position = Vector2(-969, -22)
