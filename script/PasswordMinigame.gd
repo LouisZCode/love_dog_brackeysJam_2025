@@ -91,17 +91,22 @@ func animate_typing(is_left_hand: bool):
 	sprite.position.y = initial_position.y
 
 func check_input(input_value: String):
-	
+	# Safety check to prevent out of bounds
+	if user_progress >= pattern_length or user_progress >= len(current_pattern):
+		print("Warning: Progress index out of bounds")
+		return
+
 	match input_value:
 		"←", "↓":  # Left hand inputs
 			animate_typing(true)
 		"→", "↑", "E":  # Right hand inputs
 			animate_typing(false)
 	
-	if input_value == current_pattern[user_progress]:
+	# Safety check again before comparing
+	if user_progress < len(current_pattern) and input_value == current_pattern[user_progress]:
 		# Correct input
 		user_progress += 1
-		display_pattern()  # Update display with new green character
+		display_pattern()
 		
 		if user_progress == pattern_length:
 			win_sound.play()
