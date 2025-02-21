@@ -20,10 +20,10 @@ size = Vector2(75, 83)
 script = ExtResource("2_jqh7a")
 
 [node name="InstructionLabel" type="RichTextLabel" parent="." index="0"]
-offset_left = 304.0
-offset_top = 64.0
-offset_right = 836.0
-offset_bottom = 104.0
+offset_left = 310.0
+offset_top = 526.0
+offset_right = 842.0
+offset_bottom = 566.0
 mouse_filter = 2
 theme = ExtResource("3_5tk1h")
 theme_override_font_sizes/normal_font_size = 22
@@ -105,10 +105,10 @@ shape = SubResource("RectangleShape2D_xx61c")
 
 [node name="ColorRect" type="ColorRect" parent="." index="7"]
 z_index = -1
-offset_left = 354.0
-offset_top = 53.0
-offset_right = 813.0
-offset_bottom = 122.0
+offset_left = 360.0
+offset_top = 515.0
+offset_right = 819.0
+offset_bottom = 584.0
 color = Color(0.505882, 0.505882, 0.505882, 0.607843)
 metadata/_edit_use_anchors_ = true
 

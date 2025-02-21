@@ -1,6 +1,7 @@
 extends Camera2D
 
 var room_positions = {
+	"Garden": Vector2(-1000, -220),
 	"DiningRoom": Vector2(0, -220),
 	"Kitchen": Vector2(-500, -200),
 	"LivingRoom": Vector2(500, -200),
@@ -19,7 +20,15 @@ var current_room_position := Vector2.ZERO
 func _ready():
 	make_current()
 	enabled = true
-	current_room_position = room_positions["DiningRoom"]
+	# Make sure Garden is visible at start
+	for room in rooms_node.get_children():
+		if room.name == "Garden":
+			room.show()
+		else:
+			room.hide()
+	current_room_position = room_positions["Garden"]
+	global_position = current_room_position
+	current_room_position = room_positions["Garden"]
 	global_position = current_room_position
 
 func _process(delta):

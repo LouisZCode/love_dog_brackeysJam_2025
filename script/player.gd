@@ -16,6 +16,7 @@ extends CharacterBody2D
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var footstep_sound: AudioStreamPlayer2D = $FootstepSound
+@onready var bark_sound: AudioStreamPlayer2D = $BarkSound
 
 
 enum DogState { IDLE, WALKING, RUNNING, JUMPING, FALLING, FIXING }
@@ -28,6 +29,8 @@ var coyote_timer := 0.0
 var jump_buffer_timer := 0.0
 var can_jump := true
 var wants_to_jump := false
+
+var is_barking := false
 
 var can_move := true 
 
@@ -136,6 +139,19 @@ func update_state():
 
 func update_animation_state():
 	animated_sprite.flip_h = !facing_right
+	
+		# Check for barking first
+	if Input.is_action_pressed("bark"):
+		animated_sprite.play("barking")
+		is_barking = true
+		if bark_sound and not bark_sound.playing:
+			bark_sound.play()
+		return
+	elif is_barking:
+		is_barking = false
+				# Stop bark sound when releasing W
+		if bark_sound and bark_sound.playing:
+			bark_sound.stop()
 	
 	match current_state:
 		DogState.IDLE:
