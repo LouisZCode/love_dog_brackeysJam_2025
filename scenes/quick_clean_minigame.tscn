@@ -11,11 +11,18 @@
 script = ExtResource("2_v1h5m")
 spots_to_clean = 5
 
+[node name="Timer" parent="." index="0"]
+offset_left = -3.0
+offset_top = 53.0
+offset_right = 37.0
+offset_bottom = 76.0
+metadata/_edit_use_anchors_ = true
+
 [node name="GameArea" parent="." index="1"]
-offset_left = 257.0
-offset_top = 118.0
-offset_right = 897.0
-offset_bottom = 478.0
+offset_left = 254.0
+offset_top = 171.0
+offset_right = 894.0
+offset_bottom = 531.0
 
 [node name="ColorRect" type="ColorRect" parent="GameArea" index="0"]
 layout_mode = 1
@@ -36,10 +43,10 @@ scale = Vector2(2.51086, 2.30719)
 texture = ExtResource("3_kklmu")
 
 [node name="InstructionLabel" type="RichTextLabel" parent="." index="2"]
-offset_left = 306.0
-offset_top = 96.0
-offset_right = 872.0
-offset_bottom = 142.0
+offset_left = 303.0
+offset_top = 149.0
+offset_right = 869.0
+offset_bottom = 195.0
 theme = ExtResource("3_qmcpl")
 theme_override_font_sizes/normal_font_size = 22
 bbcode_enabled = true
@@ -48,7 +55,9 @@ fit_content = true
 scroll_active = false
 
 [node name="win_sound" type="AudioStreamPlayer2D" parent="." index="3"]
+position = Vector2(-3, 53)
 stream = ExtResource("5_yxl85")
 
 [node name="lose_sound" type="AudioStreamPlayer2D" parent="." index="4"]
+position = Vector2(-3, 53)
 stream = ExtResource("6_ajbms")

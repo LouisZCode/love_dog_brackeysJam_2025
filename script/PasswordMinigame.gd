@@ -12,7 +12,7 @@ var user_progress := 0
 
 
 # Define the display area (similar to QuickClean)
-var display_area = Rect2(Vector2(300, 200), Vector2(400, 200))
+var display_area = Rect2(Vector2(300, 270), Vector2(400, 2700))
 @onready var left_hand = $LeftHandSprite
 @onready var right_hand = $RightHandSprite
 @export var type_offset := 10.0   # How far up the sprites move

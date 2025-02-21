@@ -15553,11 +15553,10 @@ script = ExtResource("1_mye2x")
 script = ExtResource("1_fp8jv")
 
 [node name="LoveBar" type="ProgressBar" parent="CanvasLayer"]
-offset_left = 20.0
-offset_top = 40.0
-offset_right = 170.0
-offset_bottom = 70.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+offset_left = 500.0
+offset_top = 570.0
+offset_right = 650.0
+offset_bottom = 610.0
 value = 20.0
 show_percentage = false
 
@@ -15567,14 +15566,16 @@ offset_left = 20.0
 offset_top = 5.0
 offset_right = 121.0
 offset_bottom = 45.0
+theme = ExtResource("9_lwirj")
+theme_override_font_sizes/normal_font_size = 13
 bbcode_enabled = true
 text = "[center]Love: 50%[/center]"
 fit_content = true
 
 [node name="DistractionLabel" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 20.0
+offset_left = 455.0
 offset_top = 80.0
-offset_right = 220.0
+offset_right = 655.0
 offset_bottom = 110.0
 theme = ExtResource("9_lwirj")
 theme_override_font_sizes/normal_font_size = 17
@@ -15582,10 +15583,10 @@ bbcode_enabled = true
 text = "Distractions: 0"
 
 [node name="TimerLabel" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 444.0
-offset_top = 22.0
-offset_right = 668.0
-offset_bottom = 102.0
+offset_left = 455.0
+offset_top = 35.0
+offset_right = 679.0
+offset_bottom = 115.0
 theme = ExtResource("9_lwirj")
 bbcode_enabled = true
 fit_content = true

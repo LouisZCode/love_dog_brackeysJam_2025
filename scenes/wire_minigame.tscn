@@ -30,6 +30,7 @@ theme_override_font_sizes/normal_font_size = 22
 bbcode_enabled = true
 text = "This is an instruction label"
 fit_content = true
+metadata/_edit_use_anchors_ = true
 
 [node name="TopEndpoints" type="Node2D" parent="." index="1"]
 
@@ -58,12 +59,16 @@ wire_color = Color(0, 0, 1, 1)
 
 [node name="WireContainer" type="Node2D" parent="." index="3"]
 
+[node name="Timer" parent="." index="4"]
+metadata/_edit_use_anchors_ = true
+
 [node name="GameArea" parent="." index="5"]
 z_index = -1
 offset_left = 340.0
 offset_top = 55.0
 offset_right = 841.0
 offset_bottom = 499.0
+metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="ColorRect" parent="GameArea" index="0"]
 visible = false
@@ -105,6 +110,7 @@ offset_top = 53.0
 offset_right = 813.0
 offset_bottom = 122.0
 color = Color(0.505882, 0.505882, 0.505882, 0.607843)
+metadata/_edit_use_anchors_ = true
 
 [node name="win_sound" type="AudioStreamPlayer2D" parent="." index="8"]
 stream = ExtResource("8_a0htp")
