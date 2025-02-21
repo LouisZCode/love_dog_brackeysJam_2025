@@ -15778,8 +15778,6 @@ func _ready():
 	
 	date_number.text = \"Date number: \" + \"[color=green]\" + str(GlobalControls.night_number) + \"[/color]\"
 	
-	
-
 func _process(_delta):
 	if not get_parent().visible:
 		return
