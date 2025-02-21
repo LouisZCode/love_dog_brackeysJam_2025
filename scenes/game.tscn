@@ -15557,6 +15557,7 @@ offset_left = 20.0
 offset_top = 20.0
 offset_right = 170.0
 offset_bottom = 50.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 value = 20.0
 show_percentage = false
 
@@ -15575,6 +15576,8 @@ offset_left = 20.0
 offset_top = 60.0
 offset_right = 220.0
 offset_bottom = 90.0
+theme = ExtResource("9_lwirj")
+theme_override_font_sizes/normal_font_size = 17
 bbcode_enabled = true
 text = "Distractions: 0"
 
@@ -15583,6 +15586,7 @@ offset_left = 444.0
 offset_top = 22.0
 offset_right = 668.0
 offset_bottom = 102.0
+theme = ExtResource("9_lwirj")
 bbcode_enabled = true
 fit_content = true
 script = ExtResource("3_tvuu4")
