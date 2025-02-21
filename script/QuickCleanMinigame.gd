@@ -9,6 +9,8 @@ var cleaning_paw
 # Define the spawn area
 var spawn_area = Rect2(Vector2(300, 100), Vector2(400, 300))  # Adjust these values
 @onready var instruction_label = $InstructionLabel
+@onready var win_sound: AudioStreamPlayer2D = $win_sound
+@onready var lose_sound: AudioStreamPlayer2D = $lose_sound
 
 func setup_minigame():
 	setup_instruction_label()
@@ -39,7 +41,10 @@ func _on_spot_cleaned():
 	spots_cleaned += 1
 	update_instruction()
 	if spots_cleaned >= spots_to_clean:
-		win_game()
+		win_sound.play()
+		var timer = get_tree().create_timer(0.5)  # Half second delay
+		timer.timeout.connect(func(): win_game())
+
 
 func update_instruction():
 	var remaining = spots_to_clean - spots_cleaned

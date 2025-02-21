@@ -6,6 +6,10 @@ var current_pattern := []
 var user_progress := 0
 @onready var pattern_label = $PatternLabel
 @onready var instruction_label = $InstructionLabel
+@onready var typesound: AudioStreamPlayer2D = $Typesound
+@onready var win_sound: AudioStreamPlayer2D = $win_sound
+@onready var lose_sound: AudioStreamPlayer2D = $lose_sound
+
 
 # Define the display area (similar to QuickClean)
 var display_area = Rect2(Vector2(300, 200), Vector2(400, 200))
@@ -75,8 +79,10 @@ func _input(event):
 
 
 func animate_typing(is_left_hand: bool):
+	typesound.play()
 	var sprite = left_hand if is_left_hand else right_hand
 	var initial_position = sprite.position
+
 	
 	# Move up
 	sprite.position.y = initial_position.y - type_offset
@@ -98,8 +104,11 @@ func check_input(input_value: String):
 		display_pattern()  # Update display with new green character
 		
 		if user_progress == pattern_length:
-			win_game()
+			win_sound.play()
+			var timer = get_tree().create_timer(0.5)  # Half second delay
+			timer.timeout.connect(func(): win_game())
 	else:
 		# Incorrect input
+		lose_sound.play()
 		generate_new_pattern()
 		display_pattern()

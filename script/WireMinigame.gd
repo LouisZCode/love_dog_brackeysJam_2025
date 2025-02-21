@@ -5,6 +5,8 @@ const TOTAL_WIRES := 3
 var active_wire = null
 var current_line: Line2D = null
 @onready var paw = $WirePaw
+@onready var win_sound: AudioStreamPlayer2D = $win_sound
+@onready var lose_sound: AudioStreamPlayer2D = $lose_sound
 
 # Define wire colors with their positions
 var wire_pairs = {
@@ -83,10 +85,12 @@ func try_connect_wire(endpoint: WireEndpoint):
 		
 		# Wait a small moment before winning
 		if wires_connected == TOTAL_WIRES:
+			win_sound.play()
 			var timer = get_tree().create_timer(0.5)  # Half second delay
 			timer.timeout.connect(func(): win_game())
 	else:
 		# Invalid connection - remove the line
+		lose_sound.play()
 		current_line.queue_free()
 	
 	active_wire = null

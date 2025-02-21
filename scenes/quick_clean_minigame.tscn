@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://btbkiaa25c8w3"]
+[gd_scene load_steps=7 format=3 uid="uid://btbkiaa25c8w3"]
 
 [ext_resource type="PackedScene" uid="uid://b7ea3ye7sx6i0" path="res://scenes/minigame_base.tscn" id="1_svc3i"]
 [ext_resource type="Script" path="res://script/QuickCleanMinigame.gd" id="2_v1h5m"]
 [ext_resource type="Texture2D" uid="uid://d1iowmh5etlxk" path="res://assets/sprites/backgrounds/plate_00001_.png" id="3_kklmu"]
 [ext_resource type="Theme" uid="uid://cfpg0hvp634ax" path="res://assets/themes/action_richLabel_theme.tres" id="3_qmcpl"]
+[ext_resource type="AudioStream" uid="uid://c2wfin5wx0a8b" path="res://assets/sounds/game_WIN.mp3" id="5_yxl85"]
+[ext_resource type="AudioStream" uid="uid://df113qro1qgqr" path="res://assets/sounds/game_LOSE.mp3" id="6_ajbms"]
 
 [node name="QuickCleanMinigame" instance=ExtResource("1_svc3i")]
 script = ExtResource("2_v1h5m")
@@ -44,3 +46,9 @@ bbcode_enabled = true
 text = "This are the instructions"
 fit_content = true
 scroll_active = false
+
+[node name="win_sound" type="AudioStreamPlayer2D" parent="." index="3"]
+stream = ExtResource("5_yxl85")
+
+[node name="lose_sound" type="AudioStreamPlayer2D" parent="." index="4"]
+stream = ExtResource("6_ajbms")

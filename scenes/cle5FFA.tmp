@@ -12,6 +12,9 @@ size = Vector2(110, 129)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_wn7tx")
+move_speed = null
+wipe_offset = null
+wipe_speed = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(2.5, -2)

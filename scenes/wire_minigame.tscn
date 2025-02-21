@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b3gksyxxa2afo"]
+[gd_scene load_steps=12 format=3 uid="uid://b3gksyxxa2afo"]
 
 [ext_resource type="PackedScene" uid="uid://b7ea3ye7sx6i0" path="res://scenes/minigame_base.tscn" id="1_dfla7"]
 [ext_resource type="Script" path="res://script/WireMinigame.gd" id="2_jqh7a"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://script/WirePaw.gd" id="4_dquyl"]
 [ext_resource type="Texture2D" uid="uid://b7xbi734efvbh" path="res://assets/sprites/backgrounds/fuse_00001_.png" id="5_lg1u2"]
 [ext_resource type="Texture2D" uid="uid://brnlf6cbvks7f" path="res://assets/sprite_shets/paw_00001_.png" id="7_arcvl"]
+[ext_resource type="AudioStream" uid="uid://c2wfin5wx0a8b" path="res://assets/sounds/game_WIN.mp3" id="8_a0htp"]
+[ext_resource type="AudioStream" uid="uid://df113qro1qgqr" path="res://assets/sounds/game_LOSE.mp3" id="9_2eq2l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uxpp0"]
 size = Vector2(57, 72)
@@ -103,6 +105,12 @@ offset_top = 53.0
 offset_right = 813.0
 offset_bottom = 122.0
 color = Color(0.505882, 0.505882, 0.505882, 0.607843)
+
+[node name="win_sound" type="AudioStreamPlayer2D" parent="." index="8"]
+stream = ExtResource("8_a0htp")
+
+[node name="lose_sound" type="AudioStreamPlayer2D" parent="." index="9"]
+stream = ExtResource("9_2eq2l")
 
 [connection signal="area_entered" from="WirePaw/DetectionArea" to="WirePaw" method="_on_detection_area_entered"]
 [connection signal="area_exited" from="WirePaw/DetectionArea" to="WirePaw" method="_on_detection_area_exited"]

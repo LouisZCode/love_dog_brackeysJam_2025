@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var move_speed := 400.0
 @export var wipe_offset := 30.0   # How far the wipe goes each direction
 @export var wipe_speed := 0.2    # Time for each wipe position
+@onready var wipe_sound: AudioStreamPlayer2D = $Wipesound
 
 var can_clean := false
 var current_spot = null
@@ -41,10 +42,12 @@ func _physics_process(delta):
 		start_wipe()
 
 func start_wipe():
-	if not is_wiping:  # Only start if not already wiping
+	if not is_wiping:
 		is_wiping = true
 		wipe_step = 0
 		initial_position = position
+		if wipe_sound:
+			wipe_sound.play()
 
 func _on_clean_area_entered(area):
 	if area.is_in_group("cleanable"):
