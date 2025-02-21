@@ -4,8 +4,11 @@ signal love_level_changed(new_value: float)
 signal distraction_level_changed(new_value: float)
 signal date_status_changed(is_going_well: bool)
 
-@export var love_decrease_rate := 2.0
-@export var love_increase_rate := 3.0
+# Love bar rates
+@export_group("Love Bar Settings")
+@export var love_increase_rate : int # Rate when no problems
+@export var love_decrease_rate_dangerous : int  # Rate per dangerous problem
+@export var love_decrease_rate_critical : int   # Rate per critical problem
 @export var max_love := 100.0
 @export var initial_love := 50.0
 @export var good_date_threshold := 75.0
@@ -14,15 +17,15 @@ signal date_status_changed(is_going_well: bool)
 
 var current_love := initial_love
 var active_distractions := 0  # For display purposes
-var dangerous_distractions := 0  # For love bar effects
+var dangerous_distractions := 0  # Problems in dangerous state
+var critical_distractions := 0   # Problems in critical state
 
+# Your existing audio and sprite variables
 @onready var radio_start: AudioStreamPlayer2D = $radio_start
 @onready var radio_music: AudioStreamPlayer2D = $radio_music
 @onready var radio_stop: AudioStreamPlayer2D = $radio_stop
-
 @onready var music_sprite_1: Sprite2D = $MusicSprite1
 @onready var music_sprite_2: Sprite2D = $MusicSprite2
-
 
 var was_date_going_well := false 
 var tween: Tween
@@ -102,20 +105,17 @@ func _process(delta):
 func update_love(delta):
 	# Get difficulty multiplier based on remaining time
 	var time_percentage = timer.get_time_percentage()
-	var difficulty = 1.0 + (1.0 - (time_percentage / 100.0))  # 1.0 to 2.0
-	
+	var difficulty = 1.0 + (1.0 - (time_percentage / 100.0))
 	
 	var is_going_well = current_love >= good_date_threshold
 	
-	 # Check if we crossed the threshold
+	# Handle music state changes
 	if is_going_well != was_date_going_well:
 		if is_going_well:
-			# Date just got better
 			if radio_music and not radio_music.playing:
 				radio_music.play()
 				show_music_sprite()
 		else:
-			# Date just got worse
 			if radio_music and radio_music.playing:
 				radio_music.stop()
 				if radio_stop:
@@ -124,14 +124,37 @@ func update_love(delta):
 	
 	was_date_going_well = is_going_well
 	
+	# New love calculation logic
+	if dangerous_distractions == 0 and critical_distractions == 0:
+		# Increase love when no problems
+		increase_love(delta)
+	else:
+		var total_decrease = 0.0
+		# Calculate decrease from dangerous problems
+		if dangerous_distractions > 0:
+			total_decrease += love_decrease_rate_dangerous * delta * difficulty * dangerous_distractions
+		# Calculate decrease from critical problems
+		if critical_distractions > 0:
+			total_decrease += love_decrease_rate_critical * delta * difficulty * critical_distractions
+		
+		decrease_love(total_decrease)
+	
+	emit_signal("date_status_changed", current_love >= good_date_threshold)
+	
 	# Only decrease love if there are DANGEROUS distractions
 	if dangerous_distractions > 0:
-		var decrease = love_decrease_rate * delta * difficulty * dangerous_distractions
+		var decrease = love_decrease_rate_dangerous * delta * difficulty * dangerous_distractions
 		decrease_love(decrease)
 	else:
 		increase_love(delta)
 	
 	emit_signal("date_status_changed", current_love >= good_date_threshold)
+
+func add_critical_distraction():
+	critical_distractions += 1
+
+func remove_critical_distraction():
+	critical_distractions = max(0, critical_distractions - 1)
 
 func increase_love(delta: float) -> void:
 	var previous_love = current_love

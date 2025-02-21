@@ -15554,9 +15554,9 @@ script = ExtResource("1_fp8jv")
 
 [node name="LoveBar" type="ProgressBar" parent="CanvasLayer"]
 offset_left = 20.0
-offset_top = 40.0
+offset_top = 20.0
 offset_right = 170.0
-offset_bottom = 70.0
+offset_bottom = 50.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 value = 20.0
 show_percentage = false
@@ -15573,9 +15573,9 @@ fit_content = true
 
 [node name="DistractionLabel" type="RichTextLabel" parent="CanvasLayer"]
 offset_left = 20.0
-offset_top = 80.0
+offset_top = 60.0
 offset_right = 220.0
-offset_bottom = 110.0
+offset_bottom = 90.0
 theme = ExtResource("9_lwirj")
 theme_override_font_sizes/normal_font_size = 17
 bbcode_enabled = true
@@ -15602,11 +15602,11 @@ max_simultaneous_problems = 5
 
 [node name="DateManager" type="Node" parent="."]
 script = ExtResource("3_deeda")
-love_increase_rate = 2
-love_decrease_rate_dangerous = 1
-love_decrease_rate_critical = 3
-initial_love = 0.0
-good_date_threshold = 65.0
+love_decrease_rate = null
+love_increase_rate = null
+max_love = null
+initial_love = 25.0
+good_date_threshold = 55.0
 
 [node name="radio_music" type="AudioStreamPlayer2D" parent="DateManager"]
 position = Vector2(15, -96)

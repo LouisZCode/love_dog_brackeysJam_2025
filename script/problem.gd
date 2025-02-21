@@ -97,14 +97,14 @@ func transition_to_dangerous():
 	danger_bar.show()
 	update_prompt_text()
 	emit_signal("state_changed", "danger")
-	# Add it as a dangerous distraction that affects love
 	if date_manager:
 		date_manager.add_dangerous_distraction()
-		print("Problem became dangerous and now affects love!")
 
 func on_problem_timeout():
-	current_state = ProblemState.CRITICAL
 	print("Problem reached critical state!")
+	if date_manager:
+		date_manager.remove_dangerous_distraction()  # No longer dangerous
+		date_manager.add_critical_distraction()      # Now critical
 	emit_signal("state_changed", "critical")
 
 # In Problem script, handle_interaction function
