@@ -37,6 +37,7 @@ func _ready():
 	timer.time_up.connect(_on_time_up)
 	
 	if radio_music:
+		radio_music.seek(0.0)  # Reset to beginning
 		radio_music.play()
 		show_music_sprite()
 
@@ -90,6 +91,8 @@ func show_music_sprite():
 	tween.tween_interval(0.3)
 	# Restart animation if music still playing
 	tween.tween_callback(func(): if radio_music.playing: show_music_sprite())
+
+
 func hide_music_sprite():
 	if tween:
 		tween.kill()
@@ -110,9 +113,10 @@ func update_love(delta):
 	var is_going_well = current_love >= good_date_threshold
 	
 	# Handle music state changes
-	if is_going_well != was_date_going_well:
+	if is_going_well != was_date_going_well:  # Only change music state when crossing threshold
 		if is_going_well:
 			if radio_music and not radio_music.playing:
+				radio_music.seek(0.0)  # Reset to beginning
 				radio_music.play()
 				show_music_sprite()
 		else:
@@ -121,7 +125,7 @@ func update_love(delta):
 				if radio_stop:
 					radio_stop.play()
 				hide_music_sprite()
-	
+
 	was_date_going_well = is_going_well
 	
 	# New love calculation logic

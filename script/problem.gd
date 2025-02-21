@@ -103,8 +103,9 @@ func transition_to_dangerous():
 func on_problem_timeout():
 	print("Problem reached critical state!")
 	if date_manager:
-		date_manager.remove_dangerous_distraction()  # No longer dangerous
-		date_manager.add_critical_distraction()      # Now critical
+		date_manager.remove_dangerous_distraction()
+		date_manager.add_critical_distraction()
+	print("Emitting critical state signal")  # Debug print
 	emit_signal("state_changed", "critical")
 
 # In Problem script, handle_interaction function

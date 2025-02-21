@@ -1643,8 +1643,7 @@ enum ProblemType { BARK, MINIGAME }
 @export var minigame_name: String = \"\"
 @export var description: String = \"\"
 
-@onready var growing_sound: AudioStreamPlayer2D = $\"../SpawnPoint5/GrowingStateSound\"
-
+@onready var growing_sound = $GrowingStateSound
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var danger_sound = $DangerStateSound
 @onready var critical_sound = $CriticalStateSound
@@ -2419,8 +2418,7 @@ enum ProblemType { BARK, MINIGAME }
 @export var minigame_name: String = \"\"
 @export var description: String = \"\"
 
-@onready var growing_sound: AudioStreamPlayer2D = $\"../SpawnPoint6/GrowingStateSound\"
-
+@onready var growing_sound = $GrowingStateSound
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var danger_sound = $DangerStateSound
 @onready var critical_sound = $CriticalStateSound
@@ -2463,24 +2461,28 @@ func _on_problem_state_changed(new_state):
 		match new_state:
 			\"growing\":
 				animated_sprite.play(\"growing\")
-				# Stop other sounds and play growing sound
+				print(\"Playing growing sound\")  # Debug print
 				danger_sound.stop()
 				critical_sound.stop()
 				growing_sound.play()
 				
 			\"danger\":
 				animated_sprite.play(\"danger\")
-				# Stop other sounds and play danger sound
+				print(\"Playing danger sound\")  # Debug print
 				growing_sound.stop()
 				critical_sound.stop()
 				danger_sound.play()
 				
 			\"critical\":
 				animated_sprite.play(\"critical\")
-				# Stop other sounds and play critical sound
-				growing_sound.stop()
-				danger_sound.stop()
-				critical_sound.play()
+				# Add debug prints
+				print(\"Attempting to play critical sound\")
+				print(\"Critical sound node exists:\", critical_sound != null)
+				if critical_sound:
+					print(\"Critical sound has stream:\", critical_sound.stream != null)
+					growing_sound.stop()
+					danger_sound.stop()
+					critical_sound.play()
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lggtt"]
@@ -15573,10 +15575,10 @@ text = "[center]Love: 50%[/center]"
 fit_content = true
 
 [node name="DistractionLabel" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 455.0
-offset_top = 80.0
-offset_right = 655.0
-offset_bottom = 110.0
+offset_left = 450.0
+offset_top = 90.0
+offset_right = 650.0
+offset_bottom = 120.0
 theme = ExtResource("9_lwirj")
 theme_override_font_sizes/normal_font_size = 17
 bbcode_enabled = true
@@ -15603,8 +15605,8 @@ max_simultaneous_problems = 5
 
 [node name="DateManager" type="Node" parent="."]
 script = ExtResource("3_deeda")
-love_increase_rate = 2
-love_decrease_rate_dangerous = 1
+love_increase_rate = 1
+love_decrease_rate_dangerous = 2
 love_decrease_rate_critical = 3
 initial_love = 0.0
 good_date_threshold = 65.0
@@ -15682,12 +15684,11 @@ max_distance = 800.0
 
 [node name="DangerStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/KitchenSpawnPoints/SpawnPoint2"]
 stream = ExtResource("21_ogtmj")
-volume_db = -20.0
+volume_db = 5.0
 max_distance = 1000.0
 
 [node name="CriticalStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/KitchenSpawnPoints/SpawnPoint2"]
 stream = ExtResource("21_ogtmj")
-volume_db = -20.0
 
 [node name="LivingRoomSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
@@ -15740,7 +15741,6 @@ max_distance = 1000.0
 
 [node name="CriticalStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/LivingRoomSpawnPoints/SpawnPoint4"]
 stream = ExtResource("30_ppske")
-volume_db = -20.0
 
 [node name="BasementSpawnPoints" type="Node2D" parent="ProblemSpawnPoints"]
 
@@ -15769,7 +15769,6 @@ max_distance = 1000.0
 
 [node name="CriticalStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint5"]
 stream = ExtResource("18_84ag8")
-volume_db = -20.0
 
 [node name="SpawnPoint6" type="Marker2D" parent="ProblemSpawnPoints/BasementSpawnPoints"]
 position = Vector2(-42, 113)
@@ -15817,7 +15816,6 @@ max_distance = 1000.0
 
 [node name="CriticalStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/AtticSpawnPoints/SpawnPoint7"]
 stream = ExtResource("30_ppske")
-volume_db = -20.0
 
 [node name="Rooms" type="Node2D" parent="."]
 
