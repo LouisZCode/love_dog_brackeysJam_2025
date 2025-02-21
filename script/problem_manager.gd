@@ -12,6 +12,14 @@ var problem_scene = preload("res://scenes/problem.tscn")
 var active_problems := []
 
 func _ready():
+	# Start disabled
+	set_process(false)
+	# Listen for game start
+	GlobalControls.connect("game_start", _on_game_start)
+
+func _on_game_start():
+	set_process(true)
+	# Any other initialization needed
 	print("ProblemManager ready")
 	start_spawn_timer()
 

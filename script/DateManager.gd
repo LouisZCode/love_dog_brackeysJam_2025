@@ -31,6 +31,14 @@ var was_date_going_well := false
 var tween: Tween
 
 func _ready():
+	# Start disabled
+	set_process(false)
+	# Listen for game start
+	GlobalControls.connect("game_start", _on_game_start)
+
+func _on_game_start():
+	set_process(true)
+	# Any other initialization needed
 	current_love = initial_love
 	emit_signal("love_level_changed", current_love)
 	timer.start_timer()
