@@ -22,10 +22,10 @@ var display_area = Rect2(Vector2(300, 270), Vector2(400, 2700))
 
 # Arrows and input mapping
 var input_map = {
-	"ui_up": "↑",
-	"ui_down": "↓",
-	"ui_left": "←",
-	"ui_right": "→",
+	"ui_up": "^",
+	"ui_down": "v",
+	"ui_left": "<",
+	"ui_right": ">",
 	"interact": "E"
 }
 

@@ -40,6 +40,7 @@ func _ready():
 
 func _physics_process(delta):
 	if not can_move:  # Check if movement is allowed
+		velocity = Vector2.ZERO  # Stop all movement when can't move
 		return
 	update_timers(delta)
 	handle_jump_input()

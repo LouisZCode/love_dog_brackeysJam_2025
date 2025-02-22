@@ -15805,8 +15805,8 @@ static var is_transitioning := false
 
 var night_messages = {
 	1: \"First date! Nothing could go wrong...\\n\\n...I'll use my dog instincts to prevent any distraction tho!\",
-	2: \"Second date! Things are getting interesting!\\n\\n...Better keep my guard up, more distractions incoming!\",
-	3: \"Final date! Make it count!\\n\\n...This is it, time to show what a good boy I am!\"
+	2: \"Second date!\\nThings are getting interesting!\\n\\n...Better keep my guard up, more distractions incoming!\",
+	3: \"Final date!\\nMake it count!\\n\\n...This is it, time to show what a good boy I am!\"
 }
 
 func _ready():
@@ -15873,6 +15873,9 @@ func start_game_systems():
 		date_manager.set_process(true)
 	if problem_manager:
 		problem_manager.set_process(true)
+	
+	if get_node(\"/root/Game/CanvasLayer\"):
+		get_node(\"/root/Game/CanvasLayer\").show()
 	
 	print(\"Game started!\")
 "
@@ -16814,8 +16817,8 @@ target_room = NodePath("../../Kitchen")
 spawn_position = Vector2(-700, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Rooms/Garden/DoorToKitchen"]
-position = Vector2(97, 67)
-scale = Vector2(0.0342367, 0.0353698)
+position = Vector2(98, 72)
+scale = Vector2(0.0884452, 0.115756)
 texture = ExtResource("59_s3l4v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Garden/DoorToKitchen"]
@@ -16824,10 +16827,10 @@ shape = SubResource("RectangleShape2D_tdhqd")
 
 [node name="date_number" type="RichTextLabel" parent="Rooms/Garden/DoorToKitchen"]
 z_index = -1
-offset_left = 56.0
-offset_top = 37.0
-offset_right = 147.0
-offset_bottom = 50.0
+offset_left = -67.0
+offset_top = 90.0
+offset_right = 24.0
+offset_bottom = 103.0
 theme = ExtResource("9_lwirj")
 bbcode_enabled = true
 text = "Date night: 1"
