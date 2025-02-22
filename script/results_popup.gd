@@ -11,7 +11,7 @@ extends Panel
 @onready var date_manager = get_node("/root/Game/DateManager")
 @onready var spawn_points_root = get_node("/root/Game/ProblemSpawnPoints")
 
-
+var animation_completed := false  # Add this variable at the top
 var tween: Tween
 
 var can_continue := false
@@ -25,22 +25,55 @@ func _ready():
 		initial_player_position = player.position  # Store initial position
 
 func _input(event):
-	if visible and can_continue:
-		if event.is_action_pressed("interact"):  # E key
-			visible = false
-			get_tree().paused = false  # Unpause the game
-			
-			# Check win/lose condition
-			var love_score = $"../LoveBar".value  # Adjust path as needed
-			
-			if love_score >= 65:
-				# Win - go to next night
-				GlobalControls.complete_night()  # This will increment night_number
-				reset_level()
-			else:
-				# Lose - restart current night
-				GlobalControls.reset_game()  # This resets to night 1
-				reset_level()
+	if visible:
+		if event.is_action_pressed("interact"):
+			if !animation_completed:
+				# Skip animation
+				if tween:
+					tween.kill()
+				
+				# Show all content immediately
+				var rating = calculate_rating($"../LoveBar".value, int($"../DistractionLabel".text.split(": ")[1]))
+				title_label.text = "[center][color=yellow]Night " + str(GlobalControls.night_number) + " Results![/color][/center]"
+				
+				var love_score = $"../LoveBar".value
+				var distractions = int($"../DistractionLabel".text.split(": ")[1])
+				var color_love = get_love_score_color(love_score)
+				var color_dist = get_distraction_color(distractions)
+				
+				results_label.text = """[center]
+Love Score: [color={color_love}]{love}%[/color]
+
+Distractions: [color={color_dist}]{dist}[/color]
+
+[rainbow freq=1.0]Rating: {rating}[/rainbow]
+
+[color=aqua]{message}[/color][/center]
+""".format({
+					"color_love": color_love,
+					"love": ceil(love_score),
+					"color_dist": color_dist,
+					"dist": distractions,
+					"rating": rating,
+					"message": get_rating_message(rating)
+				})
+				
+				continue_label.modulate.a = 1.0
+				animation_completed = true
+				can_continue = true
+				_start_pulse_animation()
+			elif can_continue:
+				# Original continue logic
+				visible = false
+				get_tree().paused = false
+				
+				var love_score = $"../LoveBar".value
+				if love_score >= 65:
+					GlobalControls.complete_night()
+					reset_level()
+				else:
+					GlobalControls.reset_game()
+					reset_level()
 
 
 func reset_level():
@@ -105,32 +138,65 @@ func reset_level():
 
 func display_results(love_score: float, distractions: int):
 	visible = true
-	can_continue = true
-	get_tree().paused = true  # Pause the game
+	get_tree().paused = true
+	animation_completed = false
+	can_continue = false  # Will be set to true after animation or skip
 	
-	# Calculate rating based on scores
+	# Hide all labels initially
+	title_label.text = ""
+	results_label.text = ""
+	continue_label.modulate.a = 0
+	
 	var rating = calculate_rating(love_score, distractions)
 	
-	# Format results text with night number
-	var results_text = """
-[center]
-Night {night}
-Love Score: {love}%
-Distractions: {dist}
-
-Rating: {rating}
-
-{message}
-[/center]
-""".format({
-		"night": GlobalControls.night_number,
-		"love": ceil(love_score),
-		"dist": distractions,
-		"rating": rating,
-		"message": get_rating_message(rating)
-	})
+	# Create animation sequence
+	if tween:
+		tween.kill()
+	tween = create_tween()
 	
-	results_label.text = results_text
+	# Animate title
+	tween.tween_callback(func():
+		title_label.text = "[center][wave amp=50 freq=5][color=yellow]Night " + str(GlobalControls.night_number) + " Results![/color][/wave][/center]"
+	)
+	tween.tween_interval(1.0)
+	
+	# Animate love score
+	tween.tween_callback(func():
+		var color = get_love_score_color(love_score)
+		results_label.text = "[center]Love Score: [color=" + color + "]" + str(ceil(love_score)) + "%[/color][/center]"
+	)
+	tween.tween_interval(0.8)
+	
+	# Animate distractions
+	tween.tween_callback(func():
+		var prev_text = results_label.text
+		var color = get_distraction_color(distractions)
+		results_label.text = prev_text + "\n\nDistractions: [color=" + color + "]" + str(distractions) + "[/color]"
+	)
+	tween.tween_interval(0.8)
+	
+	# Animate rating
+	tween.tween_callback(func():
+		var prev_text = results_label.text
+		results_label.text = prev_text + "\n\n[rainbow freq=1.0]Rating: " + rating + "[/rainbow]"
+	)
+	tween.tween_interval(0.8)
+	
+	# Animate message
+	tween.tween_callback(func():
+		var prev_text = results_label.text
+		results_label.text = prev_text + "\n\n[wave amp=50 freq=2][color=aqua]" + get_rating_message(rating) + "[/color][/wave]"
+	)
+	
+	# Fade in continue label
+	tween.tween_property(continue_label, "modulate:a", 1.0, 0.5)
+	
+	# Mark animation as completed and enable continue
+	tween.tween_callback(func():
+		animation_completed = true
+		can_continue = true
+		_start_pulse_animation()
+	)
 
 func calculate_rating(love_score: float, distractions: int) -> String:
 	# Adjust these thresholds as needed for your game
@@ -168,3 +234,18 @@ func _start_pulse_animation():
 	# Pulse the alpha of the continue label
 	tween.tween_property(continue_label, "modulate:a", 0.5, 1.0)
 	tween.tween_property(continue_label, "modulate:a", 1.0, 1.0)
+	
+# Helper functions for colors
+func get_love_score_color(score: float) -> String:
+	if score >= 90: return "#FFD700"  # Gold
+	elif score >= 80: return "#FFA500"  # Orange
+	elif score >= 70: return "#98FB98"  # Pale green
+	elif score >= 60: return "#87CEEB"  # Sky blue
+	else: return "#FF6347"  # Tomato red
+
+func get_distraction_color(count: int) -> String:
+	match count:
+		0: return "#00FF00"  # Bright green
+		1: return "#FFFF00"  # Yellow
+		2: return "#FFA500"  # Orange
+		_: return "#FF0000"  # Red

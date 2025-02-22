@@ -15,54 +15,36 @@ signal night_complete
 
 func define_level():
 	match night_number:
-		1:
-			night_duration = 6  # 1 minute
+		1:  # First night - Easy
+			night_duration = 6  # 2 minutes
+			max_num_problems = 2
+			problem_min_interval = 10  # More time between problems
+			problem_max_interval = 15
+			bark_time = 1
+			grow_time = 25  # More time before getting dangerous
+			danger_time = 25  # More time in dangerous state
+			
+		2:  # Second night - Medium
+			night_duration = 150  # 2.5 minutes
 			max_num_problems = 2
 			problem_min_interval = 8
 			problem_max_interval = 12
 			bark_time = 1
 			grow_time = 20
 			danger_time = 20
-		2:
-			night_duration = 120  # 2 minutes
+			
+		3:  # Third night - Hard (current night 2 settings)
+			night_duration = 180  # 3 minutes
 			max_num_problems = 3
 			problem_min_interval = 7
 			problem_max_interval = 10
 			bark_time = 1
 			grow_time = 18
 			danger_time = 18
-		3:
-			night_duration = 180  # 3 minutes
-			max_num_problems = 3
-			problem_min_interval = 6
-			problem_max_interval = 9
-			bark_time = 1
-			grow_time = 15
-			danger_time = 15
-		4:
-			night_duration = 240  # 4 minutes
-			max_num_problems = 4
-			problem_min_interval = 5
-			problem_max_interval = 8
-			bark_time = 1
-			grow_time = 12
-			danger_time = 12
-		5:
-			night_duration = 300  # 5 minutes
-			max_num_problems = 4
-			problem_min_interval = 4
-			problem_max_interval = 7
-			bark_time = 1
-			grow_time = 10
-			danger_time = 10
-		_:  # Night 6 and beyond
-			night_duration = 300  # Keep at 5 minutes
-			max_num_problems = 5
-			problem_min_interval = max(3, 8 - night_number)  # Gradually decrease but never below 3
-			problem_max_interval = max(5, 12 - night_number)  # Gradually decrease but never below 5
-			bark_time = 1
-			grow_time = max(8, 20 - (night_number * 2))  # Gradually decrease but never below 8
-			danger_time = max(8, 20 - (night_number * 2))  # Gradually decrease but never below 8
+			
+		_:  # If somehow we get beyond night 3, loop back to night 1
+			night_number = 1
+			define_level()
 
 func start_game():
 	game_started = true

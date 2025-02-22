@@ -15766,9 +15766,16 @@ script/source = "extends Area2D
 @onready var problem_manager = get_node(\"/root/Game/ProblemManager\")
 
 @onready var date_number: RichTextLabel = $date_number
+@onready var date_message: RichTextLabel = $date_message
 
 
 static var is_transitioning := false
+
+var night_messages = {
+	1: \"First date! Nothing could go wrong...\",
+	2: \"Second date! Things are getting interesting!\",
+	3: \"Final date! Make it count!\"
+}
 
 func _ready():
 	# Disable managers until game starts
@@ -15777,7 +15784,21 @@ func _ready():
 	if problem_manager:
 		problem_manager.set_process(false)
 	
-	date_number.text = \"Date number: \" + \"[color=green]\" + str(GlobalControls.night_number) + \"[/color]\"
+	update_date_labels()
+	
+	# Connect to night complete signal to update labels
+	GlobalControls.night_complete.connect(_on_night_complete)
+
+func update_date_labels():
+	# Update date number
+	date_number.text = \"Date night: \" + \"[color=green]\" + str(GlobalControls.night_number) + \"[/color]\" + \"/3\"
+	
+	# Update date message
+	var message = night_messages.get(GlobalControls.night_number, \"Another lovely date!\")  # Default message if night not found
+	date_message.text = \"[center]\" + message + \"[/center]\"
+
+func _on_night_complete():
+	update_date_labels()
 	
 func _process(_delta):
 	if not get_parent().visible:
@@ -15966,31 +15987,38 @@ offset_right = 729.0
 offset_bottom = 486.0
 script = ExtResource("11_aleol")
 
-[node name="titleLabel" type="RichTextLabel" parent="CanvasLayer/ResultsPopup"]
+[node name="TitleLabel" type="RichTextLabel" parent="CanvasLayer/ResultsPopup"]
 process_mode = 3
 layout_mode = 0
-offset_left = 112.0
-offset_top = 12.0
-offset_right = 433.0
-offset_bottom = 80.0
+offset_left = 8.0
+offset_top = 30.0
+offset_right = 329.0
+offset_bottom = 98.0
+theme = ExtResource("9_lwirj")
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "Date Results"
 
 [node name="ResultsLabel" type="RichTextLabel" parent="CanvasLayer/ResultsPopup"]
 process_mode = 3
 layout_mode = 0
-offset_left = 40.0
-offset_top = 44.0
-offset_right = 277.0
-offset_bottom = 331.0
+offset_left = 41.0
+offset_top = 84.0
+offset_right = 278.0
+offset_bottom = 371.0
+theme = ExtResource("9_lwirj")
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 
 [node name="ContinueLabel" type="RichTextLabel" parent="CanvasLayer/ResultsPopup"]
 process_mode = 3
-offset_left = 97.0
-offset_top = 257.0
-offset_right = 226.0
-offset_bottom = 320.0
+layout_mode = 0
+offset_left = 94.0
+offset_top = 291.0
+offset_right = 223.0
+offset_bottom = 354.0
+theme = ExtResource("9_lwirj")
+theme_override_font_sizes/normal_font_size = 15
 bbcode_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_uhufi")]
@@ -16744,7 +16772,7 @@ spawn_position = Vector2(-700, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Rooms/Garden/DoorToKitchen"]
 position = Vector2(147, 67)
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.0342367, 0.0353698)
 texture = ExtResource("59_s3l4v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Garden/DoorToKitchen"]
@@ -16759,8 +16787,16 @@ offset_right = 197.0
 offset_bottom = 50.0
 theme = ExtResource("9_lwirj")
 bbcode_enabled = true
-text = "Date number: 1"
+text = "Date night: 1"
 fit_content = true
+
+[node name="date_message" type="RichTextLabel" parent="Rooms/Garden/DoorToKitchen"]
+offset_left = 7.0
+offset_top = 15.0
+offset_right = 102.0
+offset_bottom = 49.0
+theme = ExtResource("9_lwirj")
+bbcode_enabled = true
 
 [node name="Area2D" type="Area2D" parent="Rooms/Garden"]
 position = Vector2(-969, -22)
