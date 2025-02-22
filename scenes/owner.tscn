@@ -1,4 +1,4 @@
-[gd_scene load_steps=117 format=3 uid="uid://cfbf3xry8lspc"]
+[gd_scene load_steps=119 format=3 uid="uid://cfbf3xry8lspc"]
 
 [ext_resource type="PackedScene" uid="uid://mugof8fim8k1" path="res://scenes/character.tscn" id="1_4cahr"]
 [ext_resource type="Texture2D" uid="uid://bq67w3e0d1q3f" path="res://assets/sprite_shets/owner_a_distracted.png" id="2_72gnn"]
@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://1qtsjrxyxdn2" path="res://assets/sprite_shets/owner_c_talking.png" id="10_p62nu"]
 [ext_resource type="Texture2D" uid="uid://bhi0bytt4yxci" path="res://assets/sprite_shets/owner_d_distracted.png" id="11_1leh7"]
 [ext_resource type="Texture2D" uid="uid://5p2pw0r1sfxy" path="res://assets/sprite_shets/owner_d_talking.png" id="13_tgvb1"]
+[ext_resource type="AudioStream" uid="uid://s13dkrd2i6xs" path="res://assets/music/owner_talking.mp3" id="14_xoyo3"]
+[ext_resource type="AudioStream" uid="uid://cfpd6cinjqy08" path="res://assets/music/owner_distracted.mp3" id="15_60iqe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ncqc8"]
 atlas = ExtResource("2_72gnn")
@@ -791,7 +793,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="CharacterBody2D" instance=ExtResource("1_4cahr")]
+[node name="Owner" instance=ExtResource("1_4cahr")]
 z_index = 1
 scale = Vector2(0.3, 0.3)
 character_name = "owner"
@@ -801,3 +803,13 @@ position = Vector2(0, -60)
 sprite_frames = SubResource("SpriteFrames_wiagp")
 animation = &"mood_a_idle"
 frame_progress = 0.594468
+
+[node name="TalkTimer" type="Timer" parent="." index="1"]
+
+[node name="TalkSFX" type="AudioStreamPlayer2D" parent="." index="2"]
+stream = ExtResource("14_xoyo3")
+volume_db = -20.0
+
+[node name="DistractedSFX" type="AudioStreamPlayer2D" parent="." index="3"]
+stream = ExtResource("15_60iqe")
+volume_db = -20.0

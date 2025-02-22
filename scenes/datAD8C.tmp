@@ -699,6 +699,9 @@ animations = [{
 scale = Vector2(0.3, 0.3)
 character_name = "Date"
 is_date = true
+lean_amount = null
+min_distance = null
+max_distance = null
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="0"]
 visible = false
@@ -715,9 +718,7 @@ animation = &"mood_c_distracted"
 [node name="TalkSFX" type="AudioStreamPlayer2D" parent="." index="3"]
 stream = ExtResource("14_6pqul")
 volume_db = -20.0
-max_distance = 500.0
 
 [node name="DistractedSFX" type="AudioStreamPlayer2D" parent="." index="4"]
 stream = ExtResource("15_goao3")
 volume_db = -20.0
-max_distance = 500.0
