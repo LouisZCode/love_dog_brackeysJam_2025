@@ -16100,9 +16100,11 @@ bbcode_enabled = true
 
 [node name="WinSound" type="AudioStreamPlayer2D" parent="CanvasLayer/ResultsPopup"]
 stream = ExtResource("14_0d5nt")
+volume_db = -10.0
 
 [node name="LoseSound" type="AudioStreamPlayer2D" parent="CanvasLayer/ResultsPopup"]
 stream = ExtResource("15_hs318")
+volume_db = -12.0
 
 [node name="Player" parent="." instance=ExtResource("1_uhufi")]
 position = Vector2(-1350, -2)
@@ -16115,7 +16117,7 @@ script = ExtResource("3_deeda")
 love_increase_rate = 1
 love_decrease_rate_dangerous = 2
 love_decrease_rate_critical = 3
-initial_love = 100.0
+initial_love = 35.0
 
 [node name="radio_music_night1" type="AudioStreamPlayer2D" parent="DateManager"]
 position = Vector2(15, -96)

@@ -13,8 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://ctnp6rm2fj2pv" path="res://assets/sprite_shets/mood_d_distraced.png" id="11_aswtk"]
 [ext_resource type="Texture2D" uid="uid://cjpfsmp2n6qn5" path="res://assets/sprite_shets/mood_d_idle.png" id="12_is7ly"]
 [ext_resource type="Texture2D" uid="uid://bmu86lexo4rvi" path="res://assets/sprite_shets/mood_d_talking.png" id="13_lc17n"]
-[ext_resource type="AudioStream" uid="uid://davbjapdnelfj" path="res://assets/music/date_talking.mp3" id="14_6pqul"]
-[ext_resource type="AudioStream" uid="uid://bg7p7y0m6obse" path="res://assets/music/date_distracted.mp3" id="15_goao3"]
+[ext_resource type="AudioStream" uid="uid://deexw56h00sl7" path="res://assets/music/maria_talking.mp3" id="14_6mnu7"]
+[ext_resource type="AudioStream" uid="uid://f27yf4orad7p" path="res://assets/music/maria_distracted.mp3" id="15_is8xt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1dg15"]
 atlas = ExtResource("3_c0ith")
@@ -713,11 +713,11 @@ animation = &"mood_c_distracted"
 [node name="TalkTimer" type="Timer" parent="." index="2"]
 
 [node name="TalkSFX" type="AudioStreamPlayer2D" parent="." index="3"]
-stream = ExtResource("14_6pqul")
+stream = ExtResource("14_6mnu7")
 volume_db = -20.0
 max_distance = 500.0
 
 [node name="DistractedSFX" type="AudioStreamPlayer2D" parent="." index="4"]
-stream = ExtResource("15_goao3")
+stream = ExtResource("15_is8xt")
 volume_db = -20.0
 max_distance = 500.0

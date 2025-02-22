@@ -21,7 +21,34 @@ var tween: Tween
 
 @onready var minigame_manager = get_node("/root/Game/MinigameManager")
 
+# In your UI root node script
 func _ready():
+	# Get your UI elements (adjust names as needed)
+	var love_bar = get_node("LoveBar")
+	var timer_label = get_node("TimerLabel")
+	var distraction_label = get_node("DistractionLabel")
+
+	# Top Left
+	if love_bar:
+		love_bar.anchors_preset = Control.PRESET_CENTER_BOTTOM
+		love_bar.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM, Control.PRESET_MODE_KEEP_SIZE, 20)
+		# Optional: Add custom offset
+		love_bar.position.y += -10
+
+	# Top Center
+	if timer_label:
+		timer_label.anchors_preset = Control.PRESET_CENTER_TOP
+		timer_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP, Control.PRESET_MODE_KEEP_SIZE, 20)
+		# Optional: Add custom offset
+		timer_label.position.y += 20
+
+	# Top Right
+	if distraction_label:
+		distraction_label.anchors_preset = Control.PRESET_CENTER_TOP
+		distraction_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP, Control.PRESET_MODE_KEEP_SIZE, 20)
+		# Optional: Add custom offset
+		distraction_label.position.y += 80
+	
 	var date_manager = get_node("/root/Game/DateManager")
 	if date_manager:
 		date_manager.love_level_changed.connect(_on_love_changed)

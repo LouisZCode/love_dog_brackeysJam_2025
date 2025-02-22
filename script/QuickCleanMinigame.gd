@@ -7,7 +7,7 @@ var spots_cleaned := 0
 var cleaning_paw
 
 # Define the spawn area
-var spawn_area = Rect2(Vector2(300, 100), Vector2(400, 300))  # Adjust these values
+var spawn_area = Rect2(Vector2(300, 150), Vector2(400, 250))  # Adjust these values
 @onready var instruction_label = $InstructionLabel
 @onready var win_sound: AudioStreamPlayer2D = $win_sound
 @onready var lose_sound: AudioStreamPlayer2D = $lose_sound

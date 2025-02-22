@@ -14,6 +14,26 @@ var text_completed := false
 
 
 func _ready():
+	# Set up story text in center
+	if story_text:
+		story_text.anchors_preset = Control.PRESET_CENTER
+		story_text.set_anchors_and_offsets_preset(Control.PRESET_CENTER, Control.PRESET_MODE_KEEP_SIZE, 20)
+		# Optional: Adjust position if needed
+		story_text.position.y -= 150
+		story_text.position.x -= 150   # Move up slightly from center
+	
+	# Set up continue text at bottom
+	if continue_text:
+		continue_text.anchors_preset = Control.PRESET_CENTER_BOTTOM
+		continue_text.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM, Control.PRESET_MODE_KEEP_SIZE, 20)
+		# Optional: Add some padding from bottom
+		continue_text.position.y -= 230
+	
+	# Background sprite should cover full screen if needed
+	if background_image:
+		background_image.anchors_preset = Control.PRESET_FULL_RECT
+		background_image.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	
 	# Make sure everything is visible at start
 	show()
 	

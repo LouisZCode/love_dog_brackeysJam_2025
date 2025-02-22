@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1uyqh72gdus2"]
+
+[ext_resource type="Script" path="res://script/ending_screen.gd" id="1_3b0bv"]
+[ext_resource type="FontFile" uid="uid://bl2p1xlus6ku1" path="res://assets/fonts/PixelOperator8.ttf" id="1_g0pmk"]
+[ext_resource type="Texture2D" uid="uid://e7vv16hinsea" path="res://assets/sprites/backgrounds/ending.png" id="2_tktx4"]
+
+[sub_resource type="Theme" id="Theme_gu1iu"]
+RichTextLabel/constants/outline_size = 6
+RichTextLabel/constants/shadow_offset_x = 0
+RichTextLabel/constants/shadow_offset_y = 0
+RichTextLabel/constants/shadow_outline_size = 0
+RichTextLabel/font_sizes/normal_font_size = 7
+RichTextLabel/fonts/normal_font = ExtResource("1_g0pmk")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vbnq2"]
+bg_color = Color(0.6, 0.6, 0.6, 0.643137)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.8)
+
+[sub_resource type="Theme" id="Theme_58tls"]
+RichTextLabel/constants/outline_size = 6
+RichTextLabel/constants/shadow_offset_x = 0
+RichTextLabel/constants/shadow_offset_y = 0
+RichTextLabel/constants/shadow_outline_size = 0
+RichTextLabel/font_sizes/normal_font_size = 7
+RichTextLabel/fonts/normal_font = ExtResource("1_g0pmk")
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_3b0bv")
+
+[node name="BachroundSprite" type="Sprite2D" parent="."]
+position = Vector2(578, 331)
+texture = ExtResource("2_tktx4")
+
+[node name="StoryText" type="RichTextLabel" parent="."]
+offset_left = 123.0
+offset_top = 101.0
+offset_right = 925.0
+offset_bottom = 325.0
+theme = SubResource("Theme_gu1iu")
+theme_override_font_sizes/normal_font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_vbnq2")
+bbcode_enabled = true
+
+[node name="ContinueText" type="RichTextLabel" parent="."]
+offset_left = 526.0
+offset_top = 518.0
+offset_right = 942.0
+offset_bottom = 619.0
+theme = SubResource("Theme_58tls")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Press E to continue"
