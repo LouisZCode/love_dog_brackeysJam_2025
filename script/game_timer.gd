@@ -1,18 +1,24 @@
 extends RichTextLabel
-
 signal time_warning
 signal time_up
 
 @export var total_time : int  # 3 minutes in seconds
 @export var min_font_size := 20
 @export var max_font_size := 50
-
 var time_remaining: float
 var is_running := false
 var start_color := Color("#2ECC71")  # Healthy green
 var end_color := Color("#FF0000")    # Blood red
 
 func _ready():
+	# Connect to the game_start signal
+	GlobalControls.connect("game_start", _on_game_start)
+	time_remaining = total_time
+	update_display()
+
+func _on_game_start():
+	# Update the total time when the game actually starts
+	total_time = GlobalControls.night_duration
 	time_remaining = total_time
 	update_display()
 

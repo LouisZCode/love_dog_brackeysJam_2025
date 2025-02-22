@@ -1,12 +1,9 @@
 extends Node
-
 signal problem_spawned(problem: Node)
 signal problem_solved(problem: Node)
-
 @export var spawn_interval_min : int
 @export var spawn_interval_max : int
 @export var max_simultaneous_problems : int
-
 var problem_scene = preload("res://scenes/problem.tscn")
 @onready var spawn_points_root = $"../ProblemSpawnPoints"
 var active_problems := []
@@ -18,9 +15,15 @@ func _ready():
 	GlobalControls.connect("game_start", _on_game_start)
 
 func _on_game_start():
+	# Update values when the game actually starts
+	spawn_interval_min = GlobalControls.problem_min_interval
+	spawn_interval_max = GlobalControls.problem_max_interval
+	max_simultaneous_problems = GlobalControls.max_num_problems
+	
 	set_process(true)
 	# Any other initialization needed
-	print("ProblemManager ready")
+	print("ProblemManager ready with intervals: ", spawn_interval_min, " to ", spawn_interval_max)
+	print("Max problems: ", max_simultaneous_problems)
 	start_spawn_timer()
 
 func start_spawn_timer():
@@ -28,6 +31,8 @@ func start_spawn_timer():
 	print("Starting timer for ", wait_time, " seconds")
 	var timer = get_tree().create_timer(wait_time)
 	timer.timeout.connect(try_spawn_problem)
+
+# Rest of the script remains the same...
 
 func try_spawn_problem():
 	print("Trying to spawn problem. Active problems: ", active_problems.size())

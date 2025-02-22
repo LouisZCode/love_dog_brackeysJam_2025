@@ -32,6 +32,9 @@ var minigame_name: String = ""  # Will be set by spawn point
 var direction_arrow: Node2D
 
 func _ready():
+	bark_time_required = GlobalControls.bark_time
+	growing_time = GlobalControls.grow_time
+	dangerous_time = GlobalControls.danger_time
 	add_to_group("problem")
 
 	var arrow_scene = preload("res://scenes/direction_arrow.tscn")

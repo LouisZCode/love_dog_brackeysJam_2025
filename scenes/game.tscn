@@ -15956,16 +15956,12 @@ theme = ExtResource("9_lwirj")
 bbcode_enabled = true
 fit_content = true
 script = ExtResource("3_tvuu4")
-total_time = 60
 
 [node name="Player" parent="." instance=ExtResource("1_uhufi")]
 position = Vector2(-1219, 0)
 
 [node name="ProblemManager" type="Node2D" parent="."]
 script = ExtResource("2_qbmpg")
-spawn_interval_min = 8
-spawn_interval_max = 12
-max_simultaneous_problems = 2
 
 [node name="DateManager" type="Node" parent="."]
 script = ExtResource("3_deeda")
