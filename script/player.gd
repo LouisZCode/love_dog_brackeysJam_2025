@@ -44,7 +44,11 @@ func _physics_process(delta):
 	update_timers(delta)
 	handle_jump_input()
 	handle_jump(delta)
-	handle_horizontal_movement(delta)
+	if not is_barking:  # Only handle horizontal movement if not barking
+		handle_horizontal_movement(delta)
+	else:
+		# Apply friction to slow down to a stop while barking
+		velocity.x = move_toward(velocity.x, 0, friction * delta)
 	update_state()
 	move_and_slide()
 	update_animation_state()
@@ -140,7 +144,7 @@ func update_state():
 func update_animation_state():
 	animated_sprite.flip_h = !facing_right
 	
-		# Check for barking first
+	# Check for barking first
 	if Input.is_action_pressed("bark"):
 		animated_sprite.play("barking")
 		is_barking = true
@@ -149,7 +153,7 @@ func update_animation_state():
 		return
 	elif is_barking:
 		is_barking = false
-				# Stop bark sound when releasing W
+		# Stop bark sound when releasing W
 		if bark_sound and bark_sound.playing:
 			bark_sound.stop()
 	
