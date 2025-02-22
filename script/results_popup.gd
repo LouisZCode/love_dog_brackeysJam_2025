@@ -7,6 +7,11 @@ extends Panel
 @onready var player = get_node("/root/Game/Player")  # Adjust path to your player node
 @onready var camera = get_node("/root/Game/StaticCamera")  # Add camera reference
 @onready var rooms_node = get_node("/root/Game/Rooms")
+@onready var problem_manager = get_node("/root/Game/ProblemManager")
+@onready var date_manager = get_node("/root/Game/DateManager")
+@onready var spawn_points_root = get_node("/root/Game/ProblemSpawnPoints")
+
+
 var tween: Tween
 
 var can_continue := false
@@ -46,6 +51,27 @@ func reset_level():
 	# Reset game state
 	GlobalControls.game_started = false
 	
+	# Reset and disable managers
+	if problem_manager:
+		problem_manager.set_process(false)
+		problem_manager.active_problems.clear()
+		
+		# Clean up all existing problems in spawn points
+		if spawn_points_root:
+			for room_points in spawn_points_root.get_children():
+				for spawn_point in room_points.get_children():
+					for child in spawn_point.get_children():
+						if child.is_in_group("problem"):
+							# Properly solve the problem to trigger all cleanup
+							child.solve_problem()
+	
+	if date_manager:
+		date_manager.set_process(false)
+		# Reset date manager's distraction counts
+		date_manager.active_distractions = 0
+		date_manager.dangerous_distractions = 0
+		date_manager.critical_distractions = 0
+	
 	# Reset camera and room visibility
 	if camera and rooms_node:
 		camera.current_room_position = camera.room_positions["Garden"]
@@ -64,7 +90,6 @@ func reset_level():
 		var distraction_label = get_parent().get_node("DistractionLabel")
 		var timer_label = get_parent().get_node("TimerLabel")
 		
-		# Keep these UI elements visible but reset their values
 		if love_bar:
 			love_bar.visible = true
 			love_bar.value = 100  # Reset to initial value
@@ -77,8 +102,6 @@ func reset_level():
 			timer_label.visible = true
 			timer_label.time_remaining = timer_label.total_time  # Reset timer
 			timer_label.is_running = false  # Stop timer until game starts again
-
-
 
 func display_results(love_score: float, distractions: int):
 	visible = true
