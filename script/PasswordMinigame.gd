@@ -1,5 +1,7 @@
 extends MinigameBase
 
+@onready var game_font = preload("res://assets/fonts/PixelOperator8.ttf")
+
 # Password configuration
 var pattern_length := 5
 var current_pattern := []
@@ -36,7 +38,10 @@ func setup_labels():
 	# Set up instruction label
 	instruction_label.text = "[center]Match the pattern using arrow keys and E![/center]"
 	instruction_label.bbcode_enabled = true
-	#instruction_label.position = Vector2(display_area.position.x, display_area.position.y - 50)
+	
+	# Apply the custom font
+	instruction_label.add_theme_font_override("normal_font", game_font)
+	pattern_label.add_theme_font_override("normal_font", game_font)
 	
 	# Set up pattern label
 	pattern_label.bbcode_enabled = true

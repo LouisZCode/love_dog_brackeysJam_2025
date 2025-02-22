@@ -7,12 +7,22 @@ extends Area2D
 @onready var prompt_label = $RichTextLabel
 @onready var rooms_node = get_node("/root/Game/Rooms")
 
+static var is_transitioning := false
+
 func _ready():
 	prompt_label.text = "[center]Press E[/center]"
 	prompt_label.hide()
 
-func _process(_delta):
-	if overlaps_body(get_node("/root/Game/Player")) and Input.is_action_just_pressed("interact"):
+
+func _process(delta):
+	if not get_parent().visible:
+		return
+	
+	# Add check for paused state (which is active during results popup)
+	if get_tree().paused:
+		return
+		
+	if not is_transitioning and overlaps_body(get_node("/root/Game/Player")) and Input.is_action_just_pressed("interact"):
 		transition_to_room()
 
 func _on_body_entered(body):
