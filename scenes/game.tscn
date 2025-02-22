@@ -1,10 +1,12 @@
-[gd_scene load_steps=468 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=471 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="Texture2D" uid="uid://dalqosjcw7y8y" path="res://assets/sprites/parallax_bgs/1.png" id="1_4856h"]
 [ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
 [ext_resource type="Script" path="res://script/static_camera.gd" id="1_mye2x"]
+[ext_resource type="Script" path="res://script/intro_screen.gd" id="1_u70dq"]
 [ext_resource type="PackedScene" uid="uid://byktwux5rrnxo" path="res://scenes/player.tscn" id="1_uhufi"]
 [ext_resource type="Script" path="res://script/problem_manager.gd" id="2_qbmpg"]
+[ext_resource type="Texture2D" uid="uid://bpir1d1h14jud" path="res://assets/sprites/backgrounds/start_img.png" id="2_ya6ec"]
 [ext_resource type="Texture2D" uid="uid://bquo07rwyvx5n" path="res://assets/sprites/parallax_bgs/2.png" id="2_yesiq"]
 [ext_resource type="Texture2D" uid="uid://dth4c4r8bppvo" path="res://assets/sprites/parallax_bgs/3.png" id="3_6xnmm"]
 [ext_resource type="Script" path="res://script/DateManager.gd" id="3_deeda"]
@@ -63,6 +65,19 @@
 [ext_resource type="FontFile" uid="uid://bl2p1xlus6ku1" path="res://assets/fonts/PixelOperator8.ttf" id="58_4c5qb"]
 [ext_resource type="Texture2D" uid="uid://bfeevqhjvydg6" path="res://assets/sprites/Garden/Start.png" id="59_s3l4v"]
 [ext_resource type="AudioStream" uid="uid://bwf7jtf1qird4" path="res://assets/music/night-ambience-17064.mp3" id="60_qxym6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ytiuo"]
+bg_color = Color(0.6, 0.6, 0.6, 0.643137)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0.8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6ogdn"]
 texture = ExtResource("6_qh67y")
@@ -15886,6 +15901,33 @@ size = Vector2(71, 43)
 [node name="Game" type="Node2D"]
 position = Vector2(-5, -2)
 
+[node name="IntroScreen" type="CanvasLayer" parent="."]
+script = ExtResource("1_u70dq")
+
+[node name="BachroundSprite" type="Sprite2D" parent="IntroScreen"]
+position = Vector2(559, 305)
+texture = ExtResource("2_ya6ec")
+
+[node name="StoryText" type="RichTextLabel" parent="IntroScreen"]
+offset_left = 97.0
+offset_top = 76.0
+offset_right = 899.0
+offset_bottom = 300.0
+theme = ExtResource("9_lwirj")
+theme_override_font_sizes/normal_font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_ytiuo")
+bbcode_enabled = true
+
+[node name="ContinueText" type="RichTextLabel" parent="IntroScreen"]
+offset_left = 381.0
+offset_top = 337.0
+offset_right = 797.0
+offset_bottom = 438.0
+theme = ExtResource("9_lwirj")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "Press E to continue"
+
 [node name="TileMap_generalBG" type="TileMap" parent="."]
 z_index = -3
 position = Vector2(76, -2)
@@ -16065,8 +16107,7 @@ script = ExtResource("3_deeda")
 love_increase_rate = 1
 love_decrease_rate_dangerous = 2
 love_decrease_rate_critical = 3
-initial_love = 30.0
-good_date_threshold = 55.0
+initial_love = 100.0
 
 [node name="radio_music_night1" type="AudioStreamPlayer2D" parent="DateManager"]
 position = Vector2(15, -96)
@@ -16829,9 +16870,9 @@ shape = SubResource("RectangleShape2D_tdhqd")
 [node name="date_number" type="RichTextLabel" parent="Rooms/Garden/DoorToKitchen"]
 z_index = -1
 offset_left = -67.0
-offset_top = 90.0
+offset_top = -66.0
 offset_right = 24.0
-offset_bottom = 103.0
+offset_bottom = -53.0
 theme = ExtResource("9_lwirj")
 bbcode_enabled = true
 text = "Date night: 1"

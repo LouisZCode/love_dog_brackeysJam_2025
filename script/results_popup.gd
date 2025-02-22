@@ -17,6 +17,8 @@ var tween: Tween
 var can_continue := false
 var initial_player_position: Vector2  # Store initial position
 
+@onready var ending_screen = preload("res://scenes/ending_screen.tscn")
+
 func _ready():
 	visible = false
 	if continue_label:
@@ -62,16 +64,25 @@ Distractions: [color={color_dist}]{dist}[/color]
 				animation_completed = true
 				can_continue = true
 				_start_pulse_animation()
+# In ResultsPopup.gd, modify the elif can_continue part in _input:
 			elif can_continue:
-				# Original continue logic
 				visible = false
 				get_tree().paused = false
 				
 				var love_score = $"../LoveBar".value
 				if love_score >= 65:
-					GlobalControls.complete_night()
-					reset_level()
+					# Check if this was the final night with a good score
+					if GlobalControls.night_number == 3 and love_score >= 80:
+						# Show ending screen
+						var end_screen = ending_screen.instantiate()
+						get_tree().root.add_child(end_screen)
+						end_screen.show_ending()
+					else:
+						# Continue to next night
+						GlobalControls.complete_night()
+						reset_level()
 				else:
+					# Lose - restart from night 1
 					GlobalControls.reset_game()
 					reset_level()
 
@@ -200,11 +211,11 @@ func display_results(love_score: float, distractions: int):
 
 func calculate_rating(love_score: float, distractions: int) -> String:
 	# Adjust these thresholds as needed for your game
-	if love_score >= 90 and distractions <= 1:
+	if love_score >= 90:
 		return "S"
-	elif love_score >= 80 and distractions <= 2:
+	elif love_score >= 80:
 		return "A"
-	elif love_score >= 70 and distractions <= 3:
+	elif love_score >= 70:
 		return "B"
 	elif love_score >= 60:
 		return "C"
@@ -214,15 +225,15 @@ func calculate_rating(love_score: float, distractions: int) -> String:
 func get_rating_message(rating: String) -> String:
 	match rating:
 		"S":
-			return "Perfect Date! ❤️"
+			return "Perfect Date! "
 		"A":
-			return "Great Date! 💕"
+			return "Great Date!"
 		"B":
-			return "Good Date! 👍"
+			return "Good Date!"
 		"C":
-			return "Could Be Better 😅"
+			return "Could Be Better"
 		_:
-			return "Try Again? 🤔"
+			return "Try Again?"
 
 func _start_pulse_animation():
 	if tween:

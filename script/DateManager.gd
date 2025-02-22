@@ -10,8 +10,8 @@ signal date_status_changed(is_going_well: bool)
 @export var love_decrease_rate_dangerous : int  # Rate per dangerous problem
 @export var love_decrease_rate_critical : int   # Rate per critical problem
 @export var max_love := 100.0
-@export var initial_love := 50.0
-@export var good_date_threshold := 75.0
+@export var initial_love := 95.0
+@export var good_date_threshold := 55
 
 @onready var timer = get_node("../CanvasLayer/TimerLabel")
 
