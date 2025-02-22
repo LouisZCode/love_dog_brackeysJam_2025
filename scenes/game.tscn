@@ -15913,18 +15913,18 @@ texture = ExtResource("2_ya6ec")
 [node name="StoryText" type="RichTextLabel" parent="IntroScreen"]
 offset_left = 97.0
 offset_top = 76.0
-offset_right = 899.0
-offset_bottom = 300.0
+offset_right = 914.0
+offset_bottom = 341.0
 theme = ExtResource("9_lwirj")
 theme_override_font_sizes/normal_font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_ytiuo")
 bbcode_enabled = true
 
 [node name="ContinueText" type="RichTextLabel" parent="IntroScreen"]
-offset_left = 381.0
-offset_top = 337.0
-offset_right = 797.0
-offset_bottom = 438.0
+offset_left = 427.0
+offset_top = 388.0
+offset_right = 843.0
+offset_bottom = 489.0
 theme = ExtResource("9_lwirj")
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
@@ -16306,7 +16306,7 @@ max_distance = 500.0
 
 [node name="DangerStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint6"]
 stream = ExtResource("39_u6q7r")
-volume_db = 5.0
+volume_db = -10.0
 max_distance = 1000.0
 
 [node name="CriticalStateSound" type="AudioStreamPlayer2D" parent="ProblemSpawnPoints/BasementSpawnPoints/SpawnPoint6"]

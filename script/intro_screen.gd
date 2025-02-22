@@ -5,7 +5,7 @@ extends CanvasLayer
 @onready var story_text = $StoryText
 @onready var continue_text = $ContinueText
 
-var full_text = """....today I have a very important mission...\n\nMy owner is going on a date,\n\n...and I need to make sure everything goes well!\n\nI'll prevent any distractions that could ruin their special moment...
+var full_text = """....today I have a very important mission...\n\nYou are going on a date, You’re feeling a little lonely and this date means a lot\n\n...and I need to make sure everything goes well!\n\nI'll prevent any distractions that could ruin their special moment...\n\nDon’t worry, I’ve got your back.
 	"""
 
 var typing_speed := 0.05  # Seconds between each character
