@@ -15959,7 +15959,6 @@ fit_content = true
 script = ExtResource("3_tvuu4")
 
 [node name="ResultsPopup" type="Panel" parent="CanvasLayer"]
-process_mode = 3
 offset_left = 410.0
 offset_top = 148.0
 offset_right = 729.0
@@ -15967,7 +15966,6 @@ offset_bottom = 486.0
 script = ExtResource("11_aleol")
 
 [node name="titleLabel" type="RichTextLabel" parent="CanvasLayer/ResultsPopup"]
-process_mode = 3
 layout_mode = 0
 offset_left = 112.0
 offset_top = 12.0
@@ -15977,7 +15975,6 @@ bbcode_enabled = true
 text = "Date Results"
 
 [node name="ResultsLabel" type="RichTextLabel" parent="CanvasLayer/ResultsPopup"]
-process_mode = 3
 layout_mode = 0
 offset_left = 40.0
 offset_top = 44.0
@@ -15986,7 +15983,6 @@ offset_bottom = 331.0
 bbcode_enabled = true
 
 [node name="ContinueLabel" type="RichTextLabel" parent="CanvasLayer/ResultsPopup"]
-process_mode = 3
 offset_left = 97.0
 offset_top = 257.0
 offset_right = 226.0

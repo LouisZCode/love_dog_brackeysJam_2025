@@ -96,10 +96,15 @@ func _on_distraction_changed(count: int):
 			Vector2.ONE, 0.2)
 
 
-func _on_time_up() -> void:
+
+func _on_time_up():
 	# Calculate final scores
 	var final_love = love_bar.value
 	var final_distractions = int(distraction_label.text.split(": ")[1])
+	
+	# Stop all animations and tweens
+	if tween:
+		tween.kill()
 	
 	# Show results popup
 	results_popup.display_results(final_love, final_distractions)
