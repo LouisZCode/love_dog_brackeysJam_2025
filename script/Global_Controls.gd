@@ -36,10 +36,10 @@ func define_level():
 		3:  # Third night - Hard (current night 2 settings)
 			night_duration = 180  # 3 minutes
 			max_num_problems = 3
-			problem_min_interval = 7
-			problem_max_interval = 10
+			problem_min_interval = 8
+			problem_max_interval = 12
 			bark_time = 1
-			grow_time = 18
+			grow_time = 22
 			danger_time = 18
 			
 		_:  # If somehow we get beyond night 3, loop back to night 1
