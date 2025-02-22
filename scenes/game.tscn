@@ -1,4 +1,4 @@
-[gd_scene load_steps=471 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=473 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="Texture2D" uid="uid://dalqosjcw7y8y" path="res://assets/sprites/parallax_bgs/1.png" id="1_4856h"]
 [ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
@@ -24,6 +24,7 @@
 [ext_resource type="Script" path="res://script/door_to_attic.gd" id="9_bg0qy"]
 [ext_resource type="Theme" uid="uid://cfpg0hvp634ax" path="res://assets/themes/action_richLabel_theme.tres" id="9_lwirj"]
 [ext_resource type="Script" path="res://script/results_popup.gd" id="11_aleol"]
+[ext_resource type="AudioStream" uid="uid://kbry7vmo6745" path="res://assets/music/sound_of_winning_a_l.mp3" id="14_0d5nt"]
 [ext_resource type="AudioStream" uid="uid://ccakfdj0hji17" path="res://assets/sounds/vinyl_disk_stopping.mp3" id="14_5fni0"]
 [ext_resource type="Texture2D" uid="uid://ljy0ttlve8a0" path="res://assets/sprite_shets/kitchen_critical.png" id="14_7yrir"]
 [ext_resource type="Texture2D" uid="uid://lttowmorymml" path="res://assets/tilesets/kitchen.png" id="14_kix3f"]
@@ -31,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://ds65128i4im2u" path="res://assets/sprite_shets/sparks_critical.png" id="15_eg01e"]
 [ext_resource type="Texture2D" uid="uid://ui4moabdveqs" path="res://assets/sprites/musicnote1.png" id="15_f8csx"]
 [ext_resource type="Texture2D" uid="uid://nfxtqdft3l2r" path="res://assets/sprite_shets/tentacles_SS.png" id="15_hh3yc"]
+[ext_resource type="AudioStream" uid="uid://rphpxrdb5qta" path="res://assets/music/sound_of_losing_a_le.mp3" id="15_hs318"]
 [ext_resource type="Texture2D" uid="uid://bcu5qb4pgoprl" path="res://assets/sprite_shets/kitchen_danger.png" id="15_tnafs"]
 [ext_resource type="Texture2D" uid="uid://bxq547bcj106b" path="res://assets/sprite_shets/Spark1-Sheet.png" id="15_u8515"]
 [ext_resource type="Texture2D" uid="uid://g8g4kd0kft8c" path="res://assets/sprite_shets/sparks_dangerous.png" id="16_7isgl"]
@@ -16095,6 +16097,12 @@ offset_bottom = 354.0
 theme = ExtResource("9_lwirj")
 theme_override_font_sizes/normal_font_size = 15
 bbcode_enabled = true
+
+[node name="WinSound" type="AudioStreamPlayer2D" parent="CanvasLayer/ResultsPopup"]
+stream = ExtResource("14_0d5nt")
+
+[node name="LoseSound" type="AudioStreamPlayer2D" parent="CanvasLayer/ResultsPopup"]
+stream = ExtResource("15_hs318")
 
 [node name="Player" parent="." instance=ExtResource("1_uhufi")]
 position = Vector2(-1350, -2)

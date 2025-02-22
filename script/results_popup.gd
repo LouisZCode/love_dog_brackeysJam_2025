@@ -19,6 +19,9 @@ var initial_player_position: Vector2  # Store initial position
 
 @onready var ending_screen = preload("res://scenes/ending_screen.tscn")
 
+@onready var win_sound: AudioStreamPlayer2D = $WinSound
+@onready var lose_sound: AudioStreamPlayer2D = $LoseSound
+
 func _ready():
 	visible = false
 	if continue_label:
@@ -151,7 +154,15 @@ func display_results(love_score: float, distractions: int):
 	visible = true
 	get_tree().paused = true
 	animation_completed = false
-	can_continue = false  # Will be set to true after animation or skip
+	can_continue = false
+	
+	# Play appropriate sound right away
+	if love_score >= 65:
+		if win_sound:
+			win_sound.play()
+	else:
+		if lose_sound:
+			lose_sound.play()
 	
 	# Hide all labels initially
 	title_label.text = ""
