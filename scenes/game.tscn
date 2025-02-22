@@ -15969,6 +15969,7 @@ zoom = Vector2(3, 3)
 script = ExtResource("1_mye2x")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("1_fp8jv")
 
 [node name="LoveBar" type="ProgressBar" parent="CanvasLayer"]

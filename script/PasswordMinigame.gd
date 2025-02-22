@@ -102,9 +102,9 @@ func check_input(input_value: String):
 		return
 
 	match input_value:
-		"←", "↓":  # Left hand inputs
+		"<", "v":  # Left hand inputs
 			animate_typing(true)
-		"→", "↑", "E":  # Right hand inputs
+		">", "^", "E":  # Right hand inputs
 			animate_typing(false)
 	
 	# Safety check again before comparing
