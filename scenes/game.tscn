@@ -1,4 +1,4 @@
-[gd_scene load_steps=467 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=466 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="Texture2D" uid="uid://dalqosjcw7y8y" path="res://assets/sprites/parallax_bgs/1.png" id="1_4856h"]
 [ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
@@ -8141,7 +8141,7 @@ sources/0 = SubResource("TileSetAtlasSource_wulju")
 sources/2 = SubResource("TileSetAtlasSource_6ikkv")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_axtr0"]
-size = Vector2(512, 2.5)
+size = Vector2(615, 4.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jx6xc"]
 size = Vector2(7, 158)
@@ -15772,9 +15772,9 @@ script/source = "extends Area2D
 static var is_transitioning := false
 
 var night_messages = {
-	1: \"First date! Nothing could go wrong...\",
-	2: \"Second date! Things are getting interesting!\",
-	3: \"Final date! Make it count!\"
+	1: \"First date! Nothing could go wrong...\\n\\n...I'll use my dog instincts to prevent any distraction tho!\",
+	2: \"Second date! Things are getting interesting!\\n\\n...Better keep my guard up, more distractions incoming!\",
+	3: \"Final date! Make it count!\\n\\n...This is it, time to show what a good boy I am!\"
 }
 
 func _ready():
@@ -15847,9 +15847,6 @@ func start_game_systems():
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tdhqd"]
 size = Vector2(71, 43)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fbix3"]
-size = Vector2(44, 34)
 
 [node name="Game" type="Node2D"]
 position = Vector2(-5, -2)
@@ -15932,7 +15929,7 @@ position = Vector2(-25, -149)
 texture = ExtResource("5_w5iqw")
 
 [node name="StaticCamera" type="Camera2D" parent="."]
-position = Vector2(-1151, -18)
+position = Vector2(-1289, -58)
 zoom = Vector2(3, 3)
 script = ExtResource("1_mye2x")
 
@@ -16022,7 +16019,7 @@ theme_override_font_sizes/normal_font_size = 15
 bbcode_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_uhufi")]
-position = Vector2(-1219, 0)
+position = Vector2(-1350, -2)
 
 [node name="ProblemManager" type="Node2D" parent="."]
 script = ExtResource("2_qbmpg")
@@ -16679,85 +16676,85 @@ scroll_active = false
 [node name="Garden" type="Node2D" parent="Rooms" groups=["rooms"]]
 
 [node name="Dog_h_fr" type="Sprite2D" parent="Rooms/Garden"]
-position = Vector2(-1216, -22)
+position = Vector2(-1338, -22)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("55_xg1fl")
 
 [node name="Gog_h_bg" type="Sprite2D" parent="Rooms/Garden"]
 z_index = 1
-position = Vector2(-1216, -22)
+position = Vector2(-1338, -22)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("56_rfyvj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Rooms/Garden"]
-position = Vector2(-1160, -95)
+position = Vector2(-1304, -98)
 sprite_frames = SubResource("SpriteFrames_1jcjs")
 autoplay = "default"
 frame_progress = 0.455968
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Rooms/Garden"]
-position = Vector2(-1160, -79)
+position = Vector2(-1304, -82)
 sprite_frames = SubResource("SpriteFrames_u8h63")
 autoplay = "default"
 
 [node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="Rooms/Garden"]
-position = Vector2(-1177, -79)
+position = Vector2(-1321, -82)
 sprite_frames = SubResource("SpriteFrames_k5qt6")
 autoplay = "default"
 
 [node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="Rooms/Garden"]
-position = Vector2(-1143, -79)
+position = Vector2(-1287, -82)
 sprite_frames = SubResource("SpriteFrames_j58nx")
 autoplay = "default"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Rooms/Garden"]
-offset_left = -1173.0
-offset_top = -116.0
-offset_right = -1133.0
-offset_bottom = -76.0
+offset_left = -1317.0
+offset_top = -119.0
+offset_right = -1277.0
+offset_bottom = -79.0
 theme = ExtResource("9_lwirj")
 bbcode_enabled = true
 text = "Move"
 
 [node name="AnimatedSprite2D6" type="AnimatedSprite2D" parent="Rooms/Garden"]
-position = Vector2(-861, -85)
+position = Vector2(-911, -85)
 sprite_frames = SubResource("SpriteFrames_4i66y")
 autoplay = "default"
 frame_progress = 0.794264
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="Rooms/Garden"]
-offset_left = -884.0
+offset_left = -934.0
 offset_top = -114.0
-offset_right = -820.0
+offset_right = -870.0
 offset_bottom = -74.0
 theme = SubResource("Theme_r5cf0")
 bbcode_enabled = true
 text = "Interact"
 
 [node name="AnimatedSprite2D5" type="AnimatedSprite2D" parent="Rooms/Garden"]
-position = Vector2(-960, -85)
+position = Vector2(-1136, -88)
 sprite_frames = SubResource("SpriteFrames_fwhuh")
 autoplay = "default"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Rooms/Garden"]
-offset_left = -971.0
-offset_top = -114.0
-offset_right = -931.0
-offset_bottom = -74.0
+offset_left = -1147.0
+offset_top = -117.0
+offset_right = -1107.0
+offset_bottom = -77.0
 theme = SubResource("Theme_h45wn")
 bbcode_enabled = true
 text = "Bark"
 
 [node name="AnimatedSprite2D7" type="AnimatedSprite2D" parent="Rooms/Garden"]
-position = Vector2(-1062, -82)
+position = Vector2(-1213, -84)
 sprite_frames = SubResource("SpriteFrames_aynvj")
 autoplay = "default"
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="Rooms/Garden"]
-offset_left = -1075.0
-offset_top = -113.0
-offset_right = -1035.0
-offset_bottom = -73.0
+offset_left = -1226.0
+offset_top = -115.0
+offset_right = -1186.0
+offset_bottom = -75.0
 theme = SubResource("Theme_gay0h")
 bbcode_enabled = true
 text = "Run
@@ -16771,19 +16768,19 @@ target_room = NodePath("../../Kitchen")
 spawn_position = Vector2(-700, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Rooms/Garden/DoorToKitchen"]
-position = Vector2(147, 67)
+position = Vector2(97, 67)
 scale = Vector2(0.0342367, 0.0353698)
 texture = ExtResource("59_s3l4v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Garden/DoorToKitchen"]
-position = Vector2(147.5, 72.5)
+position = Vector2(97.5, 72.5)
 shape = SubResource("RectangleShape2D_tdhqd")
 
 [node name="date_number" type="RichTextLabel" parent="Rooms/Garden/DoorToKitchen"]
 z_index = -1
-offset_left = 106.0
+offset_left = 56.0
 offset_top = 37.0
-offset_right = 197.0
+offset_right = 147.0
 offset_bottom = 50.0
 theme = ExtResource("9_lwirj")
 bbcode_enabled = true
@@ -16791,29 +16788,22 @@ text = "Date night: 1"
 fit_content = true
 
 [node name="date_message" type="RichTextLabel" parent="Rooms/Garden/DoorToKitchen"]
-offset_left = 7.0
-offset_top = 15.0
-offset_right = 102.0
-offset_bottom = 49.0
+offset_left = -84.0
+offset_top = -32.0
+offset_right = 30.0
+offset_bottom = 85.0
 theme = ExtResource("9_lwirj")
 bbcode_enabled = true
-
-[node name="Area2D" type="Area2D" parent="Rooms/Garden"]
-position = Vector2(-969, -22)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Garden/Area2D"]
-position = Vector2(12, 7)
-shape = SubResource("RectangleShape2D_fbix3")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Rooms/Garden"]
 position = Vector2(-1224, -7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rooms/Garden/StaticBody2D"]
-position = Vector2(218, 11)
+position = Vector2(166.5, 11.875)
 shape = SubResource("RectangleShape2D_axtr0")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Rooms/Garden/StaticBody2D"]
-position = Vector2(-16, -68)
+position = Vector2(-138, -67)
 shape = SubResource("RectangleShape2D_jx6xc")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Rooms/Garden/StaticBody2D"]
