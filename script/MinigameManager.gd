@@ -91,6 +91,20 @@ func end_minigame(was_successful: bool):
 	emit_signal("minigame_ended", was_successful)
 
 # Optional: Force end current minigame (useful for debugging or emergency exits)
+# In MinigameManager
 func force_end_minigame():
 	if is_minigame_active:
-		end_minigame(false)
+		# Ensure player can move
+		if player:
+			player.can_move = true
+		
+		# Clean up minigame
+		if current_minigame:
+			current_minigame.queue_free()
+			current_minigame = null
+		
+		# Clean up problem reference but don't solve it
+		current_problem = null
+		is_minigame_active = false
+		
+		emit_signal("minigame_ended", false)

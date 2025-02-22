@@ -20,15 +20,20 @@ var active_distractions := 0  # For display purposes
 var dangerous_distractions := 0  # Problems in dangerous state
 var critical_distractions := 0   # Problems in critical state
 
+@onready var radio_music_night1: AudioStreamPlayer2D = $radio_music_night1
+@onready var radio_music_night2: AudioStreamPlayer2D = $radio_music_night2
+@onready var radio_music_night3: AudioStreamPlayer2D = $radio_music_night3
+
 # Your existing audio and sprite variables
 @onready var radio_start: AudioStreamPlayer2D = $radio_start
-@onready var radio_music: AudioStreamPlayer2D = $radio_music
 @onready var radio_stop: AudioStreamPlayer2D = $radio_stop
 @onready var music_sprite_1: Sprite2D = $MusicSprite1
 @onready var music_sprite_2: Sprite2D = $MusicSprite2
 
 var was_date_going_well := false 
 var tween: Tween
+
+var current_radio_music: AudioStreamPlayer2D 
 
 func _ready():
 	# Start disabled
@@ -38,16 +43,33 @@ func _ready():
 
 func _on_game_start():
 	set_process(true)
-	# Any other initialization needed
 	current_love = initial_love
 	emit_signal("love_level_changed", current_love)
 	timer.start_timer()
 	timer.time_up.connect(_on_time_up)
 	
-	if radio_music:
-		radio_music.seek(0.0)  # Reset to beginning
-		radio_music.play()
+	# Stop any currently playing music
+	stop_all_music()
+	
+	# Select and play the appropriate music based on night number
+	match GlobalControls.night_number:
+		1:
+			current_radio_music = radio_music_night1
+		2:
+			current_radio_music = radio_music_night2
+		3:
+			current_radio_music = radio_music_night3
+	
+	if current_radio_music:
+		current_radio_music.seek(0.0)  # Reset to beginning
+		current_radio_music.play()
 		show_music_sprite()
+
+func stop_all_music():
+	# Stop all music players
+	for music_player in [radio_music_night1, radio_music_night2, radio_music_night3]:
+		if music_player and music_player.playing:
+			music_player.stop()
 
 func show_music_sprite():
 	# Kill previous tween if exists
@@ -98,7 +120,7 @@ func show_music_sprite():
 	# Wait a bit before restarting
 	tween.tween_interval(0.3)
 	# Restart animation if music still playing
-	tween.tween_callback(func(): if radio_music.playing: show_music_sprite())
+	tween.tween_callback(func(): if current_radio_music.playing: show_music_sprite())
 
 
 func hide_music_sprite():
@@ -120,16 +142,15 @@ func update_love(delta):
 	
 	var is_going_well = current_love >= good_date_threshold
 	
-	# Handle music state changes
-	if is_going_well != was_date_going_well:  # Only change music state when crossing threshold
+	if is_going_well != was_date_going_well:
 		if is_going_well:
-			if radio_music and not radio_music.playing:
-				radio_music.seek(0.0)  # Reset to beginning
-				radio_music.play()
+			if current_radio_music and not current_radio_music.playing:
+				current_radio_music.seek(0.0)
+				current_radio_music.play()
 				show_music_sprite()
 		else:
-			if radio_music and radio_music.playing:
-				radio_music.stop()
+			if current_radio_music and current_radio_music.playing:
+				current_radio_music.stop()
 				if radio_stop:
 					radio_stop.play()
 				hide_music_sprite()

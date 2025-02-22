@@ -19,6 +19,8 @@ var distraction_colors = {
 var original_label_position: Vector2
 var tween: Tween
 
+@onready var minigame_manager = get_node("/root/Game/MinigameManager")
+
 func _ready():
 	var date_manager = get_node("/root/Game/DateManager")
 	if date_manager:
@@ -98,6 +100,13 @@ func _on_distraction_changed(count: int):
 
 
 func _on_time_up():
+	
+	# First close any active minigame
+	if minigame_manager and minigame_manager.is_minigame_active:
+		minigame_manager.force_end_minigame()
+	
+	# Then trigger results popup
+	emit_signal("time_up")
 	# Calculate final scores
 	var final_love = love_bar.value
 	var final_distractions = int(distraction_label.text.split(": ")[1])

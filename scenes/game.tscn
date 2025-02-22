@@ -1,4 +1,4 @@
-[gd_scene load_steps=466 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=468 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="Texture2D" uid="uid://dalqosjcw7y8y" path="res://assets/sprites/parallax_bgs/1.png" id="1_4856h"]
 [ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
@@ -25,6 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://ccakfdj0hji17" path="res://assets/sounds/vinyl_disk_stopping.mp3" id="14_5fni0"]
 [ext_resource type="Texture2D" uid="uid://ljy0ttlve8a0" path="res://assets/sprite_shets/kitchen_critical.png" id="14_7yrir"]
 [ext_resource type="Texture2D" uid="uid://lttowmorymml" path="res://assets/tilesets/kitchen.png" id="14_kix3f"]
+[ext_resource type="AudioStream" uid="uid://dsrk7s61d7mqy" path="res://assets/music/date_1_music.mp3" id="15_85603"]
 [ext_resource type="Texture2D" uid="uid://ds65128i4im2u" path="res://assets/sprite_shets/sparks_critical.png" id="15_eg01e"]
 [ext_resource type="Texture2D" uid="uid://ui4moabdveqs" path="res://assets/sprites/musicnote1.png" id="15_f8csx"]
 [ext_resource type="Texture2D" uid="uid://nfxtqdft3l2r" path="res://assets/sprite_shets/tentacles_SS.png" id="15_hh3yc"]
@@ -36,6 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://ctl0k8wd24bx2" path="res://assets/sprite_shets/kitchen_growing.png" id="16_q5dft"]
 [ext_resource type="AudioStream" uid="uid://cvwpw2a73hi6n" path="res://assets/sounds/fire_burning_gently.mp3" id="17_5v164"]
 [ext_resource type="Texture2D" uid="uid://b2ajd68paup67" path="res://assets/sprite_shets/tentacles_growing_SS.png" id="17_bmnka"]
+[ext_resource type="AudioStream" uid="uid://bo8x8r43l0m8o" path="res://assets/music/date_3_music.mp3" id="17_evai1"]
 [ext_resource type="Texture2D" uid="uid://cbkndaq0j06tk" path="res://assets/sprite_shets/Squirrel Sprite Sheet.png" id="17_f80x2"]
 [ext_resource type="Texture2D" uid="uid://pk5ifrtnuxmi" path="res://assets/sprite_shets/desk_critical.png" id="17_qf3c1"]
 [ext_resource type="Texture2D" uid="uid://87r5as8g52my" path="res://assets/sprite_shets/desk_danger.png" id="18_7bx68"]
@@ -54,7 +56,7 @@
 [ext_resource type="AudioStream" uid="uid://c43wousurow1e" path="res://assets/sounds/moving_squid_tentacl (1).mp3" id="39_u6q7r"]
 [ext_resource type="AudioStream" uid="uid://b6j3n3chuu80y" path="res://assets/sounds/beastly_hellish_scre (1).mp3" id="40_onnph"]
 [ext_resource type="Texture2D" uid="uid://cesc24tyfnrge" path="res://assets/sprites/Screenshot 2025-02-21 121513.png" id="42_ewm0p"]
-[ext_resource type="AudioStream" uid="uid://b8mplrh53q7w0" path="res://assets/music/date_2_music.mp3" id="47_m3tvv"]
+[ext_resource type="AudioStream" uid="uid://cwbtdagkwxqs8" path="res://assets/music/date_2_music.mp3" id="47_m3tvv"]
 [ext_resource type="Texture2D" uid="uid://cp2rqkhvdwhwk" path="res://assets/sprites/Garden/dog_house_front.png" id="55_xg1fl"]
 [ext_resource type="Texture2D" uid="uid://bcukhhv1adw0h" path="res://assets/sprites/Garden/dog_house_Behind.png" id="56_rfyvj"]
 [ext_resource type="Texture2D" uid="uid://b8qogkj5g201k" path="res://assets/sprites/Garden/Keyboard_UI_White_Animated.png" id="57_67i38"]
@@ -5538,9 +5540,12 @@ func _ready():
 	prompt_label.text = \"[center]Press E[/center]\"
 	prompt_label.hide()
 
-func _process(_delta):
-	# Only process if we're in the visible room
+func _process(delta):
 	if not get_parent().visible:
+		return
+	
+	# Add check for paused state (which is active during results popup)
+	if get_tree().paused:
 		return
 		
 	if not is_transitioning and overlaps_body(get_node(\"/root/Game/Player\")) and Input.is_action_just_pressed(\"interact\"):
@@ -16029,12 +16034,26 @@ script = ExtResource("3_deeda")
 love_increase_rate = 1
 love_decrease_rate_dangerous = 2
 love_decrease_rate_critical = 3
-initial_love = 20.0
-good_date_threshold = 65.0
+initial_love = 30.0
+good_date_threshold = 55.0
 
-[node name="radio_music" type="AudioStreamPlayer2D" parent="DateManager"]
+[node name="radio_music_night1" type="AudioStreamPlayer2D" parent="DateManager"]
+position = Vector2(15, -96)
+stream = ExtResource("15_85603")
+volume_db = -20.0
+autoplay = true
+max_distance = 700.0
+
+[node name="radio_music_night2" type="AudioStreamPlayer2D" parent="DateManager"]
 position = Vector2(15, -96)
 stream = ExtResource("47_m3tvv")
+volume_db = -20.0
+autoplay = true
+max_distance = 700.0
+
+[node name="radio_music_night3" type="AudioStreamPlayer2D" parent="DateManager"]
+position = Vector2(15, -96)
+stream = ExtResource("17_evai1")
 volume_db = -20.0
 autoplay = true
 max_distance = 700.0

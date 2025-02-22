@@ -809,7 +809,9 @@ frame_progress = 0.594468
 [node name="TalkSFX" type="AudioStreamPlayer2D" parent="." index="2"]
 stream = ExtResource("14_xoyo3")
 volume_db = -20.0
+max_distance = 500.0
 
 [node name="DistractedSFX" type="AudioStreamPlayer2D" parent="." index="3"]
 stream = ExtResource("15_60iqe")
 volume_db = -20.0
+max_distance = 500.0

@@ -14,9 +14,12 @@ func _ready():
 	prompt_label.text = "[center]Press E[/center]"
 	prompt_label.hide()
 
-func _process(_delta):
-	# Only process if we're in the visible room
+func _process(delta):
 	if not get_parent().visible:
+		return
+	
+	# Add check for paused state (which is active during results popup)
+	if get_tree().paused:
 		return
 		
 	if not is_transitioning and overlaps_body(get_node("/root/Game/Player")) and Input.is_action_just_pressed("interact"):
