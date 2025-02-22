@@ -1,4 +1,4 @@
-[gd_scene load_steps=467 format=3 uid="uid://bxgd8ckgfbbq8"]
+[gd_scene load_steps=466 format=3 uid="uid://bxgd8ckgfbbq8"]
 
 [ext_resource type="Texture2D" uid="uid://dalqosjcw7y8y" path="res://assets/sprites/parallax_bgs/1.png" id="1_4856h"]
 [ext_resource type="Script" path="res://script/GameUI.gd" id="1_fp8jv"]
@@ -21,7 +21,6 @@
 [ext_resource type="Script" path="res://script/MinigameManager.gd" id="8_x0tum"]
 [ext_resource type="Script" path="res://script/door_to_attic.gd" id="9_bg0qy"]
 [ext_resource type="Theme" uid="uid://cfpg0hvp634ax" path="res://assets/themes/action_richLabel_theme.tres" id="9_lwirj"]
-[ext_resource type="Script" path="res://script/results_popup.gd" id="11_aleol"]
 [ext_resource type="AudioStream" uid="uid://ccakfdj0hji17" path="res://assets/sounds/vinyl_disk_stopping.mp3" id="14_5fni0"]
 [ext_resource type="Texture2D" uid="uid://ljy0ttlve8a0" path="res://assets/sprite_shets/kitchen_critical.png" id="14_7yrir"]
 [ext_resource type="Texture2D" uid="uid://lttowmorymml" path="res://assets/tilesets/kitchen.png" id="14_kix3f"]
@@ -15957,37 +15956,6 @@ theme = ExtResource("9_lwirj")
 bbcode_enabled = true
 fit_content = true
 script = ExtResource("3_tvuu4")
-
-[node name="ResultsPopup" type="Panel" parent="CanvasLayer"]
-offset_left = 410.0
-offset_top = 148.0
-offset_right = 729.0
-offset_bottom = 486.0
-script = ExtResource("11_aleol")
-
-[node name="titleLabel" type="RichTextLabel" parent="CanvasLayer/ResultsPopup"]
-layout_mode = 0
-offset_left = 112.0
-offset_top = 12.0
-offset_right = 433.0
-offset_bottom = 80.0
-bbcode_enabled = true
-text = "Date Results"
-
-[node name="ResultsLabel" type="RichTextLabel" parent="CanvasLayer/ResultsPopup"]
-layout_mode = 0
-offset_left = 40.0
-offset_top = 44.0
-offset_right = 277.0
-offset_bottom = 331.0
-bbcode_enabled = true
-
-[node name="ContinueLabel" type="RichTextLabel" parent="CanvasLayer/ResultsPopup"]
-offset_left = 97.0
-offset_top = 257.0
-offset_right = 226.0
-offset_bottom = 320.0
-bbcode_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_uhufi")]
 position = Vector2(-1219, 0)

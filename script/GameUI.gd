@@ -2,6 +2,8 @@ extends CanvasLayer
 @onready var love_bar = $LoveBar
 @onready var love_label = $LoveBar/LoveLabel
 @onready var distraction_label = $DistractionLabel
+@onready var timer_label: RichTextLabel = $TimerLabel
+@onready var results_popup: Panel = $ResultsPopup
 
 var love_color_max = Color("#FF69B4")  # Hot pink
 var love_color_min = Color("#ffffff")  # Black
@@ -24,6 +26,9 @@ func _ready():
 		date_manager.distraction_level_changed.connect(_on_distraction_changed)
 	
 	original_label_position = distraction_label.position
+	
+	if timer_label:
+		timer_label.time_up.connect(_on_time_up)
 
 func _on_love_changed(new_value: float):
 	love_bar.value = new_value
@@ -89,3 +94,12 @@ func _on_distraction_changed(count: int):
 			original_label_position, 0.2)
 		tween.parallel().tween_property(distraction_label, "scale", 
 			Vector2.ONE, 0.2)
+
+
+func _on_time_up() -> void:
+	# Calculate final scores
+	var final_love = love_bar.value
+	var final_distractions = int(distraction_label.text.split(": ")[1])
+	
+	# Show results popup
+	results_popup.display_results(final_love, final_distractions)

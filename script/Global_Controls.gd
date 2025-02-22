@@ -16,7 +16,7 @@ signal night_complete
 func define_level():
 	match night_number:
 		1:
-			night_duration = 60  # 1 minute
+			night_duration = 6  # 1 minute
 			max_num_problems = 2
 			problem_min_interval = 8
 			problem_max_interval = 12
